@@ -1,0 +1,17 @@
+﻿<Window x:Class="ChatHostWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatHostWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <ListBox x:Name="lbActiveUsers" HorizontalAlignment="Left" Height="304" VerticalAlignment="Top" Width="301"/>
+        <ListBox x:Name="lbServerState" HorizontalAlignment="Left" Height="111" Margin="0,309,-0.4,0" VerticalAlignment="Top" Width="794"/>
+        <Button x:Name="bUserDiscon" Margin="474,115,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Content="  Отключить&#xD;&#xA;пользователя" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="87" Width="161" Click="bUserDiscon_Click"/>
+        <Button x:Name="bOnOffServer" Content="Запустить сервер" HorizontalAlignment="Left" Margin="474,207,0,0" VerticalAlignment="Top" Width="161" Height="87" Click="bOnOffServer_Click"/>
+        <Button x:Name="bUsersRefresh" Content="Обновить список" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="474,23,0,0" Height="87" Click="bUsersRefresh_Click"/>
+
+    </Grid>
+</Window>

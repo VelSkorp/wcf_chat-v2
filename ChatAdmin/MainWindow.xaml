@@ -1,0 +1,18 @@
+﻿<Window x:Class="ChatAdmin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatAdmin"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <ListBox x:Name="lbChat" HorizontalAlignment="Left" Height="331" Margin="540,0,-0.4,0" VerticalAlignment="Top" Width="254"/>
+        <ListBox x:Name="lbActiveUsers" HorizontalAlignment="Left" Height="331" VerticalAlignment="Top" Width="264"/>
+        <ListBox x:Name="lbServerState" HorizontalAlignment="Left" Height="84" Margin="0,336,-0.4,0" VerticalAlignment="Top" Width="794"/>
+        <Button x:Name="bUserDiscon" Margin="350,163,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Content="  Отключить&#xA;пользователя" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="46" Width="106" Click="bUserDiscon_Click"/>
+        <Button x:Name="bOnOffServer" Content="Запустить сервер" HorizontalAlignment="Left" Margin="350,214,0,0" VerticalAlignment="Top" Width="106" Height="46" Click="bOnOffServer_Click"/>
+        <Button x:Name="bUsersRefresh" Content="Обновить список" HorizontalAlignment="Left" VerticalAlignment="Top" Width="106" Margin="350,112,0,0" Height="46" Click="bUsersRefresh_Click"/>
+
+    </Grid>
+</Window>
