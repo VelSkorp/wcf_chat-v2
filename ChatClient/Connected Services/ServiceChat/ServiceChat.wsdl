@@ -41,6 +41,12 @@
   <wsdl:message name="IServiceChat_Connect_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConnectResponse" />
   </wsdl:message>
+  <wsdl:message name="IServiceChat_Register_InputMessage">
+    <wsdl:part name="parameters" element="tns:Register" />
+  </wsdl:message>
+  <wsdl:message name="IServiceChat_Register_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterResponse" />
+  </wsdl:message>
   <wsdl:message name="IServiceChat_Disconnect_InputMessage">
     <wsdl:part name="parameters" element="tns:Disconnect" />
   </wsdl:message>
@@ -58,6 +64,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IServiceChat/Connect" message="tns:IServiceChat_Connect_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServiceChat/ConnectResponse" message="tns:IServiceChat_Connect_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="Register">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceChat/Register" message="tns:IServiceChat_Register_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceChat/RegisterResponse" message="tns:IServiceChat_Register_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="Disconnect">
       <wsdl:input wsaw:Action="http://tempuri.org/IServiceChat/Disconnect" message="tns:IServiceChat_Disconnect_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServiceChat/DisconnectResponse" message="tns:IServiceChat_Disconnect_OutputMessage" />
@@ -74,6 +84,15 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="Connect">
       <soap12:operation soapAction="http://tempuri.org/IServiceChat/Connect" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Register">
+      <soap12:operation soapAction="http://tempuri.org/IServiceChat/Register" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -109,7 +128,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8302/</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>я-ПК\я</Upn>
+          <Upn>DESKTOP-9UIV0UL\konts</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

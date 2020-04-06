@@ -27,6 +27,7 @@ namespace ChatHostWPF
         public MainWindow()
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             host = new ServiceHost(ServiceChat.Instance());
         }
 
@@ -39,14 +40,14 @@ namespace ChatHostWPF
                 if (host.State == CommunicationState.Created)
                 {
                     host.Open();
-                    lbServerState.Items.Add("хост стартовал");
+                    lbServerState.Items.Add("Хост стартовал");
                     lbServerState.ScrollIntoView(lbServerState.Items[lbServerState.Items.Count - 1]);
                     bOnOffServer.Content = "Выключить сервер";
                 }
                 else if (host.State == CommunicationState.Opened)
                 {
                     host.Close();
-                    lbServerState.Items.Add("хост отключен");
+                    lbServerState.Items.Add("Хост отключен");
                     lbServerState.ScrollIntoView(lbServerState.Items[lbServerState.Items.Count - 1]);
                     bOnOffServer.Content = "Запустить сервер";
                 }

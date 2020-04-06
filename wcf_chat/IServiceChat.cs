@@ -11,7 +11,9 @@ namespace wcf_chat
     public interface IServiceChat
     {
         [OperationContract]
-        int Connect(string name);
+        int Connect(string name,string password);
+        [OperationContract]
+        bool Register(string name,string password);
         [OperationContract]
         void Disconnect(int ID);
         [OperationContract(IsOneWay =true)]
