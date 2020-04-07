@@ -3,6 +3,8 @@ using System.Windows;
 using System.ServiceModel;
 using System.Windows.Input;
 using ChatClient.ServiceChat;
+using System.IO;
+using System.Text;
 
 namespace ChatClient
 {
@@ -136,7 +138,21 @@ namespace ChatClient
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            //TODO save story
+            DateTime date = DateTime.Today;
+            string filePath = @".\" + date.ToString("d")+".txt";
+            FileStream strem = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+            byte[] data;
+            
+
+            foreach (string item in lbChat.Items)
+            {
+                data = Encoding.UTF8.GetBytes(item+"\n");
+                strem.Write(data, 0, data.Length);
+            }
+
+            MessageBox.Show("История успешно сохранена", "Success", MessageBoxButton.OKCancel,MessageBoxImage.Information);
+
+            strem.Close();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
