@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using System.IO;
@@ -84,6 +83,7 @@ namespace wcf_chat
             return false;
             #endregion
         }
+
         private bool isRegistered(string name, string password)
         {
             FileInfo BDFile = new FileInfo(@"./BDFile.txt");

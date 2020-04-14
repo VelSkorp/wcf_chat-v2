@@ -1,26 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using wcf_chat;
 
 namespace ChatHostWPF
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         ServiceHost host;
@@ -37,6 +22,7 @@ namespace ChatHostWPF
             {
                 if (host.State==CommunicationState.Closed)
                     host = new ServiceHost(typeof(ServiceChat));
+
                 if (host.State == CommunicationState.Created)
                 {
                     host.Open();
@@ -56,8 +42,11 @@ namespace ChatHostWPF
             {
                 lbServerState.Items.Add(ex.Message);
                 lbServerState.ScrollIntoView(lbServerState.Items[lbServerState.Items.Count - 1]);
-                FileInfo LogFile = new FileInfo(@"./Log.txt");
+
+                DateTime date = DateTime.Today;
+                FileInfo LogFile = new FileInfo(@"./Log"+date.ToString("d")+".txt");
                 StreamWriter streamWriter = LogFile.CreateText();
+
                 streamWriter.Write(ex.Message);
                 streamWriter.Close();
             }
@@ -65,14 +54,16 @@ namespace ChatHostWPF
 
         private void bUserDiscon_Click(object sender, RoutedEventArgs e)
         {
-
+            //TODO user disconnect
         }
 
         private void bUsersRefresh_Click(object sender, RoutedEventArgs e)
         {
             lbActiveUsers.Items.Clear();
+
             var service = host.SingletonInstance as ServiceChat;
             var users = service.Users;
+
             foreach (var user in users)
                 lbActiveUsers.Items.Add(user.Name);
         }

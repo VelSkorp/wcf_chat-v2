@@ -3,9 +3,6 @@ using System.Windows;
 
 namespace ChatClient
 {
-    /// <summary>
-    /// Логика взаимодействия для Register.xaml
-    /// </summary>
     public partial class Register : Window
     {
         public string password { get { return PassBoxPassword.Password; } }

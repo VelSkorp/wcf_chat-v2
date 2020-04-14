@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
+﻿using System.ServiceModel;
 
 namespace wcf_chat
 {
@@ -19,6 +14,7 @@ namespace wcf_chat
         [OperationContract(IsOneWay =true)]
         void SendMsg(string msg,int id);
     }
+
     public interface IServiceChatCallBack
     {
         [OperationContract(IsOneWay =true)]

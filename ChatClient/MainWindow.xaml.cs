@@ -5,6 +5,7 @@ using System.Windows.Input;
 using ChatClient.ServiceChat;
 using System.IO;
 using System.Text;
+using Microsoft.Win32;
 
 namespace ChatClient
 {
@@ -13,12 +14,14 @@ namespace ChatClient
         ServiceChatClient client;
         int ID;
         Login login;
+
         public MainWindow()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
         {
             ConnectUser();
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;            
         }
+
         void ConnectUser()
         {
             login = new Login();
@@ -51,13 +54,13 @@ namespace ChatClient
                 catch (EndpointNotFoundException)
                 {
                     login = new Login("Не удалось подключится к серверу", "Alert");
-                    //client = new ServiceChatClient(new InstanceContext(this));
+                    client = new ServiceChatClient(new InstanceContext(this));
                     login.ShowDialog();
                 }
                 catch (FaultException)
                 {
                     login = new Login("Сервер недоступен", "Alert");
-                    //client = new ServiceChatClient(new InstanceContext(this));
+                    client = new ServiceChatClient(new InstanceContext(this));
                     login.ShowDialog();
                 }
                 catch (ProtocolException)
@@ -91,19 +94,11 @@ namespace ChatClient
 
         void DisconnectUser()
         {
-            if (ID!=0)
+            if (ID != 0 & client.State != CommunicationState.Faulted)
             {
-                try
-                {
-                    client.Disconnect(ID);
-                    client = null;
-                }
-                catch (Exception)
-                {
-                    //TODO обработать exception
-                }
+                client.Disconnect(ID);
+                client = null;
             }
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -126,14 +121,12 @@ namespace ChatClient
 
         private void tbMessage_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key==Key.Enter)
-            {
-                if (client!=null)
+            if (e.Key == Key.Enter)
+                if (client != null & client.State != CommunicationState.Faulted)
                 {
                     client.SendMsg(tbMessage.Text, ID);
                     tbMessage.Text = string.Empty;
-                }                
-            }
+                }
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -141,8 +134,7 @@ namespace ChatClient
             DateTime date = DateTime.Today;
             string filePath = @".\" + date.ToString("d")+".txt";
             FileStream strem = new FileStream(filePath, FileMode.Create, FileAccess.Write);
-            byte[] data;
-            
+            byte[] data;            
 
             foreach (string item in lbChat.Items)
             {
@@ -157,7 +149,18 @@ namespace ChatClient
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            //TODO Open story
+            OpenFileDialog openFileDialog = new OpenFileDialog()
+            {
+                Filter = "TXT Files(*.txt)|*.txt|AllFiles(*.*)| *.*",
+                FilterIndex = 1,
+                RestoreDirectory = true
+            };
+
+            openFileDialog.ShowDialog();
+
+            History history =new History(openFileDialog.FileName);
+
+            history.ShowDialog();
         }
     }
 }
