@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.ServiceModel;
 using System.Windows;
 using wcf_chat;
@@ -44,9 +45,9 @@ namespace ChatHostWPF
                 lbServerState.ScrollIntoView(lbServerState.Items[lbServerState.Items.Count - 1]);
 
                 DateTime date = DateTime.Today;
-                FileInfo LogFile = new FileInfo(@"./Log"+date.ToString("d")+".txt");
+                FileInfo LogFile = new FileInfo(@"./Log" + date.ToString("d") + ".txt");
                 StreamWriter streamWriter = LogFile.CreateText();
-
+                
                 streamWriter.Write(ex.Message);
                 streamWriter.Close();
             }
@@ -54,10 +55,24 @@ namespace ChatHostWPF
 
         private void bUserDiscon_Click(object sender, RoutedEventArgs e)
         {
-            //TODO user disconnect
+            if (lbActiveUsers.SelectedItem != null)
+            {
+                string userName = lbActiveUsers.SelectedItem.ToString();
+                var service = host.SingletonInstance as ServiceChat;
+                var user = service.Users.FirstOrDefault(i => i.Name == userName);
+
+                service.SendGeneralMsg("Был отключен от чата сервером", user.ID);
+                service.Disconnect(user.ID);
+                UsersRefresh();
+            }
         }
 
         private void bUsersRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            UsersRefresh();
+        }
+
+        private void UsersRefresh()
         {
             lbActiveUsers.Items.Clear();
 
@@ -66,6 +81,13 @@ namespace ChatHostWPF
 
             foreach (var user in users)
                 lbActiveUsers.Items.Add(user.Name);
+        }
+
+        private void bOnOffBot_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO придумать и реализовать вохможности бота
+
+
         }
     }
 }

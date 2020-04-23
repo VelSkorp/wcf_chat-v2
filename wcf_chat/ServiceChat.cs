@@ -34,11 +34,11 @@ namespace wcf_chat
                 if (!users.Contains(users.FirstOrDefault(i => i.Name == name)))
                 {
                     NextID++;
-                    SendMsg(": " + user.Name + " подключился к чату", 0);
+                    SendGeneralMsg(": " + user.Name + " подключился к чату", 0);
                     users.Add(user);
                     return user.ID; //зарегистрированн и подключен
                 }
-                else return -2; //зарегистрированн но уже подключен
+                else return -2; //зарегистрированн но уже есть в чате
             }
             return -1; //не зарегистирирован
         }
@@ -50,29 +50,43 @@ namespace wcf_chat
             if (user!=null)
             {
                 users.Remove(user);
-                SendMsg(": "+user.Name + " отключился от чата",0);
+                SendGeneralMsg(": "+user.Name + " отключился от чата",0);
             }
         }
 
-        public void SendMsg(string msg, int id)
+
+        public void SendGeneralMsg(string msg, int id)
         {
-            foreach (var item in users)
+            try
             {
-                string answer = DateTime.Now.ToShortTimeString();
-                var user = users.FirstOrDefault(i => i.ID == id);
+                foreach (var item in users)
+                {
+                    string answer = DateTime.Now.ToShortTimeString();
+                    var user = users.FirstOrDefault(i => i.ID == id);
 
-                if (user != null) answer += " " + user.Name + ": ";
+                    if (user != null) answer += " " + user.Name + ": ";
 
-                answer += msg;
-                item.operationContext.GetCallbackChannel<IServiceChatCallBack>().MsgCallBack(answer);
+                    answer += msg;
+                    item.operationContext.GetCallbackChannel<IServiceChatCallBack>().MsgCallBack(answer);
+                }
             }
+            catch (CommunicationObjectAbortedException)
+            {
+                //System.ServiceModel.CommunicationObjectAbortedException: "Коммуникационный объект System.ServiceModel.Channels.ServiceChannel нельзя использовать для связи, так как его работа прервана."
+            }
+        }
+
+        public void SendPrivateMsg(string msg, int id)
+        {
+            //TODO реализовать личное сообщение
         }
 
         public bool Register(string name, string password)
         {
-            #region база дынных
+            #region типа база дынных
             if (!isRegistered(name, password))
             {
+                //TODO рализовать работу с бд
                 FileInfo BDFile = new FileInfo(@"./BDFile.txt");
                 StreamWriter streamWriter = BDFile.AppendText();
                 
@@ -86,6 +100,8 @@ namespace wcf_chat
 
         private bool isRegistered(string name, string password)
         {
+            //TODO рализовать работу с бд
+
             FileInfo BDFile = new FileInfo(@"./BDFile.txt");
             FileStream FileStream = BDFile.Open(FileMode.Open, FileAccess.Read);
             byte[] byteData = new byte[FileStream.Length];
@@ -102,7 +118,7 @@ namespace wcf_chat
 
             foreach (Match match in matches)
                 if (name == match.Groups[1].Value & password == match.Groups[2].Value) return true;
-            
+
             return false;
         }
 

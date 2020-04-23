@@ -8,14 +8,15 @@ namespace ChatClient
         public History(string filePath)
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            FileInfo file = new FileInfo(filePath);
-            StreamReader stream = file.OpenText();
+            FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            StreamReader streamReader = new StreamReader(fileStream);
 
-            while (!stream.EndOfStream)
-                lbChatHistory.Items.Add(stream.ReadLine());
+            while (!streamReader.EndOfStream)
+                lbChatHistory.Items.Add(streamReader.ReadLine());
 
-            stream.Close();
+            streamReader.Close();
         }
     }
 }

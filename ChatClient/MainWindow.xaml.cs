@@ -13,7 +13,7 @@ namespace ChatClient
     {
         ServiceChatClient client;
         int ID;
-        Login login;
+        LoginDel login;
 
         public MainWindow()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
         {
@@ -24,7 +24,7 @@ namespace ChatClient
 
         void ConnectUser()
         {
-            login = new Login();
+            login = new LoginDel();
             client = new ServiceChatClient(new InstanceContext(this));
             login.ShowDialog();
 
@@ -38,13 +38,13 @@ namespace ChatClient
 
                     if (ID == -1)
                     {
-                        login = new Login("Этот пользователь не зарегистрирован", "Alert");
+                        login = new LoginDel("Этот пользователь не зарегистрирован", "Alert");
                         login.ShowDialog();
                     }
 
                     if (ID == -2)
                     {
-                        login = new Login("этот пользователь уже в чате", "Alert");
+                        login = new LoginDel("этот пользователь уже в чате", "Alert");
                         login.ShowDialog();
                     }
 
@@ -53,19 +53,19 @@ namespace ChatClient
                 }
                 catch (EndpointNotFoundException)
                 {
-                    login = new Login("Не удалось подключится к серверу", "Alert");
+                    login = new LoginDel("Не удалось подключится к серверу", "Alert");
                     client = new ServiceChatClient(new InstanceContext(this));
                     login.ShowDialog();
                 }
                 catch (FaultException)
                 {
-                    login = new Login("Сервер недоступен", "Alert");
+                    login = new LoginDel("Сервер недоступен", "Alert");
                     client = new ServiceChatClient(new InstanceContext(this));
                     login.ShowDialog();
                 }
                 catch (ProtocolException)
                 {
-                    //TODO реализовать поддержку eception
+                    //TODO реализовать ProtocolException
                 }
             } while (ID <= 0 & login.condition == 0);
         }
@@ -80,7 +80,7 @@ namespace ChatClient
                 if (reg.ShowDialog() == false) Application.Current.Shutdown();
                 else if (client.Register(reg.login, reg.password))
                 {
-                    login = new Login("Вы успешно зарегистрированны", "Success");
+                    login = new LoginDel("Вы успешно зарегистрированны", "Success");
                     login.ShowDialog();
                     result = false;
                 }
@@ -124,7 +124,7 @@ namespace ChatClient
             if (e.Key == Key.Enter)
                 if (client != null & client.State != CommunicationState.Faulted)
                 {
-                    client.SendMsg(tbMessage.Text, ID);
+                    client.SendGeneralMsg(tbMessage.Text, ID);
                     tbMessage.Text = string.Empty;
                 }
         }
@@ -151,16 +151,19 @@ namespace ChatClient
         {
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
-                Filter = "TXT Files(*.txt)|*.txt|AllFiles(*.*)| *.*",
+                Filter = "Файл TXT(*.txt)|*.txt|Файл WORD 2010(*.doc)| *.doc|Файл WORD 2013(*.docx)| *.docx",
                 FilterIndex = 1,
                 RestoreDirectory = true
             };
 
             openFileDialog.ShowDialog();
 
-            History history =new History(openFileDialog.FileName);
+            if (openFileDialog.FileName!="")
+            {
+                History history = new History(openFileDialog.FileName);
 
-            history.ShowDialog();
+                history.ShowDialog(); 
+            }
         }
     }
 }

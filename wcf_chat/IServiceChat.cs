@@ -12,7 +12,9 @@ namespace wcf_chat
         [OperationContract]
         void Disconnect(int ID);
         [OperationContract(IsOneWay =true)]
-        void SendMsg(string msg,int id);
+        void SendGeneralMsg(string msg,int id);
+        [OperationContract(IsOneWay =true)]
+        void SendPrivateMsg(string msg,int id);
     }
 
     public interface IServiceChatCallBack

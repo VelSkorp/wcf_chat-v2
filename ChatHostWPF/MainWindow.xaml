@@ -9,9 +9,10 @@
     <Grid>
         <ListBox x:Name="lbActiveUsers" HorizontalAlignment="Left" Height="294" VerticalAlignment="Top" Width="301"/>
         <ListBox x:Name="lbServerState" HorizontalAlignment="Left" Height="111" Margin="0,299,-0.4,0" VerticalAlignment="Top" Width="794"/>
-        <Button x:Name="bUserDiscon" Margin="474,115,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Content="  Отключить&#xD;&#xA;пользователя" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="87" Width="161" Click="bUserDiscon_Click"/>
-        <Button x:Name="bOnOffServer" Content="Запустить сервер" HorizontalAlignment="Left" Margin="474,207,0,0" VerticalAlignment="Top" Width="161" Height="87" Click="bOnOffServer_Click"/>
-        <Button x:Name="bUsersRefresh" Content="Обновить список" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="474,23,0,0" Height="87" Click="bUsersRefresh_Click"/>
+        <Button x:Name="bUserDiscon" Margin="374,63,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Content="  Отключить&#xD;&#xA;пользователя" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="87" Width="161" Click="bUserDiscon_Click"/>
+        <Button x:Name="bOnOffServer" Content="Запустить сервер" HorizontalAlignment="Left" Margin="374,155,0,0" VerticalAlignment="Top" Width="161" Height="87" Click="bOnOffServer_Click"/>
+        <Button x:Name="bUsersRefresh" Content="Обновить список" HorizontalAlignment="Left" VerticalAlignment="Top" Width="161" Margin="540,63,0,0" Height="87" Click="bUsersRefresh_Click"/>
+        <Button x:Name="bOnOffBot" Content="Запустить Бота" HorizontalAlignment="Left" Margin="540,155,0,0" VerticalAlignment="Top" Width="161" Height="87" Click="bOnOffBot_Click"/>
 
     </Grid>
 </Window>

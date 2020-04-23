@@ -53,8 +53,11 @@
   <wsdl:message name="IServiceChat_Disconnect_OutputMessage">
     <wsdl:part name="parameters" element="tns:DisconnectResponse" />
   </wsdl:message>
-  <wsdl:message name="IServiceChat_SendMsg_InputMessage">
-    <wsdl:part name="parameters" element="tns:SendMsg" />
+  <wsdl:message name="IServiceChat_SendGeneralMsg_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendGeneralMsg" />
+  </wsdl:message>
+  <wsdl:message name="IServiceChat_SendPrivateMsg_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendPrivateMsg" />
   </wsdl:message>
   <wsdl:message name="IServiceChat_MsgCallBack_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:MsgCallBack" />
@@ -72,8 +75,11 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IServiceChat/Disconnect" message="tns:IServiceChat_Disconnect_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServiceChat/DisconnectResponse" message="tns:IServiceChat_Disconnect_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="SendMsg">
-      <wsdl:input wsaw:Action="http://tempuri.org/IServiceChat/SendMsg" message="tns:IServiceChat_SendMsg_InputMessage" />
+    <wsdl:operation name="SendGeneralMsg">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceChat/SendGeneralMsg" message="tns:IServiceChat_SendGeneralMsg_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPrivateMsg">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceChat/SendPrivateMsg" message="tns:IServiceChat_SendPrivateMsg_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="MsgCallBack">
       <wsdl:output wsaw:Action="http://tempuri.org/IServiceChat/MsgCallBack" message="tns:IServiceChat_MsgCallBack_OutputCallbackMessage" />
@@ -109,8 +115,14 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="SendMsg">
-      <soap12:operation soapAction="http://tempuri.org/IServiceChat/SendMsg" style="document" />
+    <wsdl:operation name="SendGeneralMsg">
+      <soap12:operation soapAction="http://tempuri.org/IServiceChat/SendGeneralMsg" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="SendPrivateMsg">
+      <soap12:operation soapAction="http://tempuri.org/IServiceChat/SendPrivateMsg" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

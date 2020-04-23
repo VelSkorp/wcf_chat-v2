@@ -33,11 +33,17 @@ namespace ChatClient.ServiceChat {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceChat/Disconnect", ReplyAction="http://tempuri.org/IServiceChat/DisconnectResponse")]
         System.Threading.Tasks.Task DisconnectAsync(int ID);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiceChat/SendMsg")]
-        void SendMsg(string msg, int id);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiceChat/SendGeneralMsg")]
+        void SendGeneralMsg(string msg, int id);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiceChat/SendMsg")]
-        System.Threading.Tasks.Task SendMsgAsync(string msg, int id);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiceChat/SendGeneralMsg")]
+        System.Threading.Tasks.Task SendGeneralMsgAsync(string msg, int id);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiceChat/SendPrivateMsg")]
+        void SendPrivateMsg(string msg, int id);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServiceChat/SendPrivateMsg")]
+        System.Threading.Tasks.Task SendPrivateMsgAsync(string msg, int id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -99,12 +105,20 @@ namespace ChatClient.ServiceChat {
             return base.Channel.DisconnectAsync(ID);
         }
         
-        public void SendMsg(string msg, int id) {
-            base.Channel.SendMsg(msg, id);
+        public void SendGeneralMsg(string msg, int id) {
+            base.Channel.SendGeneralMsg(msg, id);
         }
         
-        public System.Threading.Tasks.Task SendMsgAsync(string msg, int id) {
-            return base.Channel.SendMsgAsync(msg, id);
+        public System.Threading.Tasks.Task SendGeneralMsgAsync(string msg, int id) {
+            return base.Channel.SendGeneralMsgAsync(msg, id);
+        }
+        
+        public void SendPrivateMsg(string msg, int id) {
+            base.Channel.SendPrivateMsg(msg, id);
+        }
+        
+        public System.Threading.Tasks.Task SendPrivateMsgAsync(string msg, int id) {
+            return base.Channel.SendPrivateMsgAsync(msg, id);
         }
     }
 }
