@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace ChatClient
+namespace ChatClient.Pages
 {
     public class PasswordBoxMonitor : DependencyObject
     {

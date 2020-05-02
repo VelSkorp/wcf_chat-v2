@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ChatClient
+namespace ChatClient.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для ChatHistory.xaml
+    /// Логика взаимодействия для Registration.xaml
     /// </summary>
-    public partial class ChatHistory : Page
+    public partial class Registration : Page
     {
-        public ChatHistory()
+        public Registration()
         {
             InitializeComponent();
         }
