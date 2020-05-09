@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace ChatClient
+namespace ChatClient.Core
 {
     /// <summary>
     /// A helper for expressions

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace ChatClient
+namespace ChatClient.Core
 {
     /// <summary>
     /// A basic command that runs an Action
     /// </summary>
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         #region Private Members
 

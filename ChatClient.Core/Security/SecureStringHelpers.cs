@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace ChatClient
+namespace ChatClient.Core
 {
     /// <summary>
     /// Helpers for the <see cref="SecureString"/> class
