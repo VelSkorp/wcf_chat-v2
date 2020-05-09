@@ -129,12 +129,12 @@
 				<ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 500 500" ImageSource="/Images/Backgrounds/emoji-background.png" />
 			</Grid.Background>
 
-			<Frame x:Name="MainFrame" 
-				   Grid.Column="1" 
-				   Content="{Binding ApplicationViewModel.CurrentPage,
+			<local:PageHost Grid.Column="1" 
+				   d:DataContext=""
+				   DataContext="{Binding ApplicationViewModel.CurrentPage,
 									 Source={x:Static local:ViewModelLocator.Instance}, 
-									 Converter={local:ApplicationPageValueConverter}}" 
-				   Background="Transparent" />
+									 Converter={local:ApplicationPageValueConverter}}"
+				   CurrentPage="{Binding}" />
 
 			<!-- Side Menu -->
 			<local:SideMenuControl 
