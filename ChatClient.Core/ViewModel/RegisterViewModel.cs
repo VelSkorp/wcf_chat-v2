@@ -68,7 +68,7 @@ namespace ChatClient.Core
 				//var pass = (parameter as IHavePassword).SecurePassword.Unsecure();
 			});
 		}
-
+		 
 		/// <summary>
 		/// Takes the user to the Login page
 		/// </summary>
@@ -76,7 +76,7 @@ namespace ChatClient.Core
 		public async Task LoginAsync()
 		{
 			//TODO: Go to Login page?
-			IoC.Get<ApplicationViewModel>().CurrentPage = ApplicationPage.Login;
+			IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Login);
 
 			await Task.Delay(1);
 		}

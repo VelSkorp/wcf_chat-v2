@@ -60,12 +60,15 @@ namespace ChatClient.Core
 		{
 			await RunCommandAsync(() => LoginIsRunning, async () =>
 			{
-				await Task.Delay(5000);
+				await Task.Delay(1000);
 
-				var email = Email;
+				// Go to chat page
+				IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Chat);
 
-				// IMPORTANT: Never store unsecure password in variable like this
-				var pass = (parameter as IHavePassword).SecurePassword.Unsecure();
+				//var email = Email;
+
+				//// IMPORTANT: Never store unsecure password in variable like this
+				//var pass = (parameter as IHavePassword).SecurePassword.Unsecure();
 			});
 		}
 
@@ -76,7 +79,7 @@ namespace ChatClient.Core
 		public async Task RegisterAsync()
 		{
 			//TODO: Go to Register page?
-			IoC.Get<ApplicationViewModel>().CurrentPage = ApplicationPage.Register;
+			IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Register);
 
 			await Task.Delay(1);
 		}

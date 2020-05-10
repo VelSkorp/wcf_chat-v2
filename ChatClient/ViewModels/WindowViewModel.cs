@@ -38,12 +38,12 @@ namespace ChatClient
 		/// <summary>
 		/// The smalest wigth the window can go to
 		/// </summary>
-		public double WindowMinmumWidth { get; set; } = 800;
+		public double WindowMinimumWidth { get; set; } = 800;
 
 		/// <summary>
 		/// The smalest height the window can go to
 		/// </summary>
-		public double WindowMinmumHeight { get; set; } = 500;
+		public double WindowMinimumHeight { get; set; } = 500;
 
 		/// <summary>
 		/// True if the window should be borderless because it is docked or maximized
