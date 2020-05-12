@@ -1,77 +1,93 @@
-﻿using System;
+﻿using ChatClient.Core;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace ChatClient
 {
-	/// <summary>
-	/// Логика взаимодействия для PageHost.xaml
-	/// </summary>
-	public partial class PageHost : UserControl
-	{
-		#region Dependency Propertise
+    /// <summary>
+    /// Interaction logic for PageHost.xaml
+    /// </summary>
+    public partial class PageHost : UserControl
+    {
+        #region Dependency Properties
 
-		/// <summary>
-		/// The current page to show in the page host
-		/// </summary>
-		public BasePage CurrentPage
-		{
-			get => (BasePage)GetValue(CurrentPageProperty);
-			set => SetValue(CurrentPageProperty, value);
-		}
+        /// <summary>
+        /// The current page to show in the page host
+        /// </summary>
+        public BasePage CurrentPage
+        {
+            get => (BasePage)GetValue(CurrentPageProperty);
+            set => SetValue(CurrentPageProperty, value);
+        }
 
-		/// <summary>
-		/// Ragisters <see cref="CurrentPage"/> as a dependency property
-		/// </summary>
-		public static readonly DependencyProperty CurrentPageProperty =
-			DependencyProperty.Register(nameof(CurrentPage), typeof(BasePage), typeof(PageHost), new UIPropertyMetadata(CurrentPagePropertyChanged));
+        /// <summary>
+        /// Registers <see cref="CurrentPage"/> as a dependency property
+        /// </summary>
+        public static readonly DependencyProperty CurrentPageProperty =
+            DependencyProperty.Register(nameof(CurrentPage), typeof(BasePage), typeof(PageHost), new UIPropertyMetadata(CurrentPagePropertyChanged));
 
-		#endregion
+        #endregion
 
-		#region Constructor
+        #region Constructor
 
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public PageHost()
-		{
-			InitializeComponent();
-		}
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public PageHost()
+        {
+            InitializeComponent();
 
-		#endregion
+            // If we are in DesignMode, show the current page
+            // as the dependency property does not fire
+            if (DesignerProperties.GetIsInDesignMode(this))
+                NewPage.Content = (BasePage)new ApplicationPageValueConverter().Convert(IoC.Get<ApplicationViewModel>().CurrentPage);
+        }
 
-		#region Property Changed Events
+        #endregion
 
-		/// <summary>
-		/// Called when the <see cref="CurrentPage"/> value has changed
-		/// </summary>
-		/// <param name="d"></param>
-		/// <param name="e"></param>
-		private static void CurrentPagePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-		{
-			// Get the frames
-			var newPageFrame = (d as PageHost).NewPage;
-			var oldPageFrame = (d as PageHost).OldPage;
+        #region Property Changed Events
 
-			// Store the currnt page content as the old page
-			var oldPageContent = newPageFrame.Content;
+        /// <summary>
+        /// Called when the <see cref="CurrentPage"/> value has changed
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        private static void CurrentPagePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            // Get the frames
+            var newPageFrame = (d as PageHost).NewPage;
+            var oldPageFrame = (d as PageHost).OldPage;
 
-			// Remove current page from new page frame
-			newPageFrame.Content = null;
+            // Store the current page content as the old page
+            var oldPageContent = newPageFrame.Content;
 
-			// Move the previous page into the old page frame
-			oldPageFrame.Content = oldPageContent;
+            // Remove current page from new page frame
+            newPageFrame.Content = null;
 
-			// Animate out previous page when the loaded event fires
-			// right after this call due to moving frames
-			if (oldPageContent is BasePage oldPage)
-				oldPage.ShouldAnimateOut = true;
+            // Move the previous page into the old page frame
+            oldPageFrame.Content = oldPageContent;
 
-			// Set the new page content
-			newPageFrame.Content = e.NewValue;
-		}
+            // Animate out previous page when the Loaded event fires
+            // right after this call due to moving frames
+            if (oldPageContent is BasePage oldPage)
+            {
+                // Tell old page to animate out
+                oldPage.ShouldAnimateOut = true;
 
-		#endregion
-	}
+                // Once it is done, remove it
+                Task.Delay((int)(oldPage.SlideSeconds * 1000)).ContinueWith((t) =>
+                {
+                    // Remove old page
+                    Application.Current.Dispatcher.Invoke(() => oldPageFrame.Content = null);
+                });
+            }
+
+            // Set the new page content
+            newPageFrame.Content = e.NewValue;
+        }
+
+        #endregion
+    }
 }

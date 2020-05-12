@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
-using System.IO;
 using System.Text.RegularExpressions;
 
 namespace wcf_chat
 {
-    [ServiceBehavior(InstanceContextMode=InstanceContextMode.Single)]
+	[ServiceBehavior(InstanceContextMode=InstanceContextMode.Single)]
     public class ServiceChat : IServiceChat
     {
         private List<UserSarver> users = new List<UserSarver>();

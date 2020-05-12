@@ -2,7 +2,7 @@
 
 namespace wcf_chat
 {
-    public class UserSarver
+	public class UserSarver
     {
         public int ID { get; set; }
         public string  Name { get; set; }

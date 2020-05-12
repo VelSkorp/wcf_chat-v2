@@ -26,7 +26,7 @@
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">
 
                     <Grid>
-
+                        
                         <Border x:Name="border" 
                                 BorderBrush="{TemplateBinding BorderBrush}" 
                                 BorderThickness="{TemplateBinding BorderThickness}"
@@ -54,7 +54,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </TextBlock.Style>
-
+                            
                         </TextBlock>
 
                     </Grid>
@@ -85,10 +85,10 @@
         <Setter Property="BorderBrush" Value="{StaticResource WordBlueBrush}" />
         <Setter Property="BorderThickness" Value="0 0 0 1" />
 
-        <Setter Property="local:MonitorPasswordProperty.Value" Value="True" />
-
         <Setter Property="Background" Value="{StaticResource ForegroundLightBrush}" />
         <Setter Property="Foreground" Value="{StaticResource ForegroundVeryDarkBrush}" />
+
+        <Setter Property="local:MonitorPasswordProperty.Value" Value="True" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -146,7 +146,7 @@
                 <RotateTransform></RotateTransform>
             </Setter.Value>
         </Setter>
-
+        
         <Style.Resources>
             <Storyboard x:Key="Spin">
                 <DoubleAnimation
@@ -170,5 +170,5 @@
         </Style.Triggers>
 
     </Style>
-
+    
 </ResourceDictionary>

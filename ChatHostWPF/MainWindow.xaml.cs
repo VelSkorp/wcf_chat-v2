@@ -7,7 +7,7 @@ using wcf_chat;
 
 namespace ChatHostWPF
 {
-    public partial class MainWindow : Window
+	public partial class MainWindow : Window
     {
         ServiceHost host;
         public MainWindow()

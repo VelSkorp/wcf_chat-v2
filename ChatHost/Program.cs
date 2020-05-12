@@ -1,11 +1,11 @@
 ﻿using System;
-using System.ServiceModel;
 using System.IO;
+using System.ServiceModel;
 using wcf_chat;
 
 namespace ChatHost
 {
-    class Program
+	class Program
     {
         static void Main(string[] args)
         {

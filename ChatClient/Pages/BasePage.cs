@@ -1,171 +1,176 @@
 ﻿using ChatClient.Core;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace ChatClient
 {
-	/// <summary>
-	/// The base page for all pages to gain base functionality
-	/// </summary>
-	public class BasePage : Page
-	{
-		#region Public Properties
+    /// <summary>
+    /// The base page for all pages to gain base functionality
+    /// </summary>
+    public class BasePage : UserControl
+    {
+        #region Public Properties
 
-		/// <summary>
-		/// The animation the play when the pages is first loaded
-		/// </summary>
-		public PageAnimation PageLoadAnimation { get; set; } = PageAnimation.SliedAndFadeInFromright;
+        /// <summary>
+        /// The animation the play when the page is first loaded
+        /// </summary>
+        public PageAnimation PageLoadAnimation { get; set; } = PageAnimation.SlideAndFadeInFromRight;
 
-		/// <summary>
-		/// The animation the play when the pages is unloaded
-		/// </summary>
-		public PageAnimation PageUnloadAnimation { get; set; } = PageAnimation.SliedAndFadeOutToLeft;
+        /// <summary>
+        /// The animation the play when the page is unloaded
+        /// </summary>
+        public PageAnimation PageUnloadAnimation { get; set; } = PageAnimation.SlideAndFadeOutToLeft;
 
-		/// <summary>
-		/// The time any slide animation takes to complite
-		/// </summary>
-		public double SlideSeconds { get; set; } = 0.4;
+        /// <summary>
+        /// The time any slide animation takes to complete
+        /// </summary>
+        public float SlideSeconds { get; set; } = 0.4f;
 
-		/// <summary>
-		/// A flag to indicate if this page sould animate out on load.
-		/// Useful for when we are moding the page to another frame
-		/// </summary>
-		public bool ShouldAnimateOut { get; set; }
+        /// <summary>
+        /// A flag to indicate if this page should animate out on load.
+        /// Useful for when we are moving the page to another frame
+        /// </summary>
+        public bool ShouldAnimateOut { get; set; }
 
-		#endregion
+        #endregion
 
-		#region Constructor
+        #region Constructor
 
-		/// <summary>
-		/// Default Constructor
-		/// </summary>
-		public BasePage()
-		{
-			// If we are animating in, hade to begin with
-			if (PageLoadAnimation != PageAnimation.None)
-				Visibility = Visibility.Collapsed;
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public BasePage()
+        {
+            // Don't bother animating in design time
+            if (DesignerProperties.GetIsInDesignMode(this))
+                return;
 
-			// Listen out for the page loading
-			Loaded += BasePage_LoadedAsync;
-		}
+            // If we are animating in, hide to begin with
+            if (PageLoadAnimation != PageAnimation.None)
+                Visibility = Visibility.Collapsed;
 
-		#endregion
+            // Listen out for the page loading
+            Loaded += BasePage_LoadedAsync;
+        }
 
-		#region Animation Load / Unload
+        #endregion
 
-		/// <summary>
-		/// Once the page is loaded, parform any required animation
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private async void BasePage_LoadedAsync(object sender, RoutedEventArgs e)
-		{
-			// If we are setup to animate out on load
-			if (ShouldAnimateOut)
-				// Animate out the page
-				await AnimateOutAsync();
-			// Otherwise... 
-			else
-				// Animate the page in
-				await AnimateInAsync();
-		}
+        #region Animation Load / Unload
 
-		/// <summary>
-		/// Animates the page in
-		/// </summary>
-		/// <returns></returns>
-		public async Task AnimateInAsync()
-		{
-			// Make sure we have something to do 
-			if (PageLoadAnimation == PageAnimation.None)
-				return;
+        /// <summary>
+        /// Once the page is loaded, perform any required animation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void BasePage_LoadedAsync(object sender, System.Windows.RoutedEventArgs e)
+        {
+            // If we are setup to animate out on load
+            if (ShouldAnimateOut)
+                // Animate out the page
+                await AnimateOutAsync();
+            // Otherwise...
+            else
+                // Animate the page in
+                await AnimateInAsync();
+        }
 
-			switch (PageLoadAnimation)
-			{
-				case PageAnimation.SliedAndFadeInFromright:
+        /// <summary>
+        /// Animates the page in
+        /// </summary>
+        /// <returns></returns>
+        public async Task AnimateInAsync()
+        {
+            // Make sure we have something to do
+            if (PageLoadAnimation == PageAnimation.None)
+                return;
 
-					// Satrt the animation
-					await this.SlideAndFadeInFromRightAsync(SlideSeconds);
+            switch (PageLoadAnimation)
+            {
+                case PageAnimation.SlideAndFadeInFromRight:
 
-					break;
-			}
-		}
+                    // Start the animation
+                    await this.SlideAndFadeInFromRightAsync(SlideSeconds, width: (int)Application.Current.MainWindow.Width);
 
-		/// <summary>
-		/// Animates the page out
-		/// </summary>
-		/// <returns></returns>
-		public async Task AnimateOutAsync()
-		{
-			// Make sure we have something to do 
-			if (PageUnloadAnimation == PageAnimation.None)
-				return;
+                    break;
+            }
+        }
 
-			switch (PageUnloadAnimation)
-			{
-				case PageAnimation.SliedAndFadeOutToLeft:
+        /// <summary>
+        /// Animates the page out
+        /// </summary>
+        /// <returns></returns>
+        public async Task AnimateOutAsync()
+        {
+            // Make sure we have something to do
+            if (PageUnloadAnimation == PageAnimation.None)
+                return;
 
-					// Satrt the animation
-					await this.SlideAndFadeOutToLeftAsync(SlideSeconds);
+            switch (PageUnloadAnimation)
+            {
+                case PageAnimation.SlideAndFadeOutToLeft:
 
-					break;
-			}
-		}
+                    // Start the animation
+                    await this.SlideAndFadeOutToLeftAsync(SlideSeconds);
 
-		#endregion
-	}
+                    break;
+            }
+        }
 
-	/// <summary>
-	/// A base page with added ViewModel support
-	/// </summary>
-	public class BasePage<VM> : BasePage
-		where VM : BaseViewModel, new()
-	{
-		#region Private Mamber
+        #endregion
+    }
 
-		/// <summary>
-		/// The View Model associated with this page
-		/// </summary>
-		private VM mViewModel;
+    /// <summary>
+    /// A base page with added ViewModel support
+    /// </summary>
+    public class BasePage<VM> : BasePage
+        where VM : BaseViewModel, new()
+    {
+        #region Private Member
 
-		#endregion
+        /// <summary>
+        /// The View Model associated with this page
+        /// </summary>
+        private VM mViewModel;
 
-		#region Public Properties
+        #endregion
 
-		/// <summary>
-		/// The View Model associated with this page
-		/// </summary>
-		public VM ViewModel
-		{
-			get => mViewModel;
-			set
-			{
-				// If nosthing has changed, return
-				if (mViewModel == value)
-					return;
+        #region Public Properties
 
-				// Update the value
-				mViewModel = value;
+        /// <summary>
+        /// The View Model associated with this page
+        /// </summary>
+        public VM ViewModel
+        {
+            get => mViewModel;
+            set
+            {
+                // If nothing has changed, return
+                if (mViewModel == value)
+                    return;
 
-				// Set the data context for this page   
-				DataContext = mViewModel;
-			}
-		}
+                // Update the value
+                mViewModel = value;
 
-		#endregion
+                // Set the data context for this page
+                DataContext = mViewModel;
+            }
+        }
 
-		#region Constructor
+        #endregion
 
-		/// <summary>
-		/// Default Constructor
-		/// </summary>
-		public BasePage() : base()
-		{
-			// Create a default view model
-			ViewModel = new VM();
-		}
+        #region Constructor
 
-		#endregion
-	}
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public BasePage() : base()
+        {
+            // Create a default view model
+            ViewModel = new VM();
+        }
+
+        #endregion
+    }
 }

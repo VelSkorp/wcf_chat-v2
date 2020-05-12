@@ -10,7 +10,7 @@ namespace ChatClient.Core
     public static class SecureStringHelpers
     {
         /// <summary>
-        /// Unsecure a <see cref="SecureString"/> to plain text
+        /// Unsecures a <see cref="SecureString"/> to plain text
         /// </summary>
         /// <param name="secureString">The secure string</param>
         /// <returns></returns>
@@ -25,7 +25,7 @@ namespace ChatClient.Core
 
             try
             {
-                // Unsecure the password
+                // Unsecures the password
                 unmanagedString = Marshal.SecureStringToGlobalAllocUnicode(secureString);
                 return Marshal.PtrToStringUni(unmanagedString);
             }

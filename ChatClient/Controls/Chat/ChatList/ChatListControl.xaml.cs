@@ -2,14 +2,14 @@
 
 namespace ChatClient
 {
-	/// <summary>
-	/// Логика взаимодействия для ChatListControl.xaml
-	/// </summary>
-	public partial class ChatListControl : UserControl
-	{
-		public ChatListControl()
-		{
-			InitializeComponent();
-		}
-	}
+    /// <summary>
+    /// Interaction logic for ChatListControl.xaml
+    /// </summary>
+    public partial class ChatListControl : UserControl
+    {
+        public ChatListControl()
+        {
+            InitializeComponent();
+        }
+    }
 }

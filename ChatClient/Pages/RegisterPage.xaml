@@ -5,10 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ChatClient"
       xmlns:core="clr-namespace:ChatClient.Core;assembly=ChatClient.Core"
-      mc:Ignorable="d"
+      mc:Ignorable="d" 
       x:Name="Page"
       d:DesignHeight="700" d:DesignWidth="700"
-      Title="RegisterPage">
+      >
 
     <Border>
         <Grid>
@@ -43,13 +43,17 @@
                                        />
 
                             <!-- Email -->
-                            <TextBox Text="{Binding Email}" Tag="Email" />
+                            <TextBox 
+                                Text="{Binding Email}" 
+                                local:IsFocusedProperty.Value="True"
+                                Tag="Email" />
 
                             <!-- Password -->
                             <PasswordBox x:Name="PasswordText" Tag="Password" Margin="0 0 0 30" />
 
-                            <!-- Ragister button -->
+                            <!-- Next button -->
                             <Button Content="Register" 
+                                    IsDefault="True"
                                     local:IsBusyProperty.Value="{Binding RegisterIsRunning}"
                                     Command="{Binding RegisterCommand}"
                                     CommandParameter="{Binding ElementName=Page}" 
@@ -61,13 +65,13 @@
 
                     <Button 
                         Style="{StaticResource TextButton}" 
-                        Content="OR, I already have an account..." 
+                        Content="Or, I already have an account..." 
                         HorizontalAlignment="Center" 
-                        Command="{Binding LoginCommand}" />
+                        Command="{Binding LoginCommand}"
+                        />
 
                 </StackPanel>
             </ScrollViewer>
         </Grid>
     </Border>
-
 </local:BasePage>

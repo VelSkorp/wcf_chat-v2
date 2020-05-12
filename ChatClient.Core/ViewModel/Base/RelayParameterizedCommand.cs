@@ -6,7 +6,7 @@ namespace ChatClient.Core
     /// <summary>
     /// A basic command that runs an Action
     /// </summary>
-    class RelayParameterizedCommand : ICommand
+    public class RelayParameterizedCommand : ICommand
     {
         #region Private Members
 

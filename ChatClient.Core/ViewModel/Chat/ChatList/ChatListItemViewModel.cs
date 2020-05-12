@@ -11,28 +11,28 @@
         public string Name { get; set; }
 
         /// <summary>
-        /// The latest message form this chat
+        /// The latest message from this chat
         /// </summary>
         public string Message { get; set; }
 
         /// <summary>
-        /// The initials for the profile picture background
+        /// The initials to show for the profile picture background
         /// </summary>
         public string Initials { get; set; }
 
         /// <summary>
-        /// The RGB values (in hex) for the backgorund color of the profile picture
+        /// The RGB values (in hex) for the background color of the profile picture
         /// For example FF00FF for Red and Blue mixed
         /// </summary>
-        public string ProfilePictureRGB { get; set; }
+        public string ProfilePictureRGB { get; set; } 
 
         /// <summary>
-        /// True is there are unread message in this chat
+        /// True if there are unread messages in this chat 
         /// </summary>
-        public bool NewContentAvalible { get; set; }
+        public bool NewContentAvailable { get; set; }
 
         /// <summary>
-        /// True if this item is curently selected
+        /// True if this item is currently selected
         /// </summary>
         public bool IsSelected { get; set; }
     }

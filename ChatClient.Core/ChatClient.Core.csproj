@@ -5,16 +5,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{68C61E03-AABF-4626-B8E9-24F44E385D34}</ProjectGuid>
+    <ProjectGuid>{CAC0A047-D879-4A29-8136-BE1E33F5F35C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ChatClient.Core</RootNamespace>
     <AssemblyName>ChatClient.Core</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,12 +63,19 @@
     <Compile Include="ViewModel\Base\IHavePassword.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
     <Compile Include="ViewModel\Base\RelayParameterizedCommand.cs" />
-    <Compile Include="ViewModel\Chat\ChatListItemViewModel.cs" />
-    <Compile Include="ViewModel\Chat\ChatListViewModel.cs" />
-    <Compile Include="ViewModel\Chat\Design\ChatListDesignModel.cs" />
-    <Compile Include="ViewModel\Chat\Design\ChatListItemDesignModel.cs" />
-    <Compile Include="ViewModel\RegisterViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatList\ChatListItemViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatList\ChatListViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatList\Design\ChatListDesignModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatList\Design\ChatListItemDesignModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatMessage\ChatMessageListItemViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatMessage\ChatMessageListViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatMessage\Design\ChatMessageListDesignModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatMessage\Design\ChatMessageListItemDesignModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\RegisterViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
