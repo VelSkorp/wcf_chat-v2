@@ -63,7 +63,7 @@ namespace ChatClient.Core
 				await Task.Delay(1000);
 
 				// Go to chat page
-				IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Chat);
+				IoC.Application.GoToPage(ApplicationPage.Chat);
 
 				//var email = Email;
 
@@ -79,7 +79,7 @@ namespace ChatClient.Core
 		public async Task RegisterAsync()
 		{
 			// Go to register page?
-			IoC.Get<ApplicationViewModel>().GoToPage(ApplicationPage.Register);
+			IoC.Application.GoToPage(ApplicationPage.Register);
 
 			await Task.Delay(1);
 		}
