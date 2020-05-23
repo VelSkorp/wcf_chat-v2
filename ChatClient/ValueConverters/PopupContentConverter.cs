@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Windows;
 using ChatClient.Core;
 
 namespace ChatClient
@@ -19,9 +18,6 @@ namespace ChatClient
 			return null;
 		}
 
-		public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-		{
-			throw new NotImplementedException();
-		}
+		public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
 	}
 }

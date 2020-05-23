@@ -7,6 +7,30 @@ namespace ChatClient.Core
 	/// </summary>
 	public class SettingsViewModel : BaseViewModel
 	{
+		#region Public Properties
+
+		/// <summary>
+		/// The current users name
+		/// </summary>
+		public TextEntryViewModel Name { get; set; }
+
+		/// <summary>
+		/// The current users username
+		/// </summary>
+		public TextEntryViewModel UserName { get; set; }
+
+		/// <summary>
+		/// The current users password
+		/// </summary>
+		public TextEntryViewModel Password { get; set; }
+
+		/// <summary>
+		/// The current users email
+		/// </summary>
+		public TextEntryViewModel Email { get; set; }
+
+		#endregion
+
 		#region Public Commands
 
 		/// <summary>
@@ -30,7 +54,13 @@ namespace ChatClient.Core
 		{
 			// Create commands
 			CloseCommand = new RelayCommand(Close);			
-			OpenCommand = new RelayCommand(Open);			
+			OpenCommand = new RelayCommand(Open);
+
+			// TODO: Remove this with real information pulled from our database in future
+			Name = new TextEntryViewModel { Label = "Name", OriginalText = "Vlad Kontsevich" };
+			UserName = new TextEntryViewModel { Label = "UserName", OriginalText = "Vald" };
+			Password = new TextEntryViewModel { Label = "Password", OriginalText = "*********" };
+			Email = new TextEntryViewModel { Label = "Email", OriginalText = "kontsevichv@mail.ru" };
 		}
 
 		#endregion

@@ -4,7 +4,9 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:local="clr-namespace:ChatClient"
-			 mc:Ignorable="d">
+			 xmlns:core="clr-namespace:ChatClient.Core;assembly=ChatClient.Core"
+			 mc:Ignorable="d"
+			 d:DataContext="{x:Static core:SettingsDesignModel.Instance}">
 
 	<Border Padding="15"
 			Background="{StaticResource ForegroundLightBrush}">
@@ -47,7 +49,7 @@
 
 			<!-- Main content -->
 			<Grid Grid.Row="1"
-				  Width="700"
+				  Width="600"
 				  VerticalAlignment="Top">
 				
 				<Grid.ColumnDefinitions>
@@ -56,7 +58,7 @@
 				</Grid.ColumnDefinitions>
 				
 				<!-- Profile Picture -->
-				<Grid Margin="0 0 10 0"
+				<Grid Margin="0 0 30 0"
 					  Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
 
 					<!-- Mask for rounded corners -->
@@ -74,40 +76,15 @@
 				</Grid>
 
 				<!-- Profile Details -->
-				<Grid Grid.Column="1"
-					  local:PanelChildMarginProperty.Value="15 5">
+				<StackPanel Grid.Column="1"
+							local:TextEntryWidthMatcherProperty.Value="True">
 
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="Auto" />
-						<ColumnDefinition Width="*" />
-					</Grid.ColumnDefinitions>
-
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
-
-					<!-- Lables -->
-					<TextBlock Text="Name" FontFamily="{StaticResource LatoRegular}" />
-					<TextBlock Text="Username" Grid.Row="1" FontFamily="{StaticResource LatoRegular}" />
-					<TextBlock Text="Password" Grid.Row="2" FontFamily="{StaticResource LatoRegular}" />
-					<TextBlock Text="Email" Grid.Row="3" FontFamily="{StaticResource LatoRegular}" />
-
-					<!-- Content -->
-					<TextBlock Text="Luke Malpas" Grid.Column="1" />
-					<TextBlock Text="Luke" Grid.Column="1" Grid.Row="1" />
-					<TextBlock Text="*******" Grid.Column="1" Grid.Row="2" />
-					<TextBlock Text="kontsrvich@mail.ru" Grid.Column="1" Grid.Row="3" />
-
-
-
-
-				</Grid>
-
+					<local:TextEntryControl DataContext="{Binding Name}" />
+					<local:TextEntryControl DataContext="{Binding UserName}" />
+					<local:TextEntryControl DataContext="{Binding Password}" />
+					<local:TextEntryControl DataContext="{Binding Email}" />
+					
+				</StackPanel>
 
 			</Grid>
 			

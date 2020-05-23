@@ -54,10 +54,11 @@ namespace ChatClient
 		/// True if the window should be borderless because it is docked or maximized
 		/// </summary>
 		public bool Borderless => (mWindow.WindowState == WindowState.Maximized || mDockPosition != WindowDockPosition.Undocked);
+
 		/// <summary>
 		/// The size of the resize border around the window
 		/// </summary>
-		public int ResizeBorder => Borderless ? 0 : 10;
+		public int ResizeBorder => 10;
 
 		/// <summary>
 		/// The size of the resize border around the window, taking into account the outer margin
@@ -98,7 +99,7 @@ namespace ChatClient
 		/// The radius of the edges of the window
 		/// </summary>
 		public CornerRadius WindowCornerRadius => new CornerRadius(WindowRadius);
-		
+
 		/// <summary>
 		/// The height of the title bar / caption of the window
 		/// </summary>
@@ -186,14 +187,7 @@ namespace ChatClient
 		/// <returns></returns>
 		private Point GetMousePosition()
 		{
-			// Position of the mouse relative to the window
-			var position = Mouse.GetPosition(mWindow);
-
-			// Add the window position so its a "ToScreen"
-			if (mWindow.WindowState == WindowState.Maximized)
-				return new Point(position.X +  mWindowResizer.CurrentMonitorSize.mLeft, position.Y + mWindowResizer.CurrentMonitorSize.mTop);
-			else
-				return new Point(position.X + mWindow.Left, position.Y + mWindow.Top);
+			return mWindowResizer.GetCursorPosition();
 		}
 
 		/// <summary>
