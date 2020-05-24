@@ -23,7 +23,7 @@
 		{
 			Name = new TextEntryViewModel { Label = "Name", OriginalText = "Vlad Kontsevich" };
 			UserName = new TextEntryViewModel { Label = "UserName", OriginalText = "Vald" };
-			Password = new TextEntryViewModel { Label = "Password", OriginalText = "*********" };
+			Password = new PasswordEntryViewModel { Label = "Password", FakePassword = "*********" };
 			Email = new TextEntryViewModel { Label = "Email", OriginalText = "kontsevichv@mail.ru" };
 		} 
 

@@ -1,4 +1,5 @@
-﻿using System.Security;
+﻿using System;
+using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -60,7 +61,17 @@ namespace ChatClient.Core
 		{
 			await RunCommandAsync(() => LoginIsRunning, async () =>
 			{
+				// TODO: Fake a loginll...
 				await Task.Delay(1000);
+
+				// Ok successfully loggedin... Now det users data
+				// TODO: Ask server for users info
+
+				// TODO: Remove this with real information pulled from our database in future
+				IoC.Settings.Name = new TextEntryViewModel { Label = "Name", OriginalText = $"Vlad Kontsevich {DateTime.Now}" };
+				IoC.Settings.UserName = new TextEntryViewModel { Label = "UserName", OriginalText = "Vald" };
+				IoC.Settings.Password = new PasswordEntryViewModel { Label = "Password", FakePassword = "*********" };
+				IoC.Settings.Email = new TextEntryViewModel { Label = "Email", OriginalText = "kontsevichv@mail.ru" };
 
 				// Go to chat page
 				IoC.Application.GoToPage(ApplicationPage.Chat);
