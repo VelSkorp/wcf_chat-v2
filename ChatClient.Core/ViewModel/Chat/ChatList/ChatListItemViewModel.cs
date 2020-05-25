@@ -77,7 +77,7 @@ namespace ChatClient.Core
 			{
 				IoC.Application.GoToPage(ApplicationPage.Login, new LoginViewModel
 				{
-					Email="Jesse@mail.ru"
+					Email = "Jesse@mail.ru"
 				});
 
 				return;

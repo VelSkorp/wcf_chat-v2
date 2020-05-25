@@ -19,21 +19,9 @@ namespace ChatClient.Core
 			{
 				Items = new List<MenuItemViewModel>(new[]
 				{
-					new MenuItemViewModel
-					{
-						Type = MenuItemType.Header,
-						Text = "Attach a file..."
-					},
-					new MenuItemViewModel
-					{
-						Text = "From computer",
-						Icon = IconType.File
-					},
-					new MenuItemViewModel
-					{
-						Text = "From pictures",
-						Icon = IconType.Picture
-					},
+					new MenuItemViewModel { Text = "Attach a file...", Type = MenuItemType.Header },
+					new MenuItemViewModel { Text = "From computer", Icon = IconType.File },
+					new MenuItemViewModel { Text = "From pictures", Icon = IconType.Picture },
 				})
 			};
 		}
