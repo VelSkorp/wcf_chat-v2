@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace ChatClient.Core
@@ -14,7 +14,7 @@ namespace ChatClient.Core
 		/// <summary>
 		/// The chat thread items for the list
 		/// </summary>
-		public List<ChatMessageListItemViewModel> Items { get; set; }
+		public ObservableCollection<ChatMessageListItemViewModel> Items { get; set; }
 
 		/// <summary>
 		/// True to show the attachment menu, false to hide it
@@ -30,6 +30,11 @@ namespace ChatClient.Core
 		/// The view model for the attachment menu
 		/// </summary>
 		public ChatAttachmentPopupMenuViewModel AttachmentMenu { get; set; }
+
+		/// <summary>
+		/// The text fot the current message being written
+		/// </summary>
+		public string PendingMessageText { get; set; }
 
 		#endregion
 
@@ -95,12 +100,22 @@ namespace ChatClient.Core
 		/// </summary>
 		public void Send()
 		{
-			IoC.UI.ShowMessage(new MessageBoxDialogViewModel
+			if (Items == null)
+				Items = new ObservableCollection<ChatMessageListItemViewModel>();
+
+			// Fake send a new message
+			Items.Add(new ChatMessageListItemViewModel
 			{
-				Title = "send message",
-				Message = "Nice message",
-				OkText = "OK"
+				Initials = "LM",
+				Message = PendingMessageText,
+				MessageSentTime = DateTime.UtcNow,
+				SentByMe = true,
+				SenderName = "Vlad",
+				NewItem = true
 			});
+
+			// Clear the panding message text
+			PendingMessageText = string.Empty;
 		}
 
 		#endregion

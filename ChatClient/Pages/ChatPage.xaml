@@ -105,14 +105,18 @@
 					Foreground="{StaticResource ForegroundDarkBrush}" />
 
 			<!-- Message box -->
-			<TextBox Grid.Column="1"
+			<TextBox x:Name="MessageText"
+					 Grid.Column="1"
 					 Tag="Write a message..."
+					 local:IsFocusedProperty.Value="True"
+					 Text="{Binding PendingMessageText, UpdateSourceTrigger=PropertyChanged}"
 					 BorderThickness="0"
 					 Margin="0 10 10 10"
 					 AcceptsReturn="True"
 					 AcceptsTab="True"
 					 VerticalAlignment="Center"
 					 VerticalScrollBarVisibility="Auto"
+					 PreviewKeyDown="MessageText_PreviewKeyDown"
 					 FontSize="{StaticResource FontSizeRegular}" />
 
 			<!-- Additional buttons -->
@@ -130,6 +134,8 @@
 				<!-- Send button-->
 				<Button Content="Send"
 						Padding="8"
+						Focusable="False"
+						IsDefault="True"
 						Command="{Binding SendCommand}"
 						Background="{StaticResource WordGreenBrush}"
 						FontSize="{StaticResource FontSizeRegular}" />
