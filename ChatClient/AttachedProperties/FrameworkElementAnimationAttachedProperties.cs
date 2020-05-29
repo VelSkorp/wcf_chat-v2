@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace ChatClient
 {
@@ -82,6 +83,31 @@ namespace ChatClient
 		/// <param name="element">The element</param>
 		/// <param name="value">The new value</param>
 		protected virtual void DoAnimation(FrameworkElement element, bool value, bool firstLoad) { }
+	}
+
+	/// <summary>
+	/// Fades in an image once the source changes
+	/// </summary>
+	public class FadeInImageOnLoadProperty : AnimateBaseProperty<FadeInImageOnLoadProperty>
+	{
+		public override void OnValueUpdated(DependencyObject sender, object value)
+		{
+			// Make sure we have an image
+			if (!(sender is Image image))
+				return;
+
+			// If we want animate in...
+			if((bool)value)
+				image.TargetUpdated += Image_TargetUpdatedAsync;
+			else
+				image.TargetUpdated -= Image_TargetUpdatedAsync;
+		}
+
+		private async void Image_TargetUpdatedAsync(object sender, System.Windows.Data.DataTransferEventArgs e)
+		{
+			// Fade in image
+			await (sender as Image).FadeInAsync(false);
+		}
 	}
 
 	/// <summary>

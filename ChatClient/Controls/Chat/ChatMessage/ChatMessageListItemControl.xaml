@@ -58,36 +58,79 @@
 				</Grid.Triggers>
 
 				<Grid.RowDefinitions>
-					<RowDefinition Height="*" />
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
 				</Grid.RowDefinitions>
 
-				<!-- Speech bubble rectangle -->
-				<Border CornerRadius="10"
-					Padding="15"
-					Background="{Binding SentByMe, Converter={local:SentByMeToBackgroundConverter}}"
-					>
+				<!-- message text/attachments grid -->
+				<Grid>
 
-					<!-- Message text -->
-					<TextBlock VerticalAlignment="Center"
-						   TextWrapping="Wrap"
-						   FontFamily="{StaticResource LatoRegular}"
-						   Foreground="{StaticResource WordDarkBlueBrush}"
-						   Text="{Binding Message}"
-						   />
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
 
-				</Border>
+					<!-- Image Loading Glyph -->
+					<Border HorizontalAlignment="{Binding SentByMe, Converter={local:SentByMeToAlignmentConverter}}"
+							VerticalAlignment="Top">
+						
+						<TextBlock Style="{StaticResource SpinningText}"
+								   Foreground="{StaticResource ForegroundLightBrush}"
+								   Padding="20"
+								   DataContext="{Binding ImageAttachment}"
+								   Visibility="{Binding ImageLoaded, Converter={local:BooleanToVisibilityGoneConverter}, ConverterParameter=True, FallbackValue=Collapsed}" />
 
-				<!-- Chat bubble anchor -->
-				<Path Grid.Row="1" 
-					  Stroke="Black"
-					  Panel.ZIndex="1"
-					  Margin="15 -1 15 0"
-					  Data="M 0,0 L 10,10 L 20,0 L 0,0" 
-					  StrokeThickness="0"
-					  HorizontalAlignment="{Binding SentByMe, Converter={local:SentByMeToAlignmentConverter}}"
-					  Fill="{Binding SentByMe, Converter={local:SentByMeToBackgroundConverter}}" />
+					</Border>
+					
+					<!-- Image attachment-->
+					<Border CornerRadius="10"
+							Margin="0 0 0 15">
+
+						<Image DataContext="{Binding ImageAttachment}"
+							   local:ClipFromBorderProperty.Value="True"
+							   local:FadeInImageOnLoadProperty.Value="True"
+							   Source="{Binding LocalFilePath, NotifyOnTargetUpdated=True}"
+							   MaxWidth="600" />
+
+					</Border>
+					
+					<!-- Chat message text bubble-->
+					<Grid Grid.Row="1"
+						  HorizontalAlignment="{Binding SentByMe, Converter={local:SentByMeToAlignmentConverter}}"
+						  Visibility="{Binding HasMessage, Converter={local:BooleanToVisibilityGoneConverter}}">
+
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+
+						<!-- Speech bubble rectangle -->
+						<Border CornerRadius="10"
+								Padding="15"
+								Background="{Binding SentByMe, Converter={local:SentByMeToBackgroundConverter}}">
+
+							<!-- Message text -->
+							<TextBlock VerticalAlignment="Center"
+									   TextWrapping="Wrap"
+									   FontFamily="{StaticResource LatoRegular}"
+									   Foreground="{StaticResource WordDarkBlueBrush}"
+									   Text="{Binding Message}" />
+
+						</Border>
+
+						<!-- Chat bubble anchor -->
+						<Path Grid.Row="1" 
+							  Stroke="Black"
+							  Panel.ZIndex="1"
+							  Margin="15 -1 15 0"
+							  Data="M 0,0 L 10,10 L 20,0 L 0,0" 
+							  StrokeThickness="0"
+							  HorizontalAlignment="{Binding SentByMe, Converter={local:SentByMeToAlignmentConverter}}"
+							  Fill="{Binding SentByMe, Converter={local:SentByMeToBackgroundConverter}}" />
+
+					</Grid>
+
+				</Grid>
 
 				<!-- Time containers -->
 				<StackPanel Name="ExtraDetails" 

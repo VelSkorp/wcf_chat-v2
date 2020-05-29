@@ -126,20 +126,15 @@ namespace ChatClient.Core
 					new ChatMessageListItemViewModel
 					{
 						Message = "A recive message",
+						ImageAttachment=new ChatMessageListItemImageAttachmentViewModel
+						{
+							ThumbnailUrl="http://Velscorp.com"
+						},
 						Initials = Initials,
 						MessageSentTime = DateTime.UtcNow,
 						ProfilePictureRGB = "FF0000",
 						SenderName = "Vlad",
 						SentByMe = false,
-					},
-					new ChatMessageListItemViewModel
-					{
-						Message = Message,
-						Initials = Initials,
-						MessageSentTime = DateTime.UtcNow,
-						ProfilePictureRGB = "FF00FF",
-						SenderName = "Luke",
-						SentByMe = true,
 					},
 				}
 			});
