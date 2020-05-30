@@ -44,8 +44,20 @@
 
 			</Grid.ColumnDefinitions>
 
+			<!-- Examole Marquee Title -->
+			<!--<Border ClipToBounds="True">
+				<Border local:AnimateMarqueeProperty.Value="True">
+					<TextBlock Text="Parnell"
+							   Foreground="{StaticResource ForegroundLightBrush}"
+							   FontSize="{StaticResource FontSizeXLarge}"
+							   FontFamily="{StaticResource LatoRegular}"
+							   HorizontalAlignment="Left"
+							   VerticalAlignment="Center" />
+				</Border>
+			</Border>-->
+
 			<!-- Title text -->
-			<TextBlock Text="Parnell" 
+			<TextBlock Text="{Binding DisplayTitle}" 
 					   Grid.ColumnSpan="2"
 					   Foreground="{StaticResource ForegroundLightBrush}"
 					   FontSize="{StaticResource FontSizeXLarge}"
@@ -56,9 +68,49 @@
 
 			<!-- Main buttons -->
 			<StackPanel Orientation="Horizontal" Grid.Column="1">
-				<Button Style="{StaticResource IconGrowButton}" Content="{StaticResource FontAwesomeSearchIcon}" />
-				<Button Style="{StaticResource IconGrowButton}" Content="{StaticResource FontAwesomeEllipsisVerticalIcon}" />
+				
+				<!-- Seatch Button -->
+				<Button Style="{StaticResource IconGrowButton}" 
+						Content="{StaticResource FontAwesomeSearchIcon}" 
+						Command="{Binding OpenSearchCommand}"/>
+				
+				<!-- -->
+				<Button Style="{StaticResource IconGrowButton}" 
+						Content="{StaticResource FontAwesomeEllipsisVerticalIcon}" />
+				
 			</StackPanel>
+
+			<!-- Serach Overlay -->
+			<Grid Grid.ColumnSpan="2"
+				  local:AnimateSlideInFromRightMarginProperty.Value="{Binding SearchIsOpen}">
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+
+				<!-- Close Search Button-->
+				<Button Style="{StaticResource IconGrowButton}" 
+						Foreground="{StaticResource WordOrangeBrush}"
+						Content="{StaticResource FontAwesomeCloseIcon}"
+						Command="{Binding CloseSearchCommand}"/>
+
+				<!-- Search Box -->
+				<TextBox Grid.Column="1"
+						 Tag="Search text..."
+						 local:FocusProperty.Value="{Binding SearchIsOpen}"
+						 Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+						 Margin="0 5 5 5"
+						 FontSize="{StaticResource FontSizeRegular}">
+					<TextBox.InputBindings>
+						<!-- Clear Text On Esc -->
+						<KeyBinding Command="{Binding ClearSearchCommand}" Key="Esc" />
+						<!-- Search On Enter -->
+						<KeyBinding Command="{Binding SearchCommand}" Key="Return" />
+					</TextBox.InputBindings>
+				</TextBox>
+
+			</Grid>
 
 		</Grid>
 
