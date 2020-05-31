@@ -66,7 +66,7 @@ namespace ChatClient
 		/// <summary>
 		/// How close to the edge the window has to be to be detected as at the edge of the screen
 		/// </summary>
-		private int mEdgeTolerance = 8;
+		private int mEdgeTolerance = 1;
 
 		/// <summary>
 		/// The transform matrix used to convert WPF sizes to screen pixels
@@ -83,6 +83,11 @@ namespace ChatClient
 		/// </summary>
 		private WindowDockPosition mLastDock = WindowDockPosition.Undocked;
 
+		/// <summary>
+		/// A flag indicating if the window is currently being moved/dragged
+		/// </summary>
+		private bool mBeingMoved = false;
+
 		#endregion
 
 		#region DLL Imports
@@ -97,6 +102,9 @@ namespace ChatClient
 		[DllImport("user32.dll", SetLastError = true)]
 		static extern IntPtr MonitorFromPoint(POINT pt, MonitorOptions dwFlags);
 
+		[DllImport("user32.dll")]
+		static extern IntPtr MonitorFromWindow(IntPtr hwnd, MonitorOptions dwFlags);
+
 		#endregion
 
 		#region Public Events
@@ -106,6 +114,16 @@ namespace ChatClient
 		/// </summary>
 		public event Action<WindowDockPosition> WindowDockChanged = (dock) => { };
 
+		/// <summary>
+		/// Called when the window starts being moved/dragged
+		/// </summary>
+		public event Action WindowStartedMove = () => { };
+
+		/// <summary>
+		/// Called when the window has been moved/dragged and then finished
+		/// </summary>
+		public event Action WindowFinishedMove = () => { };
+
 		#endregion
 
 		#region Public Properties
@@ -114,6 +132,12 @@ namespace ChatClient
 		/// The size and position of the current monitor the window is on
 		/// </summary>
 		public Rectangle CurrentMonitorSize { get; set; } = new Rectangle();
+
+		/// <summary>
+		/// The margin around the window for the current window to compensate for any non-usable area
+		/// such as the task bar
+		/// </summary>
+		public Thickness CurrentMonitorMargin { get; private set; } = new Thickness();
 
 		/// <summary>
 		/// The size and position of the current screen in relation to the multi-screen desktop
@@ -187,6 +211,12 @@ namespace ChatClient
 		/// <param name="e"></param>
 		private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
+			// Make sure our monitor info is up-to-date
+			WmGetMinMaxInfo(IntPtr.Zero, IntPtr.Zero);
+
+			// Get the monitor transform for the current position
+			mMonitorDpi = VisualTreeHelper.GetDpi(mWindow);
+
 			// Cannot calculate size until we know monitor scale
 			if (mMonitorDpi == null)
 				return;
@@ -211,19 +241,30 @@ namespace ChatClient
 			var dock = WindowDockPosition.Undocked;
 
 			// Left docking
-			dock = edgedTop && edgedBottom && edgedLeft
-				? WindowDockPosition.Left
-				: edgedTop && edgedBottom && edgedRight
-				? WindowDockPosition.Right
-				: edgedTop && edgedBottom
-				? WindowDockPosition.TopBottom
-				: edgedTop && edgedLeft
-				? WindowDockPosition.TopLeft
-				: edgedTop && edgedRight
-				? WindowDockPosition.TopRight
-				: edgedBottom && edgedLeft
-				? WindowDockPosition.BottomLeft
-				: edgedBottom && edgedRight ? WindowDockPosition.BottomRight : WindowDockPosition.Undocked;
+			if (edgedTop && edgedBottom && edgedLeft)
+				dock = WindowDockPosition.Left;
+			// Right docking
+			else if (edgedTop && edgedBottom && edgedRight)
+				dock = WindowDockPosition.Right;
+			// Top/bottom
+			else if (edgedTop && edgedBottom)
+				dock = WindowDockPosition.TopBottom;
+			// Top-left
+			else if (edgedTop && edgedLeft)
+				dock = WindowDockPosition.TopLeft;
+			// Top-right
+			else if (edgedTop && edgedRight)
+				dock = WindowDockPosition.TopRight;
+			// Bottom-left
+			else if (edgedBottom && edgedLeft)
+				dock = WindowDockPosition.BottomLeft;
+			// Bottom-right
+			else if (edgedBottom && edgedRight)
+				dock = WindowDockPosition.BottomRight;
+
+			// None
+			else
+				dock = WindowDockPosition.Undocked;
 
 			// If dock has changed
 			if (dock != mLastDock)
@@ -252,9 +293,21 @@ namespace ChatClient
 			switch (msg)
 			{
 				// Handle the GetMinMaxInfo of the Window
-				case 0x0024:/* WM_GETMINMAXINFO */
+				case 0x0024: // WM_GETMINMAXINFO
 					WmGetMinMaxInfo(hwnd, lParam);
 					handled = true;
+					break;
+
+				// Once the window starts being moved
+				case 0x0231: // WM_ENTERSIZEMOVE
+					mBeingMoved = true;
+					WindowStartedMove();
+					break;
+
+				// Once the window has finished being moved
+				case 0x0232: // WM_EXITSIZEMOVE
+					mBeingMoved = false;
+					WindowFinishedMove();
 					break;
 			}
 
@@ -265,7 +318,7 @@ namespace ChatClient
 
 		/// <summary>
 		/// Get the min/max window size for this window
-		/// Correctly accounting for the taskbar size and position
+		/// Correctly accounting for the task bar size and position
 		/// </summary>
 		/// <param name="hwnd"></param>
 		/// <param name="lParam"></param>
@@ -275,7 +328,13 @@ namespace ChatClient
 			GetCursorPos(out POINT lMousePosition);
 
 			// Now get the current screen
-			var lCurrentScreen = MonitorFromPoint(lMousePosition, MonitorOptions.MONITOR_DEFAULTTONEAREST);
+			var lCurrentScreen = mBeingMoved ?
+				// If being dragged get it from the mouse position
+				MonitorFromPoint(lMousePosition, MonitorOptions.MONITOR_DEFAULTTONEAREST) :
+				// Otherwise get it from the window position (for example being moved via Win + Arrow)
+				// in case the mouse is on another monitor
+				MonitorFromWindow(hwnd, MonitorOptions.MONITOR_DEFAULTTONEAREST);
+
 			var lPrimaryScreen = MonitorFromPoint(new POINT(0, 0), MonitorOptions.MONITOR_DEFAULTTOPRIMARY);
 
 			// Try and get the current screen information
@@ -288,9 +347,10 @@ namespace ChatClient
 			if (GetMonitorInfo(lPrimaryScreen, lPrimaryScreenInfo) == false)
 				return;
 
+			// NOTE: Always update it
 			// If this has changed from the last one, update the transform
-			if (lCurrentScreen != mLastScreen || mMonitorDpi == null)
-				mMonitorDpi = VisualTreeHelper.GetDpi(mWindow);
+			//if (lCurrentScreen != mLastScreen || mMonitorDpi == null)
+			mMonitorDpi = VisualTreeHelper.GetDpi(mWindow);
 
 			// Store last know screen
 			mLastScreen = lCurrentScreen;
@@ -308,51 +368,68 @@ namespace ChatClient
 			var primaryHeight = (lPrimaryScreenInfo.RCWork.Bottom - lPrimaryScreenInfo.RCWork.Top);
 			var primaryRatio = (float)primaryWidth / (float)primaryHeight;
 
-			// Get min/max structure to fill with information
-			var lMmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
+			if (lParam != IntPtr.Zero)
+			{
+				// Get min/max structure to fill with information
+				var lMmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
 
-			// NOTE: rcMonitor is the monitor size
-			//       rcWork is the available screen size (so the area inside the taskbar start menu for example)
+				//
+				//   NOTE: The below setting of max sizes we no longer do
+				//         as through observations, it appears Windows works
+				//         correctly only when the max window size is set to
+				//         EXACTLY the size of the primary window
+				// 
+				//         Anything else and the behavior is wrong and the max
+				//         window width on a secondary monitor if larger than the
+				//         primary then goes too large
+				//
+				//         Instead we now just add a margin to the window itself
+				//         to compensate when maximized
+				// 
+				//
+				// NOTE: rcMonitor is the monitor size
+				//       rcWork is the available screen size (so the area inside the task bar start menu for example)
 
-			// Size size limits (used by Windows when maximized)
-			// relative to 0,0 being the current screens top-left corner
-			//
-			//  - Position
-			lMmi.PointMaxPosition.X = currentX;
-			lMmi.PointMaxPosition.Y = currentY;
-			//
-			// - Size
-			lMmi.PointMaxSize.X = currentWidth;
-			lMmi.PointMaxSize.Y = currentHeight;
+				// Size size limits (used by Windows when maximized)
+				// relative to 0,0 being the current screens top-left corner
+				//
+				//  - Position
+				//lMmi.PointMaxPosition.X = currentX;
+				//lMmi.PointMaxPosition.Y = currentY;
 
-			//
-			// BUG: 
-			// NOTE: I've noticed a bug which I think is Windows itself
-			//       If your non-primary monitor has a greater width than your primary
-			//       (or possibly due to the screen ratio's being different)
-			//       then setting the max X on the monitor to the correct value causes
-			//       it to scale wrong. 
-			//
-			//       The fix seems to be to set the max width only (height is fine)
-			//       to that of the primary monitor, not the current monitor
-			//        
-			//       However, 1 pixel different and the size goes totally wrong again
-			//       so the fix doesn't work when the taskbar is on the left or right
-			//
+				//
+				// - Size
+				//lMmi.PointMaxSize.X = currentWidth;
+				//lMmi.PointMaxSize.Y = currentHeight;
+
+				// Set to primary monitor size
+				lMmi.PointMaxPosition.X = lPrimaryScreenInfo.RCMonitor.Left;
+				lMmi.PointMaxPosition.Y = lPrimaryScreenInfo.RCMonitor.Top;
+				lMmi.PointMaxSize.X = lPrimaryScreenInfo.RCMonitor.Right;
+				lMmi.PointMaxSize.Y = lPrimaryScreenInfo.RCMonitor.Bottom;
+
+				// Set min size
+				var minSize = new Point(mWindow.MinWidth * mMonitorDpi.Value.DpiScaleX, mWindow.MinHeight * mMonitorDpi.Value.DpiScaleX);
+				lMmi.PointMinTrackSize.X = (int)minSize.X;
+				lMmi.PointMinTrackSize.Y = (int)minSize.Y;
+
+				// Now we have the max size, allow the host to tweak as needed
+				Marshal.StructureToPtr(lMmi, lParam, true);
+			}
 
 			// Set monitor size
-			CurrentMonitorSize = new Rectangle(lMmi.PointMaxPosition.X, lMmi.PointMaxPosition.Y, lMmi.PointMaxSize.X + lMmi.PointMaxPosition.X, lMmi.PointMaxSize.Y + lMmi.PointMaxPosition.Y);
+			CurrentMonitorSize = new Rectangle(currentX, currentY, currentWidth + currentX, currentHeight + currentY);
 
-			// Set min size
-			var minSize = new Point(mWindow.MinWidth * mMonitorDpi.Value.DpiScaleX, mWindow.MinHeight * mMonitorDpi.Value.DpiScaleX);
-			lMmi.PointMinTrackSize.X = (int)minSize.X;
-			lMmi.PointMinTrackSize.Y = (int)minSize.Y;
+			// Get margin around window
+			CurrentMonitorMargin = new Thickness(
+				(lCurrentScreenInfo.RCMonitor.Left - lCurrentScreenInfo.RCWork.Left) / mMonitorDpi.Value.DpiScaleX,
+				(lCurrentScreenInfo.RCMonitor.Top - lCurrentScreenInfo.RCWork.Top) / mMonitorDpi.Value.DpiScaleY,
+				(lCurrentScreenInfo.RCMonitor.Right - lCurrentScreenInfo.RCWork.Right) / mMonitorDpi.Value.DpiScaleX,
+				(lCurrentScreenInfo.RCMonitor.Bottom - lCurrentScreenInfo.RCWork.Bottom) / mMonitorDpi.Value.DpiScaleY
+				);
 
 			// Store new size
-			mScreenSize = new Rect(lCurrentScreenInfo.RCWork.Left, lCurrentScreenInfo.RCWork.Top, lMmi.PointMaxSize.X, lMmi.PointMaxSize.Y);
-
-			// Now we have the max size, allow the host to tweak as needed
-			Marshal.StructureToPtr(lMmi, lParam, true);
+			mScreenSize = new Rect(lCurrentScreenInfo.RCWork.Left, lCurrentScreenInfo.RCWork.Top, currentWidth, currentHeight);
 		}
 
 		/// <summary>
@@ -443,6 +520,11 @@ namespace ChatClient
 		{
 			X = x;
 			Y = y;
+		}
+
+		public override string ToString()
+		{
+			return $"{X} {Y}";
 		}
 	}
 

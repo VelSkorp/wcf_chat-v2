@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatHostWPF", "ChatHostWPF\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatClient", "ChatClient\ChatClient.csproj", "{E69312C9-96E1-44CB-8CAA-237E09DFE433}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatClient.Core", "ChatClient.Core\ChatClient.Core.csproj", "{CAC0A047-D879-4A29-8136-BE1E33F5F35C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatClient.Core", "ChatClient.Core\ChatClient.Core.csproj", "{CAC0A047-D879-4A29-8136-BE1E33F5F35C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

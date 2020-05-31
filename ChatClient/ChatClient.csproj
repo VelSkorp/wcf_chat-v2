@@ -155,6 +155,7 @@
     <Compile Include="ValueConverters\TimeToDisplayTimeConverter.cs" />
     <Compile Include="ValueConverters\HorizontalAlignmentConverter.cs" />
     <Compile Include="ValueConverters\TimeToReadTimeConverter.cs" />
+    <Compile Include="ValueConverters\BooleanToBorderThicknessConverter.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\DialogWindowViewModel.cs" />
     <Compile Include="ViewModels\WindowViewModel.cs" />
