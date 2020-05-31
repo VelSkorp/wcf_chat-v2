@@ -265,7 +265,7 @@ namespace ChatClient.Core
 			if (string.IsNullOrEmpty(SearchText) || Items == null || Items.Count <= 0)
 			{
 				// Make filtered list the same
-				FilteredItems = new ObservableCollection<ChatMessageListItemViewModel>(Items);
+				FilteredItems = new ObservableCollection<ChatMessageListItemViewModel>(Items ?? Enumerable.Empty<ChatMessageListItemViewModel>());
 
 				// Set last search text
 				mLastSearchText = SearchText;
