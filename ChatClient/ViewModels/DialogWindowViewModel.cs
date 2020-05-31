@@ -1,7 +1,5 @@
-﻿using ChatClient.Core;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace ChatClient
 {

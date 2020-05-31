@@ -1,5 +1,4 @@
-﻿using System.Data.Odbc;
-using System.Security;
+﻿using System.Security;
 using System.Windows.Input;
 
 namespace ChatClient.Core

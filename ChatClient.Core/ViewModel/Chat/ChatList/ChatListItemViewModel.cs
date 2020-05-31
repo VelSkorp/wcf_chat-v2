@@ -1,6 +1,6 @@
-﻿using System.Windows.Input;
+﻿using System;
 using System.Collections.ObjectModel;
-using System;
+using System.Windows.Input;
 
 namespace ChatClient.Core
 {

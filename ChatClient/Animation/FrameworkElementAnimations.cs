@@ -5,10 +5,10 @@ using System.Windows.Media.Animation;
 
 namespace ChatClient
 {
-    /// <summary>
-    /// Helpers to animate framework elements in specific ways
-    /// </summary>
-    public static class FrameworkElementAnimations
+	/// <summary>
+	/// Helpers to animate framework elements in specific ways
+	/// </summary>
+	public static class FrameworkElementAnimations
     {
         #region Slide In / Out
 

@@ -1,5 +1,4 @@
 ﻿using ChatClient.Core;
-using System;
 using System.Windows;
 
 namespace ChatClient
@@ -21,6 +20,9 @@ namespace ChatClient
 			// Setup the main application
 			ApplicationSetup();
 
+			//Log it
+			IoC.Logger.Log("Application starting up...",LogLevel.Debug);
+
 			// Show the main window
 			Current.MainWindow = new MainWindow();
 			Current.MainWindow.Show();
@@ -36,6 +38,9 @@ namespace ChatClient
 
 			// Bind a UI Manager
 			IoC.Kernel.Bind<IUIManager>().ToConstant(new UIManager());
+
+			// Bind a logger
+			IoC.Kernel.Bind<ILogFactory>().ToConstant(new BaseLogFactory());
 		}
 	}
 }

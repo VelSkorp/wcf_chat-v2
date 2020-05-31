@@ -1,6 +1,6 @@
-﻿using System;
+﻿using ChatClient.Core;
+using System;
 using System.Globalization;
-using ChatClient.Core;
 
 namespace ChatClient
 {
