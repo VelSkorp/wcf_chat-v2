@@ -105,8 +105,7 @@ namespace ChatClient.Core
 		/// <param name="origin">The method/function this message was logged in</param>
 		/// <param name="filePath">The code file name that this message was logged from</param>
 		/// <param name="lineNumber">The line of code in the filename this message was logged from</param>
-		public void Log(
-			string message,
+		public void Log(string message,
 			LogLevel level = LogLevel.Informative, 
 			[CallerMemberName] string origin = "", 
 			[CallerFilePath] string filePath = "", 
@@ -120,8 +119,12 @@ namespace ChatClient.Core
 			if (IncludeLogOriginDetails)
 				message = $"{message} [{Path.GetFileName(filePath)} > {origin}() > Line {lineNumber}]";
 
-			// Log to all loggers
-			mLoggers.ForEach(logger => logger.Log(message, level));
+			// Log the list so it is thread-safe
+			lock (mLoggersLock)
+			{
+				// Log to all loggers
+				mLoggers.ForEach(logger => logger.Log(message, level));
+			}
 
 			// Inform listeners
 			NewLog.Invoke((message, level));
