@@ -45,7 +45,7 @@ namespace ChatClient
 
 			// Fade in chat message list
 			var storyboard = new Storyboard();
-			storyboard.AddFadeIn(1);
+			storyboard.AddFadeIn(1, from: true);
 			storyboard.Begin(ChatMessageList);
 
 			// Make the message box focused
