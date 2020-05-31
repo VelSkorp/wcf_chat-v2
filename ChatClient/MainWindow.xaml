@@ -122,8 +122,7 @@
 			ResizeBorderThickness="{Binding ResizeBorderThickness}"
 			CaptionHeight="{Binding TitleHeight}"
 			CornerRadius="0"
-			GlassFrameThickness="0"
-			/>
+			GlassFrameThickness="0" />
 	</WindowChrome.WindowChrome>
 
 	<Border Background="{StaticResource WordBlueBrush}">
@@ -149,8 +148,7 @@
 					Panel.ZIndex="10"
 					Opacity="0.3">
 				<Border Background="{StaticResource ForegroundVeryDarkBrush}"
-						local:AnimateFadeInProperty.Value="{Binding DimmableOverlayVisible}"
-						/>
+						local:AnimateFadeInProperty.Value="{Binding DimmableOverlayVisible}" />
 			</Border>
 			
 			<local:PageHost Grid.Column="1" 
