@@ -7,7 +7,7 @@
 			 xmlns:core="clr-namespace:ChatClient.Core;assembly=ChatClient.Core"
 			 mc:Ignorable="d" 
 			 d:DataContext="{x:Static core:ChatAttachmentPopupMenuDesignModel.Instance}">
-	
+
 	<!-- Chat message container -->
 	<Grid>
 
@@ -25,7 +25,7 @@
 			<Border.Effect>
 				<DropShadowEffect BlurRadius="4" ShadowDepth="2" Color="{StaticResource WordLightBlue}" />
 			</Border.Effect>
-			
+
 			<!-- Message text -->
 			<ContentControl Content="{Binding Converter={local:PopupContentConverter}}" />
 
@@ -47,5 +47,5 @@
 		</Path>
 
 	</Grid>
-	
+
 </UserControl>

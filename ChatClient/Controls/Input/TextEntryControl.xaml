@@ -18,7 +18,7 @@
 			<Grid.InputBindings>
 				<MouseBinding MouseAction="LeftDoubleClick" Command="{Binding EditCommnad}" />
 			</Grid.InputBindings>
-			
+
 			<!-- Hover over to show edit button -->
 			<Grid.Triggers>
 				<EventTrigger RoutedEvent="MouseEnter">
@@ -42,7 +42,7 @@
 					</BeginStoryboard>
 				</EventTrigger>
 			</Grid.Triggers>
-			
+
 			<!-- Label -> Name* -> Buttons -->
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Name="LabelColumnDefinition" Width="Auto" />
@@ -75,11 +75,11 @@
 					   VerticalAlignment="Center"
 					   ToolTip="{Binding OriginalText}"
 					   local:AnimateFadeInProperty.Value="{Binding Editing,Converter={local:BooleanInvertConverter}}" />
-			
+
 			<!-- Edit Button container -->
 			<Grid Grid.Column="2"
 				  local:AnimateFadeInProperty.Value="{Binding Editing,Converter={local:BooleanInvertConverter}}">
-				
+
 				<!-- Edit button -->
 				<Button Content="{StaticResource FontAwesomeEllipsisHorizontalIcon}"
 						FontFamily="{StaticResource FontAwesome}"
@@ -96,7 +96,7 @@
 
 			<StackPanel Grid.Column="2"
 						Orientation="Horizontal">
-				
+
 				<!-- Save Button -->
 				<Button Content="{StaticResource FontAwesomeTickIcon}"
 						FontFamily="{StaticResource FontAwesome}"
@@ -109,7 +109,7 @@
 						Margin="0 0 5 0"
 						VerticalAlignment="Center"
 						FontSize="{StaticResource FontSizeSmall}" />
-				
+
 				<!-- Cancel Button -->
 				<Button Content="{StaticResource FontAwesomeCloseIcon}"
 						FontFamily="{StaticResource FontAwesome}"
@@ -125,11 +125,11 @@
 
 
 			</StackPanel>
-			
-			
+
+
 
 
 		</Grid>
-		
+
 	</Border>
 </UserControl>
