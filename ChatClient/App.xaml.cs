@@ -1,4 +1,5 @@
 ﻿using ChatClient.Core;
+using Dna;
 using System.Windows;
 
 namespace ChatClient
@@ -33,6 +34,11 @@ namespace ChatClient
 		/// </summary>
 		private void ApplicationSetup()
 		{
+			// Setup the Dna Fraimwork
+			new DefaultFrameworkConstruction()
+				.AddFileLogger()
+				.Build();
+
 			// Setup IoC
 			IoC.Setup();
 
@@ -41,11 +47,11 @@ namespace ChatClient
 			{
 				// TODO: Add ApplicationSettings so we can set/edit a location
 				//       For now just log to the path where this application is running
-				new FileLogger("log.txt"),
+				new Core.FileLogger("OldLog.txt"),
 			}));
 
-            // Add our task manager
-            IoC.Kernel.Bind<ITaskManager>().ToConstant(new TaskManager());
+			// Add our task manager
+			IoC.Kernel.Bind<ITaskManager>().ToConstant(new TaskManager());
 
 			// Bind a file manager
 			IoC.Kernel.Bind<IFileManager>().ToConstant(new FileManager());
