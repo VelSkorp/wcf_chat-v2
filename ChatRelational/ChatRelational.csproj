@@ -9,4 +9,8 @@
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ChatHost.Core\ChatHost.Core.csproj" />
+  </ItemGroup>
+
 </Project>
