@@ -1,4 +1,4 @@
-﻿using ChatHost.Core;
+﻿using ChatHostWPF;
 using System.Threading.Tasks;
 
 namespace ChatHostWPF

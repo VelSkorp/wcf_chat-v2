@@ -1,4 +1,4 @@
-﻿using ChatHost.Core;
+﻿using ChatHostWPF;
 using Dna;
 using System.Windows;
 
@@ -43,7 +43,7 @@ namespace ChatHostWPF
 			{
 				// TODO: Add ApplicationSettings so we can set/edit a location
 				//       For now just log to the path where this application is running
-				new ChatHost.Core.FileLogger("OldLog.txt"),
+				new ChatHostWPF.FileLogger("OldLog.txt"),
 			}));
 
 			// Add our task manager

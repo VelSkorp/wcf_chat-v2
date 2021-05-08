@@ -4,7 +4,7 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:ChatHostWPF"
-		xmlns:core="clr-namespace:ChatHost.Core;assembly=ChatHost.Core"
+		xmlns:core="clr-namespace:ChatHostWPF;assembly=ChatHostWPF"
 		mc:Ignorable="d"
 		WindowStyle="None"
 		AllowsTransparency="True"
