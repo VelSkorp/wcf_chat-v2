@@ -1,4 +1,4 @@
-﻿using ChatClient.Core;
+﻿using ChatClient;
 using System;
 using System.Windows.Controls;
 using System.Windows.Input;

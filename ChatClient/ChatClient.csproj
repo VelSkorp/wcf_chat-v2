@@ -222,7 +222,10 @@
     <Compile Include="Dialogs\DialogMessageBox.xaml.cs">
       <DependentUpon>DialogMessageBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IoC\UIManager.cs" />
+    <Compile Include="DI\DI.cs" />
+    <Compile Include="DI\FrameworkConstructionExtensions.cs" />
+    <Compile Include="DI\UI\IUIManager.cs" />
+    <Compile Include="DI\UI\UIManager.cs" />
     <Compile Include="DialogWindow.xaml.cs">
       <DependentUpon>DialogWindow.xaml</DependentUpon>
     </Compile>
@@ -251,10 +254,42 @@
     <Compile Include="ValueConverters\HorizontalAlignmentConverter.cs" />
     <Compile Include="ValueConverters\TimeToReadTimeConverter.cs" />
     <Compile Include="ValueConverters\BooleanToBorderThicknessConverter.cs" />
-    <Compile Include="ViewModels\ViewModelLocator.cs" />
-    <Compile Include="ViewModels\DialogWindowViewModel.cs" />
-    <Compile Include="ViewModels\WindowViewModel.cs" />
+    <Compile Include="ViewModel\Application\ApplicationViewModel.cs" />
+    <Compile Include="ViewModel\Application\Design\SettingsDesignModel.cs" />
+    <Compile Include="ViewModel\Application\LoginViewModel.cs" />
+    <Compile Include="ViewModel\Application\RegisterViewModel.cs" />
+    <Compile Include="ViewModel\Application\SettingsViewModel.cs" />
+    <Compile Include="ViewModel\Base\BaseViewModel.cs" />
+    <Compile Include="ViewModel\Base\IHavePassword.cs" />
+    <Compile Include="ViewModel\Base\RelayCommand.cs" />
+    <Compile Include="ViewModel\Base\RelayParameterizedCommand.cs" />
+    <Compile Include="ViewModel\Chat\ChatList\ChatListItemViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatList\ChatListViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatList\Design\ChatListDesignModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatList\Design\ChatListItemDesignModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatMessage\ChatMessageListItemImageAttachmentViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatMessage\ChatMessageListItemViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatMessage\ChatMessageListViewModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatMessage\Design\ChatMessageListDesignModel.cs" />
+    <Compile Include="ViewModel\Chat\ChatMessage\Design\ChatMessageListItemDesignModel.cs" />
+    <Compile Include="ViewModel\Dialogs\BaseDialogViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\Desing\MessageBoxDialogDesignModel.cs" />
+    <Compile Include="ViewModel\Dialogs\MessageBoxDialogViewModel.cs" />
+    <Compile Include="ViewModel\Input\Design\PasswordEntryDesignModel.cs" />
+    <Compile Include="ViewModel\Input\Design\TextEntryDesignModel.cs" />
+    <Compile Include="ViewModel\Input\PasswordEntryViewModel.cs" />
+    <Compile Include="ViewModel\Input\TextEntryViewModel.cs" />
+    <Compile Include="ViewModel\Menu\Design\MenuDesignModel.cs" />
+    <Compile Include="ViewModel\Menu\Design\MenuItemDesignModel.cs" />
+    <Compile Include="ViewModel\Menu\MenuItemViewModel.cs" />
+    <Compile Include="ViewModel\Menu\MenuViewModel.cs" />
+    <Compile Include="ViewModel\Popup Menu\BasePopupViewModel.cs" />
+    <Compile Include="ViewModel\Popup Menu\ChatAttachmentPopupMenuViewModel.cs" />
+    <Compile Include="ViewModel\Popup Menu\Design\ChatAttachmentPopupMenuDesignModel.cs" />
     <Compile Include="Window\WindowResizer.cs" />
+    <Compile Include="WPFViewModels\DialogWindowViewModel.cs" />
+    <Compile Include="WPFViewModels\ViewModelLocator.cs" />
+    <Compile Include="WPFViewModels\WindowViewModel.cs" />
     <Page Include="Controls\BubbleContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -411,9 +446,9 @@
     <Resource Include="Images\Samples\rusty.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChatClient.Core\ChatClient.Core.csproj">
-      <Project>{cac0a047-d879-4a29-8136-be1e33f5f35c}</Project>
-      <Name>ChatClient.Core</Name>
+    <ProjectReference Include="..\Chat.Core\Chat.Core.csproj">
+      <Project>{72e64998-0fec-4572-935f-2c614a90638d}</Project>
+      <Name>Chat.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

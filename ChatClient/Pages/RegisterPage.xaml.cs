@@ -1,4 +1,4 @@
-﻿using ChatClient.Core;
+﻿using ChatClient;
 using System.Security;
 
 namespace ChatClient

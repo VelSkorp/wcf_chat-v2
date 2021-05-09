@@ -1,4 +1,4 @@
-﻿using ChatClient.Core;
+﻿using ChatClient;
 using System.Windows.Controls;
 
 namespace ChatClient
@@ -13,7 +13,7 @@ namespace ChatClient
 			InitializeComponent();
 
 			// Set data	context to settings view model
-			DataContext = IoC.Settings;
+			DataContext = DI.ViewModelSettings;
 		}
 	}
 }

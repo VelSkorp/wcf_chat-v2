@@ -1,4 +1,4 @@
-﻿using ChatHost.Core;
+﻿using Chat.Core;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -57,7 +57,7 @@ namespace ChatHostWPF
 			// If we are in DesignMode, show the current page
 			// as the dependency property does not fire
 			if (DesignerProperties.GetIsInDesignMode(this))
-				NewPage.Content = IoC.Application.CurrentPage.ToBasePage();
+				NewPage.Content = DI.ViewModelApplication.CurrentPage.ToBasePage();
 		}
 
 		#endregion
