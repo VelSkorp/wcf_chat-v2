@@ -1,4 +1,6 @@
-﻿namespace ChatClient
+﻿using ChatClient.Core;
+
+namespace ChatClient
 {
 	/// <summary>
 	/// The design-time data for a <see cref="MenuItemViewModel"/>

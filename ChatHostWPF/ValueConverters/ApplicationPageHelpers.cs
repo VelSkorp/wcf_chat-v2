@@ -1,4 +1,4 @@
-﻿using ChatHostWPF;
+﻿using ChatHost.Core;
 using System.Diagnostics;
 
 namespace ChatHostWPF

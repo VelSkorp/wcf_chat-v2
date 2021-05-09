@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ChatClient.Core;
+using System.Collections.Generic;
 
 namespace ChatClient
 {

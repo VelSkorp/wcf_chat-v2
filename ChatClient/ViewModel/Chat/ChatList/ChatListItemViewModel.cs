@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatClient.Core;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -75,7 +76,7 @@ namespace ChatClient
 		{
 			if (Name == "Jesse")
 			{
-				IoC.Application.GoToPage(ApplicationPage.Login, new LoginViewModel
+				DI.ViewModelApplication.GoToPage(ApplicationPage.Login, new LoginViewModel
 				{
 					Email = "Jesse@mail.ru"
 				});
@@ -83,7 +84,7 @@ namespace ChatClient
 				return;
 			}
 
-			IoC.Application.GoToPage(ApplicationPage.Chat, new ChatMessageListViewModel
+			DI.ViewModelApplication.GoToPage(ApplicationPage.Chat, new ChatMessageListViewModel
 			{
 				DisplayTitle = "Parnell, Me",
 

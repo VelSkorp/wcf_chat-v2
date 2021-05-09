@@ -1,6 +1,8 @@
-﻿using ChatHostWPF;
-using Dna;
+﻿using Dna;
 using System.Windows;
+using ChatHost.Core;
+using static Dna.FrameworkDI;
+using static ChatHostWPF.DI;
 
 namespace ChatHostWPF
 {
@@ -18,42 +20,21 @@ namespace ChatHostWPF
 			// Let the base application do what it needs
 			base.OnStartup(e);
 
-			// Setup the main application
-			ApplicationSetup();
-
-			//Log it
-			IoC.Logger.Log("Application starting up...", LogLevel.Debug);
-		}
-
-		/// <summary>
-		/// Configures our application ready for use
-		/// </summary>
-		private void ApplicationSetup()
-		{
 			// Setup the Dna Fraimwork
-			new DefaultFrameworkConstruction()
+			Framework.Construct<DefaultFrameworkConstruction>()
 				.AddFileLogger()
+				.AddChatHostViewModels()
+				.AddChatClientHostServices()
 				.Build();
 
-			// Setup IoC
-			IoC.Setup();
+			// Log it
+			Logger.LogDebugSource("Application starting...");
 
-			// Bind a logger
-			IoC.Kernel.Bind<ILogFactory>().ToConstant(new BaseLogFactory(new[]
-			{
-				// TODO: Add ApplicationSettings so we can set/edit a location
-				//       For now just log to the path where this application is running
-				new ChatHostWPF.FileLogger("OldLog.txt"),
-			}));
+			ViewModelApplication.GoToPage(ApplicationPage.Login);
 
-			// Add our task manager
-			IoC.Kernel.Bind<ITaskManager>().ToConstant(new TaskManager());
-
-			// Bind a file manager
-			IoC.Kernel.Bind<IFileManager>().ToConstant(new FileManager());
-
-			// Bind a UI Manager
-			IoC.Kernel.Bind<IUIManager>().ToConstant(new UIManager());
+			// Show the main window
+			Current.MainWindow = new MainWindow();
+			Current.MainWindow.Show();
 		}
 	}
 }

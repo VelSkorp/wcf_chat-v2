@@ -1,186 +1,168 @@
-﻿using System.Security;
+﻿using System;
+using System.Security;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ChatClient
 {
-	/// <summary>
-	/// The view model for a password entry to edit a password
-	/// </summary>
-	public class PasswordEntryViewModel : BaseViewModel
-	{
-		#region Public Properties
+    /// <summary>
+    /// The view model for a password entry to edit a password 
+    /// <summary>
+    public class PasswordEntryViewModel : BaseViewModel
+    {
+        #region Public Properties
 
-		/// <summary>
-		/// The label to identify what this value is for
-		/// </summary>
-		public string Label { get; set; }
+        /// <summary>
+        /// The label to identify what this value is for
+        /// </summary>
+        public string Label { get; set; }
 
-		/// <summary>
-		/// The fake password display string
-		/// </summary>
-		public string FakePassword { get; set; }
+        /// <summary>
+        /// The fake password display string
+        /// </summary>
+        public string FakePassword { get; set; }
 
-		/// <summary>
-		/// The current password hint text
-		/// </summary>
-		public string CurrentPasswordHintText { get; set; }
+        /// <summary>
+        /// The current password hint text
+        /// </summary>
+        public string CurrentPasswordHintText { get; set; }
 
-		/// <summary>
-		/// The new password hint text
-		/// </summary>
-		public string NewPasswordHintText { get; set; }
+        /// <summary>
+        /// The new password hint text
+        /// </summary>
+        public string NewPasswordHintText { get; set; }
 
-		/// <summary>
-		/// The confitm password hint text
-		/// </summary>
-		public string ConfirmPasswordHintText { get; set; }
+        /// <summary>
+        /// The confirm password hint text
+        /// </summary>
+        public string ConfirmPasswordHintText { get; set; }
 
-		/// <summary>
-		/// The current saved passwird
-		/// </summary>
-		public SecureString CurrentPassword { get; set; }
+        /// <summary>
+        /// The current saved password
+        /// </summary>
+        public SecureString CurrentPassword { get; set; }
 
-		/// <summary>
-		/// The current non-commit edited password
-		/// </summary>
-		public SecureString NewPassword { get; set; }
+        /// <summary>
+        /// The current non-commit edited password
+        /// </summary>
+        public SecureString NewPassword { get; set; }
 
-		/// <summary>
-		/// The current non-commit edited confirmed password
-		/// </summary>
-		public SecureString ConfirmPassword { get; set; }
+        /// <summary>
+        /// The current non-commit edited confirmed password
+        /// </summary>
+        public SecureString ConfirmPassword { get; set; }
 
-		/// <summary>
-		/// Indicates if the current text is in edit mode
-		/// </summary>
-		public bool Editing { get; set; }
+        /// <summary>
+        /// Indicates if the current text is in edit mode
+        /// </summary>
+        public bool Editing { get; set; }
 
-		#endregion
+        /// <summary>
+        /// Indicates if the current control is pending an update (in progress)
+        /// </summary>
+        public bool Working { get; set; }
 
-		#region Public Commands
+        /// <summary>
+        /// The action to run when saving the text.
+        /// Returns true if the commit was successful, or false otherwise.
+        /// </summary>
+        public Func<Task<bool>> CommitAction { get; set; }
 
-		/// <summary>
-		/// Puts the control into edit mode
-		/// </summary>
-		public ICommand EditCommnad { get; set; }
+        #endregion
 
-		/// <summary>
-		/// Cancels out of edit mode
-		/// </summary>
-		public ICommand CancelCommnad { get; set; }
+        #region Public Commands
 
-		/// <summary>
-		/// Commits the edits and saves the value
-		/// as well as goes back to non-edit mode
-		/// </summary>
-		public ICommand SaveCommnad { get; set; }
+        /// <summary>
+        /// Puts the control into edit mode
+        /// </summary>
+        public ICommand EditCommand { get; set; }
 
-		#endregion
+        /// <summary>
+        /// Cancels out of edit mode
+        /// </summary>
+        public ICommand CancelCommand { get; set; }
 
-		#region Constructor
+        /// <summary>
+        /// Commits the edits and saves the value
+        /// as well as goes back to non-edit mode
+        /// </summary>
+        public ICommand SaveCommand { get; set; }
 
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public PasswordEntryViewModel()
-		{
-			// Create commands
-			EditCommnad = new RelayCommand(Edit);
-			CancelCommnad = new RelayCommand(Cancel);
-			SaveCommnad = new RelayCommand(Save);
+        #endregion
 
-			// Set default hints
-			// TODO: Replace with localozation text
-			CurrentPasswordHintText = "Current Password";
-			NewPasswordHintText = "New Password";
-			ConfirmPasswordHintText = "Confirm Password";
+        #region Constructor 
 
-		}
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public PasswordEntryViewModel()
+        {
+            // Create commands
+            EditCommand = new RelayCommand(Edit);
+            CancelCommand = new RelayCommand(Cancel);
+            SaveCommand = new RelayCommand(Save);
 
-		#endregion
+            // Set default hints
+            // TODO: Replace with localization text
+            CurrentPasswordHintText = "Current Password";
+            NewPasswordHintText = "New Password";
+            ConfirmPasswordHintText = "Confirm Password";
+        }
 
-		#region Commands Methods
+        #endregion
 
-		/// <summary>
-		/// Puts the control into edit mode
-		/// </summary>
-		public void Edit()
-		{
-			// Clear all password
-			NewPassword = new SecureString();
-			ConfirmPassword = new SecureString();
+        #region Command Methods
 
+        /// <summary>
+        /// Puts the control into edit mode
+        /// </summary>
+        public void Edit()
+        {
+            // Clear all password
+            NewPassword = new SecureString();
+            ConfirmPassword = new SecureString();
 
-			// Go into edit mode
-			Editing = true;
-		}
+            // Go into edit mode
+            Editing = true;
+        }
 
-		/// <summary>
-		/// Cancels out of edit mode
-		/// </summary>
-		public void Cancel()
-		{
-			Editing = false;
-		}
+        /// <summary>
+        /// Cancels out of edit mode
+        /// </summary>
+        public void Cancel()
+        {
+            Editing = false;
+        }
 
-		/// <summary>
-		/// Commits the content and exits out of edit mode
-		/// </summary>
-		public void Save()
-		{
-			// Make sure current password is correct
-			// TODO: This will come from the real back-end store of this users password
-			//		 or via	asking the server to confirm it
-			var storedPassword = "Testing";
+        /// <summary>
+        /// Commits the content and exits out of edit mode
+        /// </summary>
+        public void Save()
+        {
+            // Store the result of a commit call
+            var result = default(bool);
 
-			// Confirm current password is a match
-			// Note: Typically this isn't done here, it's done on server
-			if (storedPassword != CurrentPassword.Unsecure())
-			{
-				// Let user know
-				IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-				{
-					Title = "Wrond password",
-					Message = "The current password is invalid"
-				});
+            RunCommandAsync(() => Working, async () =>
+            {
+                // While working, come out of edit mode
+                Editing = false;
 
-				return;
-			}
+                // Try and do the work
+                result = CommitAction == null ? true : await CommitAction();
 
-			// Now check that the new and confirm password match
-			if (NewPassword.Unsecure() != ConfirmPassword.Unsecure())
-			{
-				// Let user know
-				IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-				{
-					Title = "Password mismatch",
-					Message = "The new and confirm password do not match"
-				});
+            }).ContinueWith(t =>
+            {
+                // If we succeeded...
+                // Nothing to do
+                // If we fail...
+                if (!result)
+                {
+                    // Go back into edit mode
+                    Editing = true;
+                }
+            });
+        }
 
-				return;
-			}
-
-			// Check we actualy have a password
-			if (NewPassword.Unsecure().Length==0)
-			{
-				// Let user know
-				IoC.UI.ShowMessage(new MessageBoxDialogViewModel
-				{
-					Title = "Password too short",
-					Message = "You must enter a password!"
-				});
-
-				return;
-			}
-
-			// Set the edited password to the current value
-			CurrentPassword = new SecureString();
-			foreach (var c in NewPassword.Unsecure().ToCharArray())
-				CurrentPassword.AppendChar(c);
-
-			Editing = false;
-		}
-
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatHost.Core;
+using System;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -68,7 +69,7 @@ namespace ChatHostWPF
 				// TODO: Ask server for users info
 
 				// Go to chat page
-				IoC.Application.GoToPage(ApplicationPage.Server);
+				DI.ViewModelApplication.GoToPage(ApplicationPage.Server);
 
 				//var email = Email;
 
@@ -84,7 +85,7 @@ namespace ChatHostWPF
 		public async Task RegisterAsync()
 		{
 			// Go to register page?
-			IoC.Application.GoToPage(ApplicationPage.Register);
+			DI.ViewModelApplication.GoToPage(ApplicationPage.Register);
 
 			await Task.Delay(1);
 		}

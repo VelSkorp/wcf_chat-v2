@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatClient.Core;
+using System;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -68,13 +69,13 @@ namespace ChatClient
 				// TODO: Ask server for users info
 
 				// TODO: Remove this with real information pulled from our database in future
-				IoC.Settings.Name = new TextEntryViewModel { Label = "Name", OriginalText = $"Vlad Kontsevich {DateTime.Now}" };
-				IoC.Settings.UserName = new TextEntryViewModel { Label = "UserName", OriginalText = "Vald" };
-				IoC.Settings.Password = new PasswordEntryViewModel { Label = "Password", FakePassword = "*********" };
-				IoC.Settings.Email = new TextEntryViewModel { Label = "Email", OriginalText = "kontsevichv@mail.ru" };
+				DI.ViewModelSettings.Name = new TextEntryViewModel { Label = "Name", OriginalText = $"Vlad Kontsevich {DateTime.Now}" };
+				DI.ViewModelSettings.UserName = new TextEntryViewModel { Label = "UserName", OriginalText = "Vald" };
+				DI.ViewModelSettings.Password = new PasswordEntryViewModel { Label = "Password", FakePassword = "*********" };
+				DI.ViewModelSettings.Email = new TextEntryViewModel { Label = "Email", OriginalText = "kontsevichv@mail.ru" };
 
 				// Go to chat page
-				IoC.Application.GoToPage(ApplicationPage.Chat);
+				DI.ViewModelApplication.GoToPage(ApplicationPage.Chat);
 
 				//var email = Email;
 
@@ -90,7 +91,7 @@ namespace ChatClient
 		public async Task RegisterAsync()
 		{
 			// Go to register page?
-			IoC.Application.GoToPage(ApplicationPage.Register);
+			DI.ViewModelApplication.GoToPage(ApplicationPage.Register);
 
 			await Task.Delay(1);
 		}

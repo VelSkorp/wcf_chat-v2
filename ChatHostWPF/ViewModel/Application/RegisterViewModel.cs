@@ -1,4 +1,5 @@
-﻿using System.Security;
+﻿using ChatHost.Core;
+using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -70,8 +71,8 @@ namespace ChatHostWPF
 		/// <returns></returns>
 		public async Task LoginAsync()
 		{
-			// Go to register page?
-			IoC.Application.GoToPage(ApplicationPage.Login);
+            // Go to register page?
+            DI.ViewModelApplication.GoToPage(ApplicationPage.Login);
 
 			await Task.Delay(1);
 		}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dna;
+using System;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace ChatClient.Core
 	/// <summary>
 	/// Handles anything to do with Tasks
 	/// </summary>
-	public class TaskManager : ITaskManager
+	public class BaseTaskManager : ITaskManager
 	{
 		#region Task Methods
 
@@ -161,7 +162,7 @@ namespace ChatClient.Core
 		/// <param name="lineNumber">The line of code in the filename this message was logged from</param>
 		private void LogError(Exception ex, [CallerMemberName] string origin = "", [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0)
 		{
-			IoC.Logger.Log($"An unexpected error occurred running a IoC.Task.Run. {ex.Message}", LogLevel.Debug, origin, filePath, lineNumber);
+			FrameworkDI.Logger.LogDebugSource($"An unexpected error occurred running a IoC.Task.Run. {ex.Message}", origin: origin, filePath: filePath, lineNumber: lineNumber);
 		}
 
 		#endregion

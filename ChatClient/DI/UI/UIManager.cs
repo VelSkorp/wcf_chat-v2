@@ -1,5 +1,4 @@
-﻿using ChatClient;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace ChatClient
 {

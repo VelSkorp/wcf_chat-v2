@@ -1,4 +1,6 @@
-﻿namespace ChatClient
+﻿using ChatClient.Core;
+
+namespace ChatClient
 {
 	/// <summary>
 	/// A view model for a menu item

@@ -1,4 +1,4 @@
-﻿using ChatClient;
+﻿using ChatClient.Core;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
@@ -57,7 +57,7 @@ namespace ChatClient
 			// If we are in DesignMode, show the current page
 			// as the dependency property does not fire
 			if (DesignerProperties.GetIsInDesignMode(this))
-				NewPage.Content = IoC.Application.CurrentPage.ToBasePage();
+				NewPage.Content = DI.ViewModelApplication.CurrentPage.ToBasePage();
 		}
 
 		#endregion

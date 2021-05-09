@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using ChatClient.Core;
+using System.Windows.Input;
 
 namespace ChatClient
 {
@@ -92,8 +93,8 @@ namespace ChatClient
 		/// </summary>
 		private void Close()
 		{
-			// Close the settings menu
-			IoC.Application.SettingsMenuVisible = false;
+            // Close the settings menu
+            DI.ViewModelApplication.SettingsMenuVisible = false;
 		}
 
 		/// <summary>
@@ -101,8 +102,8 @@ namespace ChatClient
 		/// </summary>
 		private void Open()
 		{
-			// Open the settings menu
-			IoC.Application.SettingsMenuVisible = true;
+            // Open the settings menu
+            DI.ViewModelApplication.SettingsMenuVisible = true;
 		}
 
 		/// <summary>
@@ -118,8 +119,8 @@ namespace ChatClient
 			// any informatioon about the current user
 			ClearUserData();
 
-			// Go to login page
-			IoC.Application.GoToPage(ApplicationPage.Login);
+            // Go to login page
+            DI.ViewModelApplication.GoToPage(ApplicationPage.Login);
 		}
 
 		/// <summary>

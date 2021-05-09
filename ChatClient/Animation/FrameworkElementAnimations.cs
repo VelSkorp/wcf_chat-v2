@@ -1,4 +1,5 @@
 ﻿using ChatClient;
+using ChatClient.Core;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -202,7 +203,7 @@ namespace ChatClient
 			element.Unloaded += (s, e) => unloaded = true;
 
 			// Run a loop off the caller thread
-			IoC.Task.Run(async () =>
+			CoreDI.Task.Run(async () =>
 			{
 				// While the element is still available, recheck the size
 				// after every loop in case the container was resized

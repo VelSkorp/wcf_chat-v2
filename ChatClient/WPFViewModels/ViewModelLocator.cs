@@ -1,4 +1,4 @@
-﻿using ChatClient;
+﻿using static ChatClient.DI;
 
 namespace ChatClient
 {
@@ -17,12 +17,12 @@ namespace ChatClient
 		/// <summary>
 		/// The application view model
 		/// </summary>
-		public static ApplicationViewModel ApplicationViewModel => IoC.Application;
+		public ApplicationViewModel ApplicationViewModel => ViewModelApplication;
 
 		/// <summary>
 		/// The settings view model
 		/// </summary>
-		public static SettingsViewModel SettingsViewModel => IoC.Settings;
+		public SettingsViewModel SettingsViewModel => ViewModelSettings;
 
 		#endregion
 	}
