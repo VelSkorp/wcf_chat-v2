@@ -1,6 +1,6 @@
 ﻿using Dna;
 using System.Windows;
-using ChatClient.Core;
+using Chat.Core;
 using static Dna.FrameworkDI;
 using static ChatClient.DI;
 

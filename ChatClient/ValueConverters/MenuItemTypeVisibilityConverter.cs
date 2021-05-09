@@ -1,4 +1,4 @@
-﻿using ChatClient.Core;
+﻿using Chat.Core;
 using System;
 using System.Globalization;
 using System.Windows;

@@ -1,6 +1,6 @@
 ﻿using Dna;
 using System.Windows;
-using ChatHost.Core;
+using Chat.Core;
 using static Dna.FrameworkDI;
 using static ChatHostWPF.DI;
 
@@ -31,10 +31,6 @@ namespace ChatHostWPF
 			Logger.LogDebugSource("Application starting...");
 
 			ViewModelApplication.GoToPage(ApplicationPage.Login);
-
-			// Show the main window
-			Current.MainWindow = new MainWindow();
-			Current.MainWindow.Show();
 		}
 	}
 }

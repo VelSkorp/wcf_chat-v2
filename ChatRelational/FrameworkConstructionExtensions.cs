@@ -1,5 +1,5 @@
 ﻿using Dna;
-using ChatHost.Core;
+using Chat.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

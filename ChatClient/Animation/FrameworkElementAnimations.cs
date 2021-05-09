@@ -1,5 +1,4 @@
-﻿using ChatClient;
-using ChatClient.Core;
+﻿using Chat.Core;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;

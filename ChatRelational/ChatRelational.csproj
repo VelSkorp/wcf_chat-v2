@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ChatHost.Core\ChatHost.Core.csproj" />
+    <ProjectReference Include="..\Chat.Core\Chat.Core.csproj" />
   </ItemGroup>
 
 </Project>

@@ -288,12 +288,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChatHost.Core\ChatHost.Core.csproj">
-      <Project>{cead1d7c-1a03-4b9d-8bfa-2b52d143e9cd}</Project>
-      <Name>ChatHost.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Backgrounds\emoji-background.png" />
   </ItemGroup>
   <ItemGroup>
@@ -307,6 +301,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Samples\rusty.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chat.Core\Chat.Core.csproj">
+      <Project>{72e64998-0fec-4572-935f-2c614a90638d}</Project>
+      <Name>Chat.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

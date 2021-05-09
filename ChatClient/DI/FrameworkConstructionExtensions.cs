@@ -1,5 +1,5 @@
 ﻿using Dna;
-using ChatClient.Core;
+using Chat.Core;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatClient

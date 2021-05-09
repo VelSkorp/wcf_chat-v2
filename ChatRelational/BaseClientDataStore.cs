@@ -1,4 +1,4 @@
-﻿using ChatHost.Core;
+﻿using Chat.Core;
 using System.Linq;
 using System.Threading.Tasks;
 

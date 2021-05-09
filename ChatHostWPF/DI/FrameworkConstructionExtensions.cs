@@ -1,5 +1,5 @@
 ﻿using Dna;
-using ChatHost.Core;
+using Chat.Core;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatHostWPF
