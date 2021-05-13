@@ -5,7 +5,7 @@
 end_of_line = lf
 
 [*.cs]
-indent_style = space
+indent_style = tab
 indent_size = 4
 
 # 
@@ -34,9 +34,9 @@ dotnet_style_require_accessibility_modifiers = always:error
 csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async:error
 
 # Prefer "var" everywhere
-csharp_style_var_for_built_in_types = true:error
-csharp_style_var_when_type_is_apparent = true:error
-csharp_style_var_elsewhere = true:error
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:warning
+csharp_style_var_elsewhere = true:suggestion
 
 # Prefer method-like constructs to have a block body (using {})
 # csharp_style_expression_bodied_methods = false:error
