@@ -14,9 +14,9 @@ namespace ChatClient
 		#region Public Properties
 
 		/// <summary>
-		/// The email of the user
+		/// The username of the user
 		/// </summary>
-		public string Email { get; set; }
+		public string Username { get; set; }
 
 		/// <summary>
 		/// A flag indicating if the login command is running
@@ -69,10 +69,10 @@ namespace ChatClient
 				// TODO: Ask server for users info
 
 				// TODO: Remove this with real information pulled from our database in future
-				DI.ViewModelSettings.Name = new TextEntryViewModel { Label = "Name", OriginalText = $"Vlad Kontsevich {DateTime.Now}" };
-				DI.ViewModelSettings.UserName = new TextEntryViewModel { Label = "UserName", OriginalText = "Vald" };
+				DI.ViewModelSettings.FirstName = new TextEntryViewModel { Label = "FirstName", OriginalText = $"Vlad {DateTime.Now}" };
+				DI.ViewModelSettings.LastName = new TextEntryViewModel { Label = "LastName", OriginalText = $"Kontsevich {DateTime.Now}" };
+				DI.ViewModelSettings.Username = new TextEntryViewModel { Label = "UserName", OriginalText = "Vald" };
 				DI.ViewModelSettings.Password = new PasswordEntryViewModel { Label = "Password", FakePassword = "*********" };
-				DI.ViewModelSettings.Email = new TextEntryViewModel { Label = "Email", OriginalText = "kontsevichv@mail.ru" };
 
 				// Go to chat page
 				DI.ViewModelApplication.GoToPage(ApplicationPage.Chat);

@@ -37,14 +37,6 @@ namespace ChatRelational
 		#region Interface Implementation
 
 		/// <summary>
-		/// Determines if the current user has logged in credentials
-		/// </summary>
-		public async Task<bool> HasCredentialsAsync()
-		{
-			return await GetLoginCredentialsAsync() != null;
-		}
-
-		/// <summary>
 		/// Makes sure the client data store is correctly set up
 		/// </summary>
 		/// <returns>Returns a task that will finish once setup is complete</returns>
@@ -58,10 +50,25 @@ namespace ChatRelational
 		/// Gets the stored login credentials for this client
 		/// </summary>
 		/// <returns>Returns the login credentials if they exist, or null if none exist</returns>
-		public Task<LoginCredentialsDataModel> GetLoginCredentialsAsync()
+		public Task<UserProfileDetailsApiModel> GetUserProfileDetailsAsync(LoginCredentialsApiModel loginCredentials)
 		{
-			// Get the first column in the login credentials table, or null if none exist
-			return Task.FromResult(mDbContext.LoginCredentials.FirstOrDefault());
+			// Find user data
+			UserDataModel userCredentials = mDbContext.Users.First((user) => user.Username == loginCredentials.Username && user.Password == loginCredentials.Password);
+
+			// If user cann't be found
+			if (userCredentials == null)
+			{
+				return null;
+			}
+
+			// Pass back the user details
+			return Task.FromResult(new UserProfileDetailsApiModel
+			{
+				ID = userCredentials.ID,
+				FirstName = userCredentials.FirstName,
+				LastName = userCredentials.LastName,
+				Username = userCredentials.Username,
+			});
 		}
 
 		/// <summary>
@@ -69,13 +76,20 @@ namespace ChatRelational
 		/// </summary>
 		/// <param name="loginCredentials">The login credentials to save</param>
 		/// <returns>Returns a task that will finish once the save is complete</returns>
-		public async Task SaveLoginCredentialsAsync(LoginCredentialsDataModel loginCredentials)
+		public async Task SaveLoginCredentialsAsync(UserProfileDetailsApiModel loginCredentials)
 		{
+			// Find user data
+			UserDataModel userCredentials = mDbContext.Users.First((user) => user.ID == loginCredentials.ID);
+
 			// Clear all entries
-			mDbContext.LoginCredentials.RemoveRange(mDbContext.LoginCredentials);
+			mDbContext.Users.Remove(userCredentials);
+
+			userCredentials.Username = loginCredentials.Username;
+			userCredentials.FirstName = loginCredentials.FirstName;
+			userCredentials.LastName = loginCredentials.LastName;
 
 			// Add new one
-			mDbContext.LoginCredentials.Add(loginCredentials);
+			mDbContext.Users.Add(userCredentials);
 
 			// Save changes
 			await mDbContext.SaveChangesAsync();
@@ -88,7 +102,7 @@ namespace ChatRelational
 		public async Task ClearAllLoginCredentialsAsync()
 		{
 			// Clear all entries
-			mDbContext.LoginCredentials.RemoveRange(mDbContext.LoginCredentials);
+			mDbContext.Users.RemoveRange(mDbContext.Users);
 
 			// Save changes
 			await mDbContext.SaveChangesAsync();
