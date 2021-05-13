@@ -11,9 +11,29 @@ namespace ChatRelational
 		#region DbSets 
 
 		/// <summary>
-		/// The client login credentials
+		/// The chats details
 		/// </summary>
-		public DbSet<LoginCredentialsDataModel> LoginCredentials { get; set; }
+		public DbSet<ChatDataModel> Chats { get; set; }
+
+		/// <summary>
+		/// The messages status
+		/// </summary>
+		public DbSet<MessageStatusDataModel> MessagesStatus { get; set; }
+
+		/// <summary>
+		/// The messages details
+		/// </summary>
+		public DbSet<MessagesDataModel> Messages { get; set; }
+
+		/// <summary>
+		/// The users in the same chat
+		/// </summary>
+		public DbSet<PartyDataModel> Party { get; set; }
+
+		/// <summary>
+		/// The user profiles details
+		/// </summary>
+		public DbSet<UserDataModel> Users { get; set; }
 
 		#endregion
 
@@ -38,14 +58,13 @@ namespace ChatRelational
 
 			// Fluent API
 
-			// Configure LoginCredentials
+			// Configure tables
 			// --------------------------
 			//
-			// Set Id as primary key
-			modelBuilder.Entity<LoginCredentialsDataModel>().HasKey(a => a.Id);
-
-			// TODO: Set up limits
-			//modelBuilder.Entity<LoginCredentialsDataModel>().Property(a => a.FirstName).HasMaxLength(50);
+			// Set primary keys
+			modelBuilder.Entity<ChatDataModel>().HasKey(a => a.ID);
+			modelBuilder.Entity<MessagesDataModel>().HasKey(a => a.ID);
+			modelBuilder.Entity<UserDataModel>().HasKey(a => a.ID);
 		}
 
 		#endregion
