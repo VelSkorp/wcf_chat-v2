@@ -13,9 +13,14 @@ namespace ChatClient
 		#region Public Properties
 
 		/// <summary>
-		/// The email of the user
+		/// The username of the user
 		/// </summary>
-		public string Email { get; set; }
+		public string Username { get; set; }
+
+		/// <summary>
+		/// The first name of the user
+		/// </summary>
+		public string FirstName { get; set; }
 
 		/// <summary>
 		/// A flag indicating if the register command is running
@@ -71,8 +76,8 @@ namespace ChatClient
 		/// <returns></returns>
 		public async Task LoginAsync()
 		{
-            // Go to register page?
-            DI.ViewModelApplication.GoToPage(ApplicationPage.Login);
+			// Go to register page?
+			DI.ViewModelApplication.GoToPage(ApplicationPage.Login);
 
 			await Task.Delay(1);
 		}

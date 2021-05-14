@@ -21,6 +21,12 @@ namespace Chat.Core
 		Task<UserProfileDetailsApiModel> GetUserProfileDetailsAsync(LoginCredentialsApiModel loginCredentials);
 
 		/// <summary>
+		/// Adds new login credentials for this client
+		/// </summary>
+		/// <returns>Returns the login credentials if they added, or null if they already exist</returns>
+		Task<RegisterResultApiModel> AddNewUserProfileDetailsAsync(RegisterCredentialsApiModel registerCredentials);
+
+		/// <summary>
 		/// Stores the given login credentials to the backing data store
 		/// </summary>
 		/// <param name="loginCredentials">The login credentials to save</param>

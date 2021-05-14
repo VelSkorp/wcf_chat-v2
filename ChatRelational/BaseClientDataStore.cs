@@ -1,4 +1,5 @@
 ﻿using Chat.Core;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -67,6 +68,43 @@ namespace ChatRelational
 				ID = userCredentials.ID,
 				FirstName = userCredentials.FirstName,
 				LastName = userCredentials.LastName,
+				Username = userCredentials.Username,
+			});
+		}
+
+		/// <summary>
+		/// Adds new login credentials for this client
+		/// </summary>
+		/// <returns>Returns the login credentials if they exist, or null if none exist</returns>
+		public Task<RegisterResultApiModel> AddNewUserProfileDetailsAsync(RegisterCredentialsApiModel registerCredentials)
+		{
+			// Find user data
+			UserDataModel userCredentials = mDbContext.Users.First((user) => user.Username == registerCredentials.Username && user.Password == registerCredentials.Password);
+
+			// If user cann't be found
+			if (userCredentials != null)
+			{
+				return null;
+			}
+
+			// If we get here, we are have not this user
+
+			userCredentials = new UserDataModel()
+			{
+				ID = mDbContext.Users.Count() + 1,
+				FirstName = registerCredentials.FirstName,
+				Username = registerCredentials.Username,
+				Password = registerCredentials.Password
+			};
+
+			// Add new one
+			mDbContext.Users.Add(userCredentials);
+
+			// Pass back the user details
+			return Task.FromResult(new RegisterResultApiModel
+			{
+				ID = userCredentials.ID,
+				FirstName = userCredentials.FirstName,
 				Username = userCredentials.Username,
 			});
 		}
