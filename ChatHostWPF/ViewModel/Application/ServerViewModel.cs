@@ -11,14 +11,9 @@ namespace ChatHostWPF
 		#region Public Properties
 
 		/// <summary>
-		/// A list of users
+		/// The flag that indicates server is started or not
 		/// </summary>
-		public List<string> UsersList { get; set; }
-
-		/// <summary>
-		/// The user selected in the ListBox
-		/// </summary>
-		public string SelectedUser { get; set; }
+		public bool IsStarted { get; set; } = false;
 
 		/// <summary>
 		/// The server message log
@@ -30,19 +25,14 @@ namespace ChatHostWPF
 		#region Commands
 
 		/// <summary>
-		/// The command to disable user
-		/// </summary>
-		public ICommand DisableUserCommand { get; set; }
-
-		/// <summary>
 		/// The command to start the server
 		/// </summary>
 		public ICommand StartTheServerCommand { get; set; }
 
 		/// <summary>
-		/// The command to refresh user list
+		/// The command to disable the server
 		/// </summary>
-		public ICommand RefreshUserListCommand { get; set; }
+		public ICommand DisableTheServerCommand { get; set; }
 
 		#endregion
 
@@ -54,32 +44,30 @@ namespace ChatHostWPF
 		public ServerViewModel()
 		{
 			// Create commands
-			DisableUserCommand = new RelayCommand(DisableUser);
 			StartTheServerCommand = new RelayCommand(StartTheServer);
-			RefreshUserListCommand = new RelayCommand(RefreshUserList);
+			DisableTheServerCommand = new RelayCommand(DisableTheServer);
 		}
 
 		#endregion
 
-		/// <summary>
-		/// Disable user
-		/// </summary>
-		public void DisableUser()
-		{
-		}
+		#region Commands Methods
 
 		/// <summary>
 		/// Start the server
 		/// </summary>
 		public void StartTheServer()
 		{
+			IsStarted = true;
 		}
 
 		/// <summary>
-		/// Refresh user list
+		/// Start the server
 		/// </summary>
-		public void RefreshUserList()
+		public void DisableTheServer()
 		{
-		}
+			IsStarted = false;
+		} 
+
+		#endregion
 	}
 }

@@ -30,7 +30,7 @@ namespace ChatHostWPF
 			// Log it
 			Logger.LogDebugSource("Application starting...");
 
-			ViewModelApplication.GoToPage(ApplicationPage.Login);
+			ViewModelApplication.GoToPage(ApplicationPage.Server);
 		}
 	}
 }

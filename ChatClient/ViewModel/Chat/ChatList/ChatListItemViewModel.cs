@@ -78,7 +78,7 @@ namespace ChatClient
 			{
 				DI.ViewModelApplication.GoToPage(ApplicationPage.Login, new LoginViewModel
 				{
-					Email = "Jesse@mail.ru"
+					Username = "Jesse@mail.ru"
 				});
 
 				return;
