@@ -158,6 +158,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Discovery" />
     <Reference Include="System.Text.Encodings.Web, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.5.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
@@ -358,8 +359,8 @@
     <PropertyGroup>
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\PropertyChanged.Fody.3.3.3\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PropertyChanged.Fody.3.3.3\build\PropertyChanged.Fody.props'))" />
     <Error Condition="!Exists('..\packages\Fody.6.5.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.5.1\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\PropertyChanged.Fody.3.3.3\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PropertyChanged.Fody.3.3.3\build\PropertyChanged.Fody.props'))" />
   </Target>
   <Import Project="..\packages\Fody.6.5.1\build\Fody.targets" Condition="Exists('..\packages\Fody.6.5.1\build\Fody.targets')" />
 </Project>
