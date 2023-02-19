@@ -2,6 +2,7 @@
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static ChatClient.DI;
 
 namespace ChatClient
 {
@@ -67,6 +68,18 @@ namespace ChatClient
 			await RunCommandAsync(() => RegisterIsRunning, async () =>
 			{
 				await Task.Delay(5000);
+
+				if (Client.Endpoint.Address == null)
+				{
+					// Display error
+					await UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Load error",
+						Message = "Server can't be found"
+					});
+
+					return;
+				}
 			});
 		}
 
@@ -77,7 +90,7 @@ namespace ChatClient
 		public async Task LoginAsync()
 		{
 			// Go to register page?
-			DI.ViewModelApplication.GoToPage(ApplicationPage.Login);
+			ViewModelApplication.GoToPage(ApplicationPage.Login);
 
 			await Task.Delay(1);
 		}

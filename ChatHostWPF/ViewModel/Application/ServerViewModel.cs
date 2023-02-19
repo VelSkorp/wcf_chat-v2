@@ -1,10 +1,9 @@
-﻿using Chat.Core;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Net;
-using System.ServiceModel;
-using System.ServiceModel.Discovery;
 using System.Windows.Input;
+using System.Collections.Generic;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ChatHostWPF
 {
@@ -32,7 +31,9 @@ namespace ChatHostWPF
 		/// <summary>
 		/// ServiceHost for hosting ServiceChat service
 		/// </summary>
-		private ServiceHost mServiceHost;
+		private IWebHost mServiceHost;
+
+		public const int HTTP_PORT = 48400;
 
 		#endregion
 
@@ -74,20 +75,17 @@ namespace ChatHostWPF
 			try
 			{
 				// Create base adress for ServiceHost using DNS hostname of the local computer
-				var baseAdress = new Uri($"net.tcp://{Dns.GetHostName()}");
+				//var baseAdress = new Uri($"net.tcp://{Dns.GetHostName()}");
 
-				// Create a ServiceHost for the ServiceChat type.  
-				mServiceHost = new ServiceHost(ServiceChat.Instance, baseAdress);
+				var builder = WebHost.CreateDefaultBuilder()
+					.UseKestrel(options =>
+					{
+						options.Listen(IPAddress.Any, HTTP_PORT);
+					})
+					.UseStartup<BasicHttpBindingStartup>();
 
-				// Add ServiceDiscoveryBehavior  
-				mServiceHost.Description.Behaviors.Add(new ServiceDiscoveryBehavior());
-
-				// Add a UdpDiscoveryEndpoint  
-				mServiceHost.AddServiceEndpoint(new UdpDiscoveryEndpoint());
-
-				// Open the ServiceHost to create listeners
-				// and start listening for messages.  
-				mServiceHost.Open();
+				mServiceHost = builder.Build();
+				mServiceHost.RunAsync();
 
 				IsStarted = true;
 
@@ -111,11 +109,11 @@ namespace ChatHostWPF
 			try
 			{
 				// Close the ServiceHost
-				mServiceHost.Close();
+				mServiceHost.StopAsync();
 
 				IsStarted = false;
 
-				Log.Add($"[Data] Host stoped\n");
+				Log.Add($"[Data] Host stopped\n");
 			}
 			catch (Exception ex)
 			{

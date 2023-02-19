@@ -3,6 +3,7 @@ using System;
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static ChatClient.DI;
 
 namespace ChatClient
 {
@@ -65,22 +66,44 @@ namespace ChatClient
 				// TODO: Fake a loginll...
 				await Task.Delay(1000);
 
+				if (Client.Endpoint.Address == null)
+				{
+					// Display error
+					await UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Load error",
+						Message = "Server can't be found"
+					});
+
+					return;
+				}
+
+				// Display error
+				await UI.ShowMessage(new MessageBoxDialogViewModel
+				{
+					Title = "Endpoint",
+					Message = Client.Endpoint.Address.Uri.ToString()
+				});
+
+				var a = await Client.ConnectAsync(
+					// Create api model
+					new Chat.Core.Proxy.LoginCredentialsApiModel
+					{
+						Username = Username,
+						Password = (parameter as IHavePassword).SecurePassword.Unsecure()
+					});
+
 				// Ok successfully loggedin... Now det users data
 				// TODO: Ask server for users info
 
 				// TODO: Remove this with real information pulled from our database in future
-				DI.ViewModelSettings.FirstName = new TextEntryViewModel { Label = "FirstName", OriginalText = $"Vlad {DateTime.Now}" };
-				DI.ViewModelSettings.LastName = new TextEntryViewModel { Label = "LastName", OriginalText = $"Kontsevich {DateTime.Now}" };
-				DI.ViewModelSettings.Username = new TextEntryViewModel { Label = "UserName", OriginalText = "Vald" };
-				DI.ViewModelSettings.Password = new PasswordEntryViewModel { Label = "Password", FakePassword = "*********" };
+				ViewModelSettings.FirstName = new TextEntryViewModel { Label = "FirstName", OriginalText = $"Vlad {DateTime.Now}" };
+				ViewModelSettings.LastName = new TextEntryViewModel { Label = "LastName", OriginalText = $"Kontsevich {DateTime.Now}" };
+				ViewModelSettings.Username = new TextEntryViewModel { Label = "UserName", OriginalText = "Vald" };
+				ViewModelSettings.Password = new PasswordEntryViewModel { Label = "Password", FakePassword = "*********" };
 
 				// Go to chat page
-				DI.ViewModelApplication.GoToPage(ApplicationPage.Chat);
-
-				//var email = Email;
-
-				//// IMPORTANT: Never store unsecure password in variable like this
-				//var pass = (parameter as IHavePassword).SecurePassword.Unsecure();
+				ViewModelApplication.GoToPage(ApplicationPage.Chat);
 			});
 		}
 

@@ -39,7 +39,9 @@ namespace ChatHostWPF
 			// If the page has'n changed, fore off notification
 			// So pages still update if just the view model has changed
 			if (!different)
+			{
 				OnPropertyChanged(nameof(CurrentPage));
+			}
 		}
 	}
 }

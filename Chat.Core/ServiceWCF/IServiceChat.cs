@@ -1,4 +1,4 @@
-﻿using System.ServiceModel;
+﻿using CoreWCF;
 using System.Threading.Tasks;
 
 namespace Chat.Core

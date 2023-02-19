@@ -1,5 +1,5 @@
-﻿using System;
-using System.ServiceModel;
+﻿using CoreWCF;
+using System;
 using System.Threading.Tasks;
 
 namespace Chat.Core
@@ -21,7 +21,7 @@ namespace Chat.Core
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		protected ServiceChat()
+		public ServiceChat()
 		{
 
 		}
