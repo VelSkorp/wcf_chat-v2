@@ -33,12 +33,12 @@ namespace ChatClient
 			EndpointAddress endpointAddress = FindServiceChatAddress();
 
 			// Connect to the discovered service endpoint  
-			Client.Endpoint.Address = endpointAddress;
+			//Client.Endpoint.Address = endpointAddress;
 
 			// Log it
 			Logger.LogDebugSource("Application starting...");
 
-			ViewModelApplication.GoToPage(ApplicationPage.Login);
+			ViewModelApplication.GoToPage(ApplicationPage.Chat);
 
 			// Show the main window
 			Current.MainWindow = new MainWindow();

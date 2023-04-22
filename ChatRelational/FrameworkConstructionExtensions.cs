@@ -14,19 +14,19 @@ namespace ChatRelational
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public static FrameworkConstruction AddClientDataStore(this FrameworkConstruction construction)
+		public static FrameworkConstruction AddDataStore(this FrameworkConstruction construction)
 		{
 			// Inject our SQLite EF data store
-			construction.Services.AddDbContext<ClientDataStoreDbContext>(options =>
+			construction.Services.AddDbContext<DataStoreDbContext>(options =>
 			{
 				// Setup connection string
-				options.UseSqlite(construction.Configuration.GetConnectionString("ClientDataStoreConnection"));
+				options.UseSqlite(construction.Configuration.GetConnectionString("DataStoreConnection"));
 			}, contextLifetime: ServiceLifetime.Transient);
 
 			// Add client data store for easy access/use of the backing data store
 			// Make it scoped so we can inject the scoped DbContext
 			construction.Services.AddTransient<IClientDataStore>(
-				provider => new BaseClientDataStore(provider.GetService<ClientDataStoreDbContext>()));
+				provider => new BaseClientDataStore(provider.GetService<DataStoreDbContext>()));
 
 			// Return framework for chaining
 			return construction;

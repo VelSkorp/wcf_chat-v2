@@ -8,7 +8,7 @@
 		/// <summary>
 		/// The unique chat id
 		/// </summary>
-		public int ID { get; set; }
+		public int Id { get; set; }
 
 		/// <summary>
 		/// The chat name
@@ -18,6 +18,6 @@
 		/// <summary>
 		/// The unique user id who created chat
 		/// </summary>
-		public int OwnerID { get; set; }
+		public int OwnerId { get; set; }
 	}
 }

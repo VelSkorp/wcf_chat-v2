@@ -1,4 +1,5 @@
 ﻿using CoreWCF;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Chat.Core
@@ -20,9 +21,17 @@ namespace Chat.Core
 		/// <param name="registerCredentials">The registration details</param>
 		/// <returns>Returns the result of the register request</returns>
 		[OperationContract]
-		Task<ApiResponse<RegisterResultApiModel>> RegisterAsync(RegisterCredentialsApiModel registerCredentials);
+		Task<ApiResponse<UserProfileDetailsApiModel>> RegisterAsync(RegisterCredentialsApiModel registerCredentials);
 
-		[OperationContract(IsOneWay =true)]
-		void SendMessage(string message,int id);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="userId">Current user id</param>
+		/// <returns>Returns list of chats</returns>
+		[OperationContract]
+		Task<ApiResponse<List<ChatDataModel>>> GetChatsAsync();
+
+		[OperationContract]
+		void SendMessage(string message, int chatId);
 	}
 }

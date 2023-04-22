@@ -33,7 +33,7 @@ namespace ChatHostWPF
 		/// </summary>
 		private IWebHost mServiceHost;
 
-		public const int HTTP_PORT = 48400;
+		private const int HTTP_PORT = 48400;
 
 		#endregion
 

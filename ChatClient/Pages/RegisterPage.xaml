@@ -49,6 +49,11 @@
 									 Tag="First name"
 									 local:IsFocusedProperty.Value="True" />
 
+							<!-- Last name -->
+							<TextBox Text="{Binding LastName}"
+									 Tag="Last name"
+									 local:IsFocusedProperty.Value="True" />
+
 							<!-- Password -->
 							<PasswordBox x:Name="PasswordText"
 										 Tag="Password" 

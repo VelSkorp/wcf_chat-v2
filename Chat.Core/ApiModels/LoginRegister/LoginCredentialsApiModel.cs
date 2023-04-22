@@ -5,8 +5,6 @@
 	/// </summary>
 	public class LoginCredentialsApiModel
 	{
-		#region Public Properties
-
 		/// <summary>
 		/// The users username
 		/// </summary>
@@ -16,19 +14,5 @@
 		/// The users password
 		/// </summary>
 		public string Password { get; set; }
-
-		#endregion
-
-		#region Constructor
-
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public LoginCredentialsApiModel()
-		{
-
-		}
-		
-		#endregion
 	}
 }

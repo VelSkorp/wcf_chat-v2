@@ -1,5 +1,6 @@
 ﻿using CoreWCF;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Chat.Core
@@ -7,27 +8,6 @@ namespace Chat.Core
 	[ServiceBehavior(InstanceContextMode=InstanceContextMode.Single)]
 	public class ServiceChat : IServiceChat
 	{
-		#region Public Properties
-
-		/// <summary>
-		/// A singleton instance of this class
-		/// </summary>
-		public static ServiceChat Instance { get; private set; } = new ServiceChat(); 
-		
-		#endregion
-
-		#region Constructor
-
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public ServiceChat()
-		{
-
-		}
-
-		#endregion
-
 		#region Interface Implementation
 
 		/// <summary>
@@ -37,43 +17,29 @@ namespace Chat.Core
 		/// <returns>Returns the result of the login request</returns>
 		public async Task<ApiResponse<UserProfileDetailsApiModel>> ConnectAsync(LoginCredentialsApiModel loginCredentials)
 		{
-			// Ensure the data store 
 			await CoreDI.DataStore.EnsureDataStoreAsync();
 
-			// The message when we fail to login
-			var invalidErrorMessage = "Invalid username or password";
-
-			// The error response for a failed login
-			var errorResponse = new ApiResponse<UserProfileDetailsApiModel>
+			var response = new ApiResponse<UserProfileDetailsApiModel>
 			{
-				// Set error message
-				ErrorMessage = invalidErrorMessage
+				ErrorMessage = "Invalid username or password"
 			};
 
-			// Make sure we have a user name
-			if (loginCredentials?.Username == null || string.IsNullOrWhiteSpace(loginCredentials.Username))
+			if (loginCredentials?.Username == null || string.IsNullOrWhiteSpace(loginCredentials?.Username))
 			{
-				// Return error message to user
-				return errorResponse;
+				return response;
 			}
 
-			// Get user profile details
 			UserProfileDetailsApiModel userProfileDetails = await CoreDI.DataStore.GetUserProfileDetailsAsync(loginCredentials);
 
-			// If we failed to find a user...
 			if (userProfileDetails == null)
 			{
-				// Return error message to user
-				return errorResponse;
+				return response;
 			}
 
-			// If we get here, we are valid and the user passed the correct login details
+			response.ErrorMessage = null;
+			response.Response = userProfileDetails;
 
-			return new ApiResponse<UserProfileDetailsApiModel>
-			{
-				// Pass back the user details
-				Response = userProfileDetails
-			};
+			return response;
 		}
 
 		/// <summary>
@@ -81,61 +47,48 @@ namespace Chat.Core
 		/// </summary>
 		/// <param name="registerCredentials">The registration details</param>
 		/// <returns>Returns the result of the register request</returns>
-		public async Task<ApiResponse<RegisterResultApiModel>> RegisterAsync(RegisterCredentialsApiModel registerCredentials)
+		public async Task<ApiResponse<UserProfileDetailsApiModel>> RegisterAsync(RegisterCredentialsApiModel registerCredentials)
 		{
-			// Ensure the data store 
 			await CoreDI.DataStore.EnsureDataStoreAsync();
 
-			// The message when we fail to login
-			var invalidErrorMessage = "Please provide all required details to register for an account";
-
-			// The error response for a failed login
-			var errorResponse = new ApiResponse<RegisterResultApiModel>
+			var response = new ApiResponse<UserProfileDetailsApiModel>
 			{
-				// Set error message
-				ErrorMessage = invalidErrorMessage
+				ErrorMessage = "Please provide all required details to register for an account"
 			};
 
-			// If we have no credentials...
 			if (registerCredentials == null)
 			{
-				// Return failed response
-				return errorResponse;
+				return response;
 			}
 
-			// Make sure we have a user name
 			if (string.IsNullOrWhiteSpace(registerCredentials.Username) ||
 				string.IsNullOrWhiteSpace(registerCredentials.FirstName) ||
+				string.IsNullOrWhiteSpace(registerCredentials.LastName) ||
 				string.IsNullOrWhiteSpace(registerCredentials.Password))
 			{
-				// Return error message to user
-				return errorResponse;
+				return response;
 			}
 
-			// Add new user profile details
-			RegisterResultApiModel userProfileDetails = await CoreDI.DataStore.AddNewUserProfileDetailsAsync(registerCredentials);
+			UserProfileDetailsApiModel userProfileDetails = await CoreDI.DataStore.AddNewUserAsync(registerCredentials);
 
-			// If we failed to add a user...
 			if (userProfileDetails == null)
 			{
-				// Return error message to user
-				return new ApiResponse<RegisterResultApiModel>
-				{
-					// Set error message
-					ErrorMessage = "This user is already exists in the database"
-				};
+				response.ErrorMessage = "This user is already exists in the database";
+				return response;
 			}
 
-			// If we get here, we are already register a new user
+			response.ErrorMessage = null;
+			response.Response = userProfileDetails;
 
-			return new ApiResponse<RegisterResultApiModel>
-			{
-				// Pass back the user details
-				Response = userProfileDetails
-			};
+			return response;
 		}
 
-		public void SendMessage(string message, int id)
+		public Task<ApiResponse<List<ChatDataModel>>> GetChatsAsync()
+		{
+			throw new NotImplementedException();
+		}
+
+		public void SendMessage(string message, int chatId)
 		{
 			throw new NotImplementedException();
 		}

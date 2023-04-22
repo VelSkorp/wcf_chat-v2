@@ -5,8 +5,6 @@
 	/// </summary>
 	public class UserProfileDetailsApiModel
 	{
-		#region Public Properties
-
 		/// <summary>
 		/// The unique users id
 		/// </summary>
@@ -26,39 +24,5 @@
 		/// The users username
 		/// </summary>
 		public string Username { get; set; }
-
-		#endregion
-
-		#region Constructor
-
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public UserProfileDetailsApiModel()
-		{
-
-		}
-
-		#endregion
-
-		#region Public Helper Methods
-
-		/// <summary>
-		/// Creates a new <see cref="LoginCredentialsDataModel"/>
-		/// from this model
-		/// </summary>
-		/// <returns></returns>
-		public LoginCredentialsDataModel ToLoginCredentialsDataModel()
-		{
-			return new LoginCredentialsDataModel
-			{
-				ID = ID,
-				FirstName = FirstName,
-				LastName = LastName,
-				Username = Username,
-			};
-		}
-
-		#endregion
 	}
 }

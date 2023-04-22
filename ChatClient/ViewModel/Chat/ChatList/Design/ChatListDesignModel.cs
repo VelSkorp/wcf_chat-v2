@@ -27,8 +27,8 @@ namespace ChatClient
 			{
 				new ChatListItemViewModel
 				{
-					Name = "Luke",
-					Initials = "LM",
+					Name = "Солнышко",
+					Initials = "AD",
 					Message = "This chat app is awesome! I bet it will be fast too",
 					ProfilePictureRGB = "3099c5",
 					NewContentAvailable = true

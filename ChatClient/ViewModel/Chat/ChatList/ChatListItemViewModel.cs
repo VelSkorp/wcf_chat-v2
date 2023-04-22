@@ -96,7 +96,7 @@ namespace ChatClient
 						Initials = Initials,
 						MessageSentTime = DateTime.UtcNow,
 						ProfilePictureRGB = "FF00FF",
-						SenderName = "Luke",
+						SenderName = "Солнышко",
 						SentByMe = true,
 					},
 					new ChatMessageListItemViewModel
@@ -114,7 +114,7 @@ namespace ChatClient
 						Initials = Initials,
 						MessageSentTime = DateTime.UtcNow,
 						ProfilePictureRGB = "FF00FF",
-						SenderName = "Luke",
+						SenderName = "Солнышко",
 						SentByMe = true,
 					},
 					new ChatMessageListItemViewModel
@@ -123,7 +123,7 @@ namespace ChatClient
 						Initials = Initials,
 						MessageSentTime = DateTime.UtcNow,
 						ProfilePictureRGB = "FF00FF",
-						SenderName = "Luke",
+						SenderName = "Солнышко",
 						SentByMe = true,
 					},
 					new ChatMessageListItemViewModel

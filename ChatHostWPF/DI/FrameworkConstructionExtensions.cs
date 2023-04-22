@@ -10,7 +10,7 @@ namespace ChatHostWPF
 	public static class FrameworkConstructionExtensions
 	{
 		/// <summary>
-		/// Injects the view models needed for Fasetto Word application
+		/// Injects the view models needed for WCF Chat Server application
 		/// </summary>
 		/// <param name="construction"></param>
 		/// <returns></returns>
@@ -24,8 +24,8 @@ namespace ChatHostWPF
 		}
 
 		/// <summary>
-		/// Injects the Fasetto Word client application services needed
-		/// for the Fasetto Word application
+		/// Injects the application services needed
+		/// for the WCF Chat Server application
 		/// </summary>
 		/// <param name="construction"></param>
 		/// <returns></returns>

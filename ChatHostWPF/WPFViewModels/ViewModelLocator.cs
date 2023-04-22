@@ -17,7 +17,7 @@ namespace ChatHostWPF
         /// <summary>
         /// The application view model
         /// </summary>
-        public ApplicationViewModel ApplicationViewModel => ViewModelApplication;
+        public ApplicationViewModel ApplicationViewModel => DI.ApplicationViewModel;
 
         #endregion
     }

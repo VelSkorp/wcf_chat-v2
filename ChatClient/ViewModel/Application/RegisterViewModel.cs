@@ -24,6 +24,11 @@ namespace ChatClient
 		public string FirstName { get; set; }
 
 		/// <summary>
+		/// The last name of the user
+		/// </summary>
+		public string LastName { get; set; }
+
+		/// <summary>
 		/// A flag indicating if the register command is running
 		/// </summary>
 		public bool RegisterIsRunning { get; set; }
@@ -69,17 +74,17 @@ namespace ChatClient
 			{
 				await Task.Delay(5000);
 
-				if (Client.Endpoint.Address == null)
-				{
-					// Display error
-					await UI.ShowMessage(new MessageBoxDialogViewModel
-					{
-						Title = "Load error",
-						Message = "Server can't be found"
-					});
+				//if (Client.Endpoint.Address == null)
+				//{
+				//	// Display error
+				//	await UI.ShowMessage(new MessageBoxDialogViewModel
+				//	{
+				//		Title = "Load error",
+				//		Message = "Server can't be found"
+				//	});
 
-					return;
-				}
+				//	return;
+				//}
 			});
 		}
 

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Chat.Core
 {
@@ -17,26 +18,50 @@ namespace Chat.Core
 		/// <summary>
 		/// Gets the stored login credentials for this client
 		/// </summary>
+		/// <param name="loginCredentials">User credentials for logging in</param>
 		/// <returns>Returns the login credentials if they exist, or null if none exist</returns>
 		Task<UserProfileDetailsApiModel> GetUserProfileDetailsAsync(LoginCredentialsApiModel loginCredentials);
 
 		/// <summary>
 		/// Adds new login credentials for this client
 		/// </summary>
-		/// <returns>Returns the login credentials if they added, or null if they already exist</returns>
-		Task<RegisterResultApiModel> AddNewUserProfileDetailsAsync(RegisterCredentialsApiModel registerCredentials);
+		/// <param name="registerCredentials">User credentials for registration</param>
+		/// <returns>Returns the login credentials if they exist, or null if none exist</returns>
+		Task<UserProfileDetailsApiModel> AddNewUserAsync(RegisterCredentialsApiModel registerCredentials);
 
 		/// <summary>
-		/// Stores the given login credentials to the backing data store
+		/// Updates information of user
 		/// </summary>
-		/// <param name="loginCredentials">The login credentials to save</param>
-		/// <returns>Returns a task that will finish once the save is complete</returns>
-		Task SaveLoginCredentialsAsync(UserProfileDetailsApiModel loginCredentials);
+		/// <param name="loginCredentials">New information about the user</param>
+		/// <returns>Returns a task that will finish once setup is complete</returns>
+		Task UpdateUserProfileDetailsAsync(UserProfileDetailsApiModel loginCredentials);
 
 		/// <summary>
-		/// Removes all login credentials stored in the data store
+		/// Gets the stored chats for user
 		/// </summary>
+		/// <param name="userId">User id</param>
+		/// <returns>List of chats for user</returns>
+		Task<List<ChatDataModel>> GetListOfChatsAsync(UserProfileDetailsApiModel user);
+
+		/// <summary>
+		/// Gets the stored messages in chat
+		/// </summary>
+		/// <param name="chatId">Chat id</param>
+		/// <returns>List of messages for chat</returns>
+		Task<List<MessageDataModel>> GetMessagesForChatAsync(int chatId);
+
+		/// <summary>
+		/// Updates chat message status if it has been read
+		/// </summary>
+		/// <param name="chatId"></param>
+		/// <param name="messageId"></param>
 		/// <returns></returns>
-		Task ClearAllLoginCredentialsAsync();
+		Task UpdateChatMessageStatusAsync(int chatId, int messageId);
+
+		/// <summary>
+		/// Removes all data stored in the data store
+		/// </summary>
+		/// <returns>Returns a task that will finish once setup is complete</returns>
+		Task ClearAllDataAsync();
 	}
 }

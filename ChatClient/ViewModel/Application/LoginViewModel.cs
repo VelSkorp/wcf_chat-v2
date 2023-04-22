@@ -66,32 +66,32 @@ namespace ChatClient
 				// TODO: Fake a loginll...
 				await Task.Delay(1000);
 
-				if (Client.Endpoint.Address == null)
-				{
-					// Display error
-					await UI.ShowMessage(new MessageBoxDialogViewModel
-					{
-						Title = "Load error",
-						Message = "Server can't be found"
-					});
+				//if (Client.Endpoint.Address == null)
+				//{
+				//	// Display error
+				//	await UI.ShowMessage(new MessageBoxDialogViewModel
+				//	{
+				//		Title = "Load error",
+				//		Message = "Server can't be found"
+				//	});
 
-					return;
-				}
+				//	return;
+				//}
 
-				// Display error
-				await UI.ShowMessage(new MessageBoxDialogViewModel
-				{
-					Title = "Endpoint",
-					Message = Client.Endpoint.Address.Uri.ToString()
-				});
+				//// Display error
+				//await UI.ShowMessage(new MessageBoxDialogViewModel
+				//{
+				//	Title = "Endpoint",
+				//	Message = Client.Endpoint.Address.Uri.ToString()
+				//});
 
-				var a = await Client.ConnectAsync(
-					// Create api model
-					new Chat.Core.Proxy.LoginCredentialsApiModel
-					{
-						Username = Username,
-						Password = (parameter as IHavePassword).SecurePassword.Unsecure()
-					});
+				//var a = await Client.ConnectAsync(
+				//	// Create api model
+				//	new Chat.Core.Proxy.LoginCredentialsApiModel
+				//	{
+				//		Username = Username,
+				//		Password = (parameter as IHavePassword).SecurePassword.Unsecure()
+				//	});
 
 				// Ok successfully loggedin... Now det users data
 				// TODO: Ask server for users info

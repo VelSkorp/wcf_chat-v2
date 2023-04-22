@@ -5,8 +5,6 @@
 	/// </summary>
 	public class ApiResponse
 	{
-		#region Public Properties
-
 		/// <summary>
 		/// Indicates if the API call was successful
 		/// </summary>
@@ -21,20 +19,6 @@
 		/// The API response object
 		/// </summary>
 		public object Response { get; set; }
-
-		#endregion
-
-		#region Constructor
-
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public ApiResponse()
-		{
-
-		}
-
-		#endregion
 	}
 
 	/// <summary>

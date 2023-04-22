@@ -5,31 +5,31 @@ namespace Chat.Core
 	/// <summary>
 	/// The data model for the Messages table
 	/// </summary>
-	public class MessagesDataModel
+	public class MessageDataModel
 	{
 		/// <summary>
 		/// The unique message id
 		/// </summary>
-		public int ID { get; set; }
+		public int Id { get; set; }
 
 		/// <summary>
 		/// The unique chat id
 		/// </summary>
-		public int ChatID { get; set; }
+		public int ChatId { get; set; }
 
 		/// <summary>
 		/// The unique user id
 		/// </summary>
-		public int UserID { get; set; }
+		public int UserId { get; set; }
 
 		/// <summary>
 		/// The message content
 		/// </summary>
-		public object Content { get; set; }
+		public byte[] Content { get; set; }
 
 		/// <summary>
 		/// Date the message was created
 		/// </summary>
-		public DateTime DateCreate { get; set; }
+		public DateTime CreationDateCreationDate { get; set; }
 	}
 }

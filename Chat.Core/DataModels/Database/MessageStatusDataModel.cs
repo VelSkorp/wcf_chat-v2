@@ -6,14 +6,19 @@
 	public class MessageStatusDataModel
 	{
 		/// <summary>
+		/// The unique message status id
+		/// </summary>
+		public int Id { get; set; }
+
+		/// <summary>
 		/// The unique message id
 		/// </summary>
-		public int MessageID { get; set; }
+		public int MessageId { get; set; }
 
 		/// <summary>
 		/// The unique user id
 		/// </summary>
-		public int UserID { get; set; }
+		public int UserId { get; set; }
 
 		/// <summary>
 		/// The flag the user has read the message

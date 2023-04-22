@@ -7,8 +7,6 @@ namespace Chat.Core
 	/// </summary>
 	public static class CoreDI
 	{
-		#region Public Properties
-
 		/// <summary>
 		/// A shortcut to access the <see cref="IFileManager"/>
 		/// </summary>
@@ -23,7 +21,5 @@ namespace Chat.Core
 		/// A shortcut to access toe <see cref="IClientDataStore"/> service
 		/// </summary>
 		public static IClientDataStore DataStore => Framework.Service<IClientDataStore>();
-
-		#endregion
 	}
 }

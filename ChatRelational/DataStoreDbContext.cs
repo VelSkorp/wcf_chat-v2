@@ -1,12 +1,13 @@
 ﻿using Chat.Core;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ChatRelational
 {
 	/// <summary>
 	/// The database context for the client data store
 	/// </summary>
-	public class ClientDataStoreDbContext : DbContext
+	public class DataStoreDbContext : DbContext
 	{
 		#region DbSets 
 
@@ -23,12 +24,12 @@ namespace ChatRelational
 		/// <summary>
 		/// The messages details
 		/// </summary>
-		public DbSet<MessagesDataModel> Messages { get; set; }
+		public DbSet<MessageDataModel> Messages { get; set; }
 
 		/// <summary>
 		/// The users in the same chat
 		/// </summary>
-		public DbSet<PartyDataModel> Party { get; set; }
+		public DbSet<RosterDataModel> Roster { get; set; }
 
 		/// <summary>
 		/// The user profiles details
@@ -42,7 +43,7 @@ namespace ChatRelational
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public ClientDataStoreDbContext(DbContextOptions<ClientDataStoreDbContext> options) : base(options) { }
+		public DataStoreDbContext(DbContextOptions<DataStoreDbContext> options) : base(options) { }
 
 		#endregion
 
@@ -62,9 +63,11 @@ namespace ChatRelational
 			// --------------------------
 			//
 			// Set primary keys
-			modelBuilder.Entity<ChatDataModel>().HasKey(a => a.ID);
-			modelBuilder.Entity<MessagesDataModel>().HasKey(a => a.ID);
-			modelBuilder.Entity<UserDataModel>().HasKey(a => a.ID);
+			modelBuilder.Entity<ChatDataModel>().ToTable("Chats").HasKey(a => a.Id);
+			modelBuilder.Entity<MessageDataModel>().ToTable("MessagesStatus").HasKey(a => a.Id);
+			modelBuilder.Entity<MessageStatusDataModel>().ToTable("Messages").HasKey(a => a.Id);
+			modelBuilder.Entity<RosterDataModel>().ToTable("Roster").HasKey(a => a.Id);
+			modelBuilder.Entity<UserDataModel>().ToTable("Users").HasKey(a => a.Id);
 		}
 
 		#endregion
