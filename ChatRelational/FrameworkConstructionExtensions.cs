@@ -25,7 +25,7 @@ namespace ChatRelational
 
 			// Add client data store for easy access/use of the backing data store
 			// Make it scoped so we can inject the scoped DbContext
-			construction.Services.AddTransient<IClientDataStore>(
+			construction.Services.AddTransient<IDataStore>(
 				provider => new BaseClientDataStore(provider.GetService<DataStoreDbContext>()));
 
 			// Return framework for chaining

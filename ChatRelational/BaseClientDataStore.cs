@@ -10,7 +10,7 @@ namespace ChatRelational
 	/// such as login credentials, messages, settings and so on
 	/// in an SQLite database
 	/// </summary>
-	public class BaseClientDataStore : IClientDataStore
+	public class BaseClientDataStore : IDataStore
 	{
 		#region Protected Members
 
@@ -36,10 +36,6 @@ namespace ChatRelational
 
 		#region Interface Implementation
 
-		/// <summary>
-		/// Makes sure the client data store is correctly set up
-		/// </summary>
-		/// <returns>Returns a task that will finish once setup is complete</returns>
 		public async Task EnsureDataStoreAsync()
 		{
 			// Make sure the database exists and is created
@@ -54,14 +50,42 @@ namespace ChatRelational
 			// Pass back the user details
 			return Task.FromResult(new UserProfileDetailsApiModel
 			{
-				ID = userCredentials.Id,
+				Id = userCredentials.Id,
 				FirstName = userCredentials.FirstName,
 				LastName = userCredentials.LastName,
 				Username = userCredentials.Username,
 			});
 		}
-		
-		public async Task<UserProfileDetailsApiModel> AddNewUserAsync(RegisterCredentialsApiModel registerCredentials)
+
+		public Task<List<ChatDataModel>> GetListOfChatsAsync(UserProfileDetailsApiModel userProfile)
+		{
+			// Search all chat for given user
+			var chatsIds = mDbContext.Roster.Where(roster => roster.UserId == userProfile.Id).Select(user => user.ChatId);
+			var chats = mDbContext.Chats.Where(chat => chatsIds.Contains(chat.Id));
+
+			// Pass back the user details
+			return Task.FromResult(chats.ToList());
+		}
+
+		public Task<MessageStatusDataModel> GetMessageStatusAsync(MessageDataModel message)
+		{
+			// Search message status for given message
+			var messages = mDbContext.MessagesStatus.First(messagesStatus => messagesStatus.MessageId == message.Id && messagesStatus.UserId == message.UserId);
+
+			// Pass back the user details
+			return Task.FromResult(messages);
+		}
+
+		public Task<List<MessageDataModel>> GetMessagesForChatAsync(ChatDataModel chat)
+		{
+			// Search all messages for given chat id
+			var messages = mDbContext.Messages.Where(message => message.ChatId == chat.Id);
+
+			// Pass back the user details
+			return Task.FromResult(messages.ToList());
+		}
+
+		public Task<UserProfileDetailsApiModel> AddNewUserAsync(RegisterCredentialsApiModel registerCredentials)
 		{
 			// Find user data
 			UserDataModel userCredentials = mDbContext.Users.FirstOrDefault(user => user.Username == registerCredentials.Username && user.Password == registerCredentials.Password);
@@ -86,22 +110,64 @@ namespace ChatRelational
 			mDbContext.Users.Add(userCredentials);
 
 			// Save changes
-			await mDbContext.SaveChangesAsync();
+			mDbContext.SaveChangesAsync();
 
 			// Pass back the user details
-			return new UserProfileDetailsApiModel
+			return Task.FromResult(new UserProfileDetailsApiModel
 			{
-				ID = userCredentials.Id,
+				Id = userCredentials.Id,
 				FirstName = userCredentials.FirstName,
 				LastName = userCredentials.LastName,
 				Username = userCredentials.Username,
-			};
+			});
 		}
-		
-		public async Task UpdateUserProfileDetailsAsync(UserProfileDetailsApiModel userProfileDetails)
+
+		public async Task AddNewChatAsync(ChatDataModel chat, List<UserProfileDetailsApiModel> users)
+		{
+			// If chat can be found
+			if (mDbContext.Chats.Contains(chat))
+			{
+				return;
+			}
+
+			// Add new one
+			mDbContext.Chats.Add(chat);
+			users.ForEach(user => mDbContext.Roster.Add(new RosterDataModel()
+			{
+				ChatId = chat.Id,
+				UserId = user.Id
+			}));
+
+			// Save changes
+			await mDbContext.SaveChangesAsync();
+		}
+
+		public async Task AddNewMessageAsync(MessageDataModel message)
+		{
+			// If chat can be found
+			if (mDbContext.Messages.Contains(message))
+			{
+				return;
+			}
+
+			var messageStatus = new MessageStatusDataModel()
+			{
+				MessageId = message.Id,
+				UserId = message.UserId
+			};
+
+			// Add new one
+			mDbContext.Messages.Add(message);
+			mDbContext.MessagesStatus.Add(messageStatus);
+
+			// Save changes
+			await mDbContext.SaveChangesAsync();
+		}
+
+		public async Task UpdateUserProfileDetailsAsync(UserProfileDetailsApiModel userProfile)
 		{
 			// Find user data
-			UserDataModel userCredentials = mDbContext.Users.First((user) => user.Id == userProfileDetails.ID);
+			UserDataModel userCredentials = mDbContext.Users.First((user) => user.Id == userProfile.Id);
 
 			// Clear all entries
 			mDbContext.Users.Remove(userCredentials);
@@ -109,9 +175,9 @@ namespace ChatRelational
 			// Save changes
 			await mDbContext.SaveChangesAsync();
 
-			userCredentials.Username = userProfileDetails.Username;
-			userCredentials.FirstName = userProfileDetails.FirstName;
-			userCredentials.LastName = userProfileDetails.LastName;
+			userCredentials.Username = userProfile.Username;
+			userCredentials.FirstName = userProfile.FirstName;
+			userCredentials.LastName = userProfile.LastName;
 
 			// Add new one
 			mDbContext.Users.Add(userCredentials);
@@ -119,48 +185,25 @@ namespace ChatRelational
 			// Save changes
 			await mDbContext.SaveChangesAsync();
 		}
-		
-		public async Task<List<ChatDataModel>> GetListOfChatsAsync(UserProfileDetailsApiModel userProfile)
-		{
-			// Search all chat for given user
-			var chatsIds = mDbContext.Roster.Where(roster => roster.UserId == userProfile.ID).Select(user => user.ChatId);
-			var chats = mDbContext.Chats.Where(chat => chatsIds.Contains(chat.Id));
 
-			// Pass back the user details
-			return chats?.ToList();
-		}
-
-		public async Task<List<MessageDataModel>> GetMessagesForChatAsync(int chatId)
+		public async Task UpdateChatMessageStatusAsync(MessageDataModel message)
 		{
 			// Search all messages for given chat id
-			var messages = mDbContext.Messages.Where(message => message.ChatId == chatId);
-
-			// Pass back the user details
-			return messages?.ToList();
-		}
-
-		public async Task UpdateChatMessageStatusAsync(int userId, int messageId)
-		{
-			// Search all messages for given chat id
-			MessageStatusDataModel message = mDbContext.MessagesStatus.First(message => message.MessageId == messageId && message.UserId == userId);
+			MessageStatusDataModel messageStatus = mDbContext.MessagesStatus.First(message => message.MessageId == message.Id && message.UserId == message.UserId);
 
 			// Clear all entries
-			mDbContext.MessagesStatus.Remove(message);
+			mDbContext.MessagesStatus.Remove(messageStatus);
 
 			// Read message
-			message.IsRead = true;
+			messageStatus.IsRead = true;
 
 			// Add new one
-			mDbContext.MessagesStatus.Add(message);
+			mDbContext.MessagesStatus.Add(messageStatus);
 
 			// Save changes
 			await mDbContext.SaveChangesAsync();
 		}
 
-		/// <summary>
-		/// Removes all data stored in the data store
-		/// </summary>
-		/// <returns>Returns a task that will finish once setup is complete</returns>
 		public async Task ClearAllDataAsync()
 		{
 			// Clear all data

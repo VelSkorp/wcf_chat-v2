@@ -18,8 +18,8 @@ namespace Chat.Core
 		public static ITaskManager Task => Framework.Service<ITaskManager>();
 
 		/// <summary>
-		/// A shortcut to access toe <see cref="IClientDataStore"/> service
+		/// A shortcut to access toe <see cref="IDataStore"/> service
 		/// </summary>
-		public static IClientDataStore DataStore => Framework.Service<IClientDataStore>();
+		public static IDataStore DataStore => Framework.Service<IDataStore>();
 	}
 }

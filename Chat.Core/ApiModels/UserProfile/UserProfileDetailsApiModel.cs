@@ -8,7 +8,7 @@
 		/// <summary>
 		/// The unique users id
 		/// </summary>
-		public int ID { get; set; }
+		public int Id { get; set; }
 
 		/// <summary>
 		/// The users first name
