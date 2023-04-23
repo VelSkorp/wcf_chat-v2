@@ -11,7 +11,7 @@ Scenario Outline: The new user is added
 		| VelScorp | Vlad      | Kontsevich | TestPassword |
 
 Scenario Outline: The user can change profile details
-	Given the user is added with the username: <Username>, first name: <FirstName>, last name: <LastName>, password: <Password>
+	Given the user is added with the id: 1, username: <Username>, first name: <FirstName>, last name: <LastName>, password: <Password>
 	When the user with an id: 1 changed username to <NewUsername>, first name to <NewFirstName>, last name to <NewLastName>
 	Then the user exists with the id: 1, username: <NewUsername>, first name: <NewFirstName>, last name: <NewLastName>, password: <Password>
 
@@ -21,8 +21,8 @@ Scenario Outline: The user can change profile details
 		| VelScorp | Vlad      | Kontsevich | TestPassword | Test        | Test         | Test        |
 
 Scenario Outline: The new chat is added
-	Given the user is added with the username: TestUser, first name: Test, last name: Test, password: Test
-		And the user is added with the username: VelScorp, first name: Vlad, last name: Kontsevich, password: TestPassword
+	Given the user is added with the id: 1, username: TestUser, first name: Test, last name: Test, password: Test
+		And the user is added with the id: 2, username: VelScorp, first name: Vlad, last name: Kontsevich, password: TestPassword
 	When the chat is added with the name: <ChatName>, owner id: <OwnerId> and users:
 		| Id | FirstName | LastName | Username   |
 		| 1  | Test      | Test     | Test       |
@@ -31,5 +31,5 @@ Scenario Outline: The new chat is added
 
 	Examples:
 		| ChatName | OwnerId | Username | UserId |
-		| Test     | 2       | TestUser | 1      |
+		| TestChat | 2       | TestUser | 1      |
 		| VelScorp | 2       | VelScorp | 2      |

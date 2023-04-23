@@ -158,8 +158,8 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 14
- testRunner.Given(string.Format("the user is added with the username: {0}, first name: {1}, last name: {2}, passwo" +
-                            "rd: {3}", username, firstName, lastName, password), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the user is added with the id: 1, username: {0}, first name: {1}, last name: {2}," +
+                            " password: {3}", username, firstName, lastName, password), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 15
  testRunner.When(string.Format("the user with an id: 1 changed username to {0}, first name to {1}, last name to {" +
@@ -175,7 +175,7 @@ this.ScenarioInitialize(scenarioInfo);
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("The new chat is added")]
-        [NUnit.Framework.TestCaseAttribute("Test", "2", "TestUser", "1", null)]
+        [NUnit.Framework.TestCaseAttribute("TestChat", "2", "TestUser", "1", null)]
         [NUnit.Framework.TestCaseAttribute("VelScorp", "2", "VelScorp", "2", null)]
         public virtual void TheNewChatIsAdded(string chatName, string ownerId, string username, string userId, string[] exampleTags)
         {
@@ -207,12 +207,12 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 24
- testRunner.Given("the user is added with the username: TestUser, first name: Test, last name: Test," +
-                        " password: Test", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the user is added with the id: 1, username: TestUser, first name: Test, last name" +
+                        ": Test, password: Test", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 25
-  testRunner.And("the user is added with the username: VelScorp, first name: Vlad, last name: Konts" +
-                        "evich, password: TestPassword", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And("the user is added with the id: 2, username: VelScorp, first name: Vlad, last name" +
+                        ": Kontsevich, password: TestPassword", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                             "Id",

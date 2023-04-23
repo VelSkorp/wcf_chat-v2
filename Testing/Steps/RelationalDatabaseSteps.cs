@@ -6,11 +6,11 @@ namespace Testing
 	[Binding]
 	public sealed class RelationalDatabaseSteps
 	{
-		[Given("the user is added with the username: (.*), first name: (.*), last name: (.*), password: (.*)")]
-		public static async Task GivenUserIsAddedAsync(string username, string firstName, string lastName, string password)
+		[Given("the user is added with the id: (.*), username: (.*), first name: (.*), last name: (.*), password: (.*)")]
+		public static async Task GivenUserIsAddedAsync(int id, string username, string firstName, string lastName, string password)
 		{
 			await WhenUserIsAddedAsync(username, firstName, lastName, password);
-			await ThenUserIsExistsAsync(1, username, firstName, lastName, password);
+			await ThenUserIsExistsAsync(id, username, firstName, lastName, password);
 		}
 
 		[When("the user is added with the username: (.*), first name: (.*), last name: (.*), password: (.*)")]
@@ -77,7 +77,7 @@ namespace Testing
 
 			var user = await CoreDI.DataStore.GetUserProfileDetailsAsync(loginCredentials);
 
-			AssertHelper.AreEqual(id, user.Id, "received user id");
+			AssertHelper.AreEqual(id, user.Id, $"received {user.Username} id");
 			AssertHelper.AreEqual(username, user.Username, "received user username");
 			AssertHelper.AreEqual(firstName, user.FirstName, "received first name");
 			AssertHelper.AreEqual(lastName, user.LastName, "received last name");

@@ -99,7 +99,7 @@ namespace ChatRelational
 			// If we get here, we are have not this user
 			userCredentials = new UserDataModel()
 			{
-				Id = mDbContext.Users.Count(),
+				Id = mDbContext.Users.Count() + 1,
 				FirstName = registerCredentials.FirstName,
 				LastName = registerCredentials.LastName,
 				Username = registerCredentials.Username,
@@ -132,6 +132,11 @@ namespace ChatRelational
 
 			// Add new one
 			mDbContext.Chats.Add(chat);
+
+			// Save changes
+			await mDbContext.SaveChangesAsync();
+
+			// Connect users and chats
 			users.ForEach(user => mDbContext.Roster.Add(new RosterDataModel()
 			{
 				ChatId = chat.Id,

@@ -2,6 +2,7 @@
 
 namespace Testing
 {
+	[Binding]
 	public static class StringTransformations
 	{
 		[StepArgumentTransformation]
