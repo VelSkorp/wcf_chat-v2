@@ -1,4 +1,5 @@
 ﻿using Chat.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,7 +46,7 @@ namespace ChatRelational
 		public Task<UserProfileDetailsApiModel> GetUserProfileDetailsAsync(LoginCredentialsApiModel loginCredentials)
 		{
 			// Find user data
-			UserDataModel userCredentials = mDbContext.Users.First((user) => user.Username == loginCredentials.Username && user.Password == loginCredentials.Password);
+			var userCredentials = mDbContext.Users.First((user) => user.Username == loginCredentials.Username && user.Password == loginCredentials.Password);
 
 			// Pass back the user details
 			return Task.FromResult(new UserProfileDetailsApiModel
@@ -88,7 +89,7 @@ namespace ChatRelational
 		public Task<UserProfileDetailsApiModel> AddNewUserAsync(RegisterCredentialsApiModel registerCredentials)
 		{
 			// Find user data
-			UserDataModel userCredentials = mDbContext.Users.FirstOrDefault(user => user.Username == registerCredentials.Username && user.Password == registerCredentials.Password);
+			var userCredentials = mDbContext.Users.FirstOrDefault(user => user.Username == registerCredentials.Username && user.Password == registerCredentials.Password);
 
 			// If user can be found
 			if (userCredentials != null)
@@ -130,6 +131,9 @@ namespace ChatRelational
 				return;
 			}
 
+			// Set next id for chat
+			chat.Id = mDbContext.Chats.Count() + 1;
+
 			// Add new one
 			mDbContext.Chats.Add(chat);
 
@@ -155,15 +159,32 @@ namespace ChatRelational
 				return;
 			}
 
-			var messageStatus = new MessageStatusDataModel()
-			{
-				MessageId = message.Id,
-				UserId = message.UserId
-			};
+			// Set next id for message
+			message.Id = mDbContext.Messages.Count() + 1;
 
 			// Add new one
 			mDbContext.Messages.Add(message);
-			mDbContext.MessagesStatus.Add(messageStatus);
+
+			// Save changes
+			await mDbContext.SaveChangesAsync();
+
+			// Get all users in chat
+			var usersInChat = mDbContext.Roster.Where(roster => roster.ChatId == message.ChatId && roster.UserId != message.UserId).ToList();
+
+			// Connect users and messages
+			usersInChat.ForEach(user => mDbContext.MessagesStatus.Add(new MessageStatusDataModel()
+			{
+				MessageId = message.Id,
+				UserId = user.UserId
+			}));
+
+			// Read message for user who sent this message
+			mDbContext.MessagesStatus.Add(new MessageStatusDataModel()
+			{
+				MessageId = message.Id,
+				UserId = message.UserId,
+				IsRead = true
+			});
 
 			// Save changes
 			await mDbContext.SaveChangesAsync();
@@ -172,7 +193,7 @@ namespace ChatRelational
 		public async Task UpdateUserProfileDetailsAsync(UserProfileDetailsApiModel userProfile)
 		{
 			// Find user data
-			UserDataModel userCredentials = mDbContext.Users.First((user) => user.Id == userProfile.Id);
+			var userCredentials = mDbContext.Users.First((user) => user.Id == userProfile.Id);
 
 			// Clear all entries
 			mDbContext.Users.Remove(userCredentials);
@@ -194,10 +215,13 @@ namespace ChatRelational
 		public async Task UpdateChatMessageStatusAsync(MessageDataModel message)
 		{
 			// Search all messages for given chat id
-			MessageStatusDataModel messageStatus = mDbContext.MessagesStatus.First(message => message.MessageId == message.Id && message.UserId == message.UserId);
+			var messageStatus = mDbContext.MessagesStatus.First(messagesStatus => messagesStatus.MessageId == message.Id && messagesStatus.UserId == message.UserId);
 
 			// Clear all entries
 			mDbContext.MessagesStatus.Remove(messageStatus);
+
+			// Save changes
+			await mDbContext.SaveChangesAsync();
 
 			// Read message
 			messageStatus.IsRead = true;
@@ -211,11 +235,7 @@ namespace ChatRelational
 
 		public async Task ClearAllDataAsync()
 		{
-			// Clear all data
-			//mDbContext.Chats.RemoveRange(mDbContext.Chats);
-			//mDbContext.Messages.RemoveRange(mDbContext.Messages);
-			//mDbContext.MessagesStatus.RemoveRange(mDbContext.MessagesStatus);
-			//mDbContext.Roster.RemoveRange(mDbContext.Roster);
+			// Clear all data cascade
 			mDbContext.Users.RemoveRange(mDbContext.Users);
 
 			// Save changes

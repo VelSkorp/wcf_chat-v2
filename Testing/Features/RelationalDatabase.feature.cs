@@ -223,7 +223,7 @@ this.ScenarioInitialize(scenarioInfo);
                             "1",
                             "Test",
                             "Test",
-                            "Test"});
+                            "TestUser"});
                 table1.AddRow(new string[] {
                             "2",
                             "VelScorp",
@@ -234,6 +234,147 @@ this.ScenarioInitialize(scenarioInfo);
 #line hidden
 #line 30
  testRunner.Then(string.Format("the user with the id: {0}, username: {1} is a member of chat rooms: {2}", userId, username, chatName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("The new message is added")]
+        [NUnit.Framework.TestCaseAttribute("TestChat", "2", "TestUser", "1", null)]
+        [NUnit.Framework.TestCaseAttribute("VelScorp", "2", "VelScorp", "2", null)]
+        public virtual void TheNewMessageIsAdded(string chatName, string ownerId, string username, string userId, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("ChatName", chatName);
+            argumentsOfScenario.Add("OwnerId", ownerId);
+            argumentsOfScenario.Add("Username", username);
+            argumentsOfScenario.Add("UserId", userId);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The new message is added", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 37
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 38
+ testRunner.Given("the user is added with the id: 1, username: TestUser, first name: Test, last name" +
+                        ": Test, password: Test", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 39
+  testRunner.And("the user is added with the id: 2, username: VelScorp, first name: Vlad, last name" +
+                        ": Kontsevich, password: TestPassword", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Id",
+                            "FirstName",
+                            "LastName",
+                            "Username"});
+                table2.AddRow(new string[] {
+                            "1",
+                            "Test",
+                            "Test",
+                            "TestUser"});
+                table2.AddRow(new string[] {
+                            "2",
+                            "VelScorp",
+                            "Vlad",
+                            "Kontsevich"});
+#line 40
+  testRunner.And(string.Format("the chat is added with the name: {0}, owner id: {1} and users:", chatName, ownerId), ((string)(null)), table2, "And ");
+#line hidden
+#line 44
+ testRunner.When("the message is added with the chat id: 1, user id: 2, content: TestStringMessage," +
+                        " creation date: 4/23/2023", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 45
+ testRunner.Then(string.Format("the chat with id: 1, name: {0} contains messages: TestStringMessage", chatName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("The message can be read")]
+        [NUnit.Framework.TestCaseAttribute("TestChat", "2", null)]
+        [NUnit.Framework.TestCaseAttribute("VelScorp", "2", null)]
+        public virtual void TheMessageCanBeRead(string chatName, string ownerId, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("ChatName", chatName);
+            argumentsOfScenario.Add("OwnerId", ownerId);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The message can be read", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 52
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 53
+ testRunner.Given("the user is added with the id: 1, username: TestUser, first name: Test, last name" +
+                        ": Test, password: Test", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 54
+  testRunner.And("the user is added with the id: 2, username: VelScorp, first name: Vlad, last name" +
+                        ": Kontsevich, password: TestPassword", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Id",
+                            "FirstName",
+                            "LastName",
+                            "Username"});
+                table3.AddRow(new string[] {
+                            "1",
+                            "Test",
+                            "Test",
+                            "TestUser"});
+                table3.AddRow(new string[] {
+                            "2",
+                            "VelScorp",
+                            "Vlad",
+                            "Kontsevich"});
+#line 55
+  testRunner.And(string.Format("the chat is added with the name: {0}, owner id: {1} and users:", chatName, ownerId), ((string)(null)), table3, "And ");
+#line hidden
+#line 59
+ testRunner.When("the message is added with the chat id: 1, user id: 2, content: TestStringMessage," +
+                        " creation date: 4/23/2023", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 60
+  testRunner.And("the user with the id: 1 read message with id: 1 in the chat with id: 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 61
+ testRunner.Then("the user with the id: 1 read message with id: 1 in the chat with id: 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

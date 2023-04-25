@@ -64,8 +64,8 @@ namespace ChatRelational
 			//
 			// Set primary keys
 			modelBuilder.Entity<ChatDataModel>().ToTable("Chats").HasKey(a => a.Id);
-			modelBuilder.Entity<MessageDataModel>().ToTable("MessagesStatus").HasKey(a => a.Id);
-			modelBuilder.Entity<MessageStatusDataModel>().ToTable("Messages").HasKey(a => a.Id);
+			modelBuilder.Entity<MessageDataModel>().ToTable("Messages").HasKey(a => a.Id);
+			modelBuilder.Entity<MessageStatusDataModel>().ToTable("MessagesStatus").HasKey(a => a.Id);
 			modelBuilder.Entity<RosterDataModel>().ToTable("Roster").HasKey(a => a.Id);
 			modelBuilder.Entity<UserDataModel>().ToTable("Users").HasKey(a => a.Id);
 		}

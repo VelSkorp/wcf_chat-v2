@@ -22,6 +22,7 @@ namespace Testing
 		public static async Task BeforeScenarioAsync()
 		{
 			await CoreDI.DataStore.EnsureDataStoreAsync();
+			await CoreDI.DataStore.ClearAllDataAsync();
 		}
 
 		[AfterScenario]

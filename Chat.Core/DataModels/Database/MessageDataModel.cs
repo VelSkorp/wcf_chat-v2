@@ -30,6 +30,6 @@ namespace Chat.Core
 		/// <summary>
 		/// Date the message was created
 		/// </summary>
-		public DateTime CreationDateCreationDate { get; set; }
+		public DateTime CreationDate { get; set; }
 	}
 }
