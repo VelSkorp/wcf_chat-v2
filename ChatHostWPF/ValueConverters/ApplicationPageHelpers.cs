@@ -19,12 +19,6 @@ namespace ChatHostWPF
 			// Find the appropriate page
 			switch (page)
 			{
-				case ApplicationPage.Login:
-					return new LoginPage(viewModel as LoginViewModel);
-
-				case ApplicationPage.Register:
-					return new RegisterPage(viewModel as RegisterViewModel);
-
 				case ApplicationPage.Server:
 					return new ServerPage(viewModel as ServerViewModel);
 
@@ -43,12 +37,6 @@ namespace ChatHostWPF
 		public static ApplicationPage ToApplicationPage(this BasePage page)
 		{
 			// Find application page that matches the base page
-			if (page is LoginPage)
-				return ApplicationPage.Login;
-
-			if (page is RegisterPage)
-				return ApplicationPage.Register;
-
 			if (page is ServerPage)
 				return ApplicationPage.Server;
 

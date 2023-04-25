@@ -2,6 +2,7 @@
 using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using static ChatClient.DI;
 
 namespace ChatClient
 {
@@ -13,9 +14,19 @@ namespace ChatClient
 		#region Public Properties
 
 		/// <summary>
-		/// The email of the user
+		/// The username of the user
 		/// </summary>
-		public string Email { get; set; }
+		public string Username { get; set; }
+
+		/// <summary>
+		/// The first name of the user
+		/// </summary>
+		public string FirstName { get; set; }
+
+		/// <summary>
+		/// The last name of the user
+		/// </summary>
+		public string LastName { get; set; }
 
 		/// <summary>
 		/// A flag indicating if the register command is running
@@ -62,6 +73,18 @@ namespace ChatClient
 			await RunCommandAsync(() => RegisterIsRunning, async () =>
 			{
 				await Task.Delay(5000);
+
+				//if (Client.Endpoint.Address == null)
+				//{
+				//	// Display error
+				//	await UI.ShowMessage(new MessageBoxDialogViewModel
+				//	{
+				//		Title = "Load error",
+				//		Message = "Server can't be found"
+				//	});
+
+				//	return;
+				//}
 			});
 		}
 
@@ -71,8 +94,8 @@ namespace ChatClient
 		/// <returns></returns>
 		public async Task LoginAsync()
 		{
-            // Go to register page?
-            DI.ViewModelApplication.GoToPage(ApplicationPage.Login);
+			// Go to register page?
+			ViewModelApplication.GoToPage(ApplicationPage.Login);
 
 			await Task.Delay(1);
 		}

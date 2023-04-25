@@ -11,24 +11,24 @@ namespace ChatClient
 		#region Public Properties
 
 		/// <summary>
-		/// The current users name
+		/// The current users first name
 		/// </summary>
-		public TextEntryViewModel Name { get; set; }
+		public TextEntryViewModel FirstName { get; set; }
+
+		/// <summary>
+		/// The current users last name
+		/// </summary>
+		public TextEntryViewModel LastName { get; set; }
 
 		/// <summary>
 		/// The current users username
 		/// </summary>
-		public TextEntryViewModel UserName { get; set; }
+		public TextEntryViewModel Username { get; set; }
 
 		/// <summary>
 		/// The current users password
 		/// </summary>
 		public PasswordEntryViewModel Password { get; set; }
-
-		/// <summary>
-		/// The current users email
-		/// </summary>
-		public TextEntryViewModel Email { get; set; }
 
 		/// <summary>
 		/// The text for the logout button
@@ -75,10 +75,10 @@ namespace ChatClient
 			ClearUserDataCommand = new RelayCommand(ClearUserData);
 
 			// TODO: Remove this with real information pulled from our database in future
-			Name = new TextEntryViewModel { Label = "Name", OriginalText = "Vlad Kontsevich" };
-			UserName = new TextEntryViewModel { Label = "UserName", OriginalText = "Vald" };
+			FirstName = new TextEntryViewModel { Label = "FirstName", OriginalText = "Vlad" };
+			LastName = new TextEntryViewModel { Label = "LastName", OriginalText = "Kontsevich" };
+			Username = new TextEntryViewModel { Label = "UserName", OriginalText = "Vlad" };
 			Password = new PasswordEntryViewModel { Label = "Password", FakePassword = "*********" };
-			Email = new TextEntryViewModel { Label = "Email", OriginalText = "kontsevichv@mail.ru" };
 
 			// TODO: Get from localization
 			LogoutButtonText = "Logout";
@@ -93,8 +93,8 @@ namespace ChatClient
 		/// </summary>
 		private void Close()
 		{
-            // Close the settings menu
-            DI.ViewModelApplication.SettingsMenuVisible = false;
+			// Close the settings menu
+			DI.ViewModelApplication.SettingsMenuVisible = false;
 		}
 
 		/// <summary>
@@ -102,8 +102,8 @@ namespace ChatClient
 		/// </summary>
 		private void Open()
 		{
-            // Open the settings menu
-            DI.ViewModelApplication.SettingsMenuVisible = true;
+			// Open the settings menu
+			DI.ViewModelApplication.SettingsMenuVisible = true;
 		}
 
 		/// <summary>
@@ -119,8 +119,8 @@ namespace ChatClient
 			// any informatioon about the current user
 			ClearUserData();
 
-            // Go to login page
-            DI.ViewModelApplication.GoToPage(ApplicationPage.Login);
+			// Go to login page
+			DI.ViewModelApplication.GoToPage(ApplicationPage.Login);
 		}
 
 		/// <summary>
@@ -129,10 +129,10 @@ namespace ChatClient
 		public void ClearUserData()
 		{
 			// Clear all view models containing the user info
-			Name = null;
-			UserName = null;
+			FirstName = null;
+			LastName = null;
+			Username = null;
 			Password = null;
-			Email = null;
 		}
 
 		#endregion

@@ -15,6 +15,6 @@ namespace ChatHostWPF
         /// <summary>
         /// A shortcut to access the <see cref="ApplicationViewModel"/>
         /// </summary>
-        public static ApplicationViewModel ViewModelApplication => Framework.Service<ApplicationViewModel>();
+        public static ApplicationViewModel ApplicationViewModel => Framework.Service<ApplicationViewModel>();
     }
 }

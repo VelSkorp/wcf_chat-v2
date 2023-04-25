@@ -1,50 +1,64 @@
 ﻿using Dna;
 using Chat.Core;
 using Microsoft.Extensions.DependencyInjection;
+//using Chat.Core.Proxy;
 
 namespace ChatClient
 {
-    /// <summary>
-    /// Extension methods for the <see cref="FrameworkConstruction"/>
-    /// </summary>
-    public static class FrameworkConstructionExtensions
-    {
-        /// <summary>
-        /// Injects the view models needed for Fasetto Word application
-        /// </summary>
-        /// <param name="construction"></param>
-        /// <returns></returns>
-        public static FrameworkConstruction AddChatClientViewModels(this FrameworkConstruction construction)
-        {
-            // Bind to a single instance of Application view model
-            construction.Services.AddSingleton<ApplicationViewModel>();
+	/// <summary>
+	/// Extension methods for the <see cref="FrameworkConstruction"/>
+	/// </summary>
+	public static class FrameworkConstructionExtensions
+	{
+		/// <summary>
+		/// Injects the view models needed for ChatClient application
+		/// </summary>
+		/// <param name="construction"></param>
+		/// <returns></returns>
+		public static FrameworkConstruction AddChatClientViewModels(this FrameworkConstruction construction)
+		{
+			// Bind to a single instance of Application view model
+			construction.Services.AddSingleton<ApplicationViewModel>();
 
-            // Bind to a single instance of Settings view model
-            construction.Services.AddSingleton<SettingsViewModel>();
+			// Bind to a single instance of Settings view model
+			construction.Services.AddSingleton<SettingsViewModel>();
 
-            // Return the construction for chaining
-            return construction;
-        }
+			// Return the construction for chaining
+			return construction;
+		}
 
-        /// <summary>
-        /// Injects the Fasetto Word client application services needed
-        /// for the Fasetto Word application
-        /// </summary>
-        /// <param name="construction"></param>
-        /// <returns></returns>
-        public static FrameworkConstruction AddChatClientClientServices(this FrameworkConstruction construction)
-        {
-            // Add our task manager
-            construction.Services.AddTransient<ITaskManager, BaseTaskManager>();
+		/// <summary>
+		/// Injects the client needed for ChatClient application
+		/// </summary>
+		/// <param name="construction"></param>
+		/// <returns></returns>
+		public static FrameworkConstruction AddChatClient(this FrameworkConstruction construction)
+		{
+			// Bind to a single instance of ServiceChat client
+			//construction.Services.AddSingleton<ServiceChatClient>();
 
-            // Bind a file manager
-            construction.Services.AddTransient<IFileManager, BaseFileManager>();
+			// Return the construction for chaining
+			return construction;
+		}
 
-            // Bind a UI Manager
-            construction.Services.AddTransient<IUIManager, UIManager>();
+		/// <summary>
+		/// Injects the ChatClient application services
+		/// </summary>
+		/// <param name="construction"></param>
+		/// <returns></returns>
+		public static FrameworkConstruction AddChatClientServices(this FrameworkConstruction construction)
+		{
+			// Add our task manager
+			construction.Services.AddTransient<ITaskManager, BaseTaskManager>();
 
-            // Return the construction for chaining
-            return construction;
-        }
-    }
+			// Bind a file manager
+			construction.Services.AddTransient<IFileManager, BaseFileManager>();
+
+			// Bind a UI Manager
+			construction.Services.AddTransient<IUIManager, UIManager>();
+
+			// Return the construction for chaining
+			return construction;
+		}
+	}
 }

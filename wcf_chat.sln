@@ -1,15 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29609.76
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatHostWPF", "ChatHostWPF\ChatHostWPF.csproj", "{B9409D80-5C79-45F0-9F82-29E46CBDD7E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatHostWPF", "ChatHostWPF\ChatHostWPF.csproj", "{B9409D80-5C79-45F0-9F82-29E46CBDD7E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatClient", "ChatClient\ChatClient.csproj", "{E69312C9-96E1-44CB-8CAA-237E09DFE433}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatClient", "ChatClient\ChatClient.csproj", "{E69312C9-96E1-44CB-8CAA-237E09DFE433}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatRelational", "ChatRelational\ChatRelational.csproj", "{2FC404C8-2DB8-4F1F-968D-1B8C5BE6E57A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Core", "Chat.Core\Chat.Core.csproj", "{72E64998-0FEC-4572-935F-2C614A90638D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing", "Testing\Testing.csproj", "{85602D50-927F-40D7-9E24-787EF84E7580}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{72E64998-0FEC-4572-935F-2C614A90638D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72E64998-0FEC-4572-935F-2C614A90638D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72E64998-0FEC-4572-935F-2C614A90638D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85602D50-927F-40D7-9E24-787EF84E7580}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85602D50-927F-40D7-9E24-787EF84E7580}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85602D50-927F-40D7-9E24-787EF84E7580}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85602D50-927F-40D7-9E24-787EF84E7580}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

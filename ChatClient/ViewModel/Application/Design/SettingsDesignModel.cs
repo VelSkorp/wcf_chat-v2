@@ -21,10 +21,10 @@
 		/// </summary>
 		public SettingsDesignModel()
 		{
-			Name = new TextEntryViewModel { Label = "Name", OriginalText = "Vlad Kontsevich" };
-			UserName = new TextEntryViewModel { Label = "UserName", OriginalText = "Vald" };
+			FirstName = new TextEntryViewModel { Label = "FirstName", OriginalText = "Vlad" };
+			LastName = new TextEntryViewModel { Label = "LastName", OriginalText = "Kontsevich" };
+			Username = new TextEntryViewModel { Label = "UserName", OriginalText = "Vlad" };
 			Password = new PasswordEntryViewModel { Label = "Password", FakePassword = "*********" };
-			Email = new TextEntryViewModel { Label = "Email", OriginalText = "kontsevichv@mail.ru" };
 		} 
 
 		#endregion

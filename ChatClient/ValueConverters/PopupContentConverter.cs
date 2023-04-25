@@ -1,5 +1,4 @@
-﻿using ChatClient;
-using System;
+﻿using System;
 using System.Globalization;
 
 namespace ChatClient

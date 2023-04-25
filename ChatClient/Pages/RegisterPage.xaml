@@ -6,8 +6,7 @@
 	  xmlns:local="clr-namespace:ChatClient"
 	  mc:Ignorable="d" 
 	  x:Name="Page"
-	  d:DesignHeight="700" d:DesignWidth="700"
-	  >
+	  d:DesignHeight="700" d:DesignWidth="700">
 
 	<Border>
 		<Grid>
@@ -38,17 +37,27 @@
 							<TextBlock Text="It's about to get fun" 
 									   FontSize="{StaticResource FontSizeLarge}"
 									   Foreground="{StaticResource ForegroundDarkBrush}"
-									   Margin="0 0 0 20"
-									   />
+									   Margin="0 0 0 20" />
 
-							<!-- Email -->
-							<TextBox 
-								Text="{Binding Email}" 
-								local:IsFocusedProperty.Value="True"
-								Tag="Email" />
+							<!-- Username -->
+							<TextBox Text="{Binding Username}"
+									 Tag="Username"
+									 local:IsFocusedProperty.Value="True" />
+
+							<!-- First name -->
+							<TextBox Text="{Binding FirstName}"
+									 Tag="First name"
+									 local:IsFocusedProperty.Value="True" />
+
+							<!-- Last name -->
+							<TextBox Text="{Binding LastName}"
+									 Tag="Last name"
+									 local:IsFocusedProperty.Value="True" />
 
 							<!-- Password -->
-							<PasswordBox x:Name="PasswordText" Tag="Password" Margin="0 0 0 30" />
+							<PasswordBox x:Name="PasswordText"
+										 Tag="Password" 
+										 Margin="0 0 0 30" />
 
 							<!-- Next button -->
 							<Button Content="Register" 
@@ -66,8 +75,7 @@
 						Style="{StaticResource TextButton}" 
 						Content="Or, I already have an account..." 
 						HorizontalAlignment="Center" 
-						Command="{Binding LoginCommand}"
-						/>
+						Command="{Binding LoginCommand}" />
 
 				</StackPanel>
 			</ScrollViewer>
