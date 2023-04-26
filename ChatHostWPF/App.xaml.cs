@@ -2,7 +2,6 @@
 using System.Windows;
 using Chat.Core;
 using static Dna.FrameworkDI;
-using static ChatHostWPF.DI;
 
 namespace ChatHostWPF
 {
@@ -20,7 +19,7 @@ namespace ChatHostWPF
 			// Let the base application do what it needs
 			base.OnStartup(e);
 
-			// Setup the Dna Fraimwork
+			// Setup the Dna Framework
 			Framework.Construct<DefaultFrameworkConstruction>()
 				.AddFileLogger()
 				.AddChatHostViewModels()
