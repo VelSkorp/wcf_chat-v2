@@ -8,7 +8,7 @@ namespace ChatHostWPF
     public class UIManager : IUIManager
     {
         /// <summary>
-        /// Disaplys a simple message box to the user
+        /// Displays a simple message box to the user
         /// </summary>
         /// <param name="viewModel">The view model</param>
         /// <returns></returns>

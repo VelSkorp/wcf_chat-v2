@@ -74,7 +74,7 @@ namespace ChatHostWPF
 		{
 			try
 			{
-				// Create base adress for ServiceHost using DNS hostname of the local computer
+				// Create base address for ServiceHost using DNS host name of the local computer
 				//var baseAdress = new Uri($"net.tcp://{Dns.GetHostName()}");
 
 				var builder = WebHost.CreateDefaultBuilder()

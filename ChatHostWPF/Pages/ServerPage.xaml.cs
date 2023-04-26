@@ -1,6 +1,4 @@
-﻿using ChatHostWPF;
-
-namespace ChatHostWPF
+﻿namespace ChatHostWPF
 {
 	/// <summary>
 	/// Interaction logic for ServerPage.xaml

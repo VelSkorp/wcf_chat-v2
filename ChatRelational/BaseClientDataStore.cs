@@ -71,10 +71,10 @@ namespace ChatRelational
 		public Task<MessageStatusDataModel> GetMessageStatusAsync(MessageDataModel message)
 		{
 			// Search message status for given message
-			var messages = mDbContext.MessagesStatus.First(messagesStatus => messagesStatus.MessageId == message.Id && messagesStatus.UserId == message.UserId);
+			var status = mDbContext.MessagesStatus.First(messageStatus => messageStatus.MessageId == message.Id && messageStatus.UserId == message.UserId);
 
 			// Pass back the user details
-			return Task.FromResult(messages);
+			return Task.FromResult(status);
 		}
 
 		public Task<List<MessageDataModel>> GetMessagesForChatAsync(ChatDataModel chat)
@@ -94,7 +94,7 @@ namespace ChatRelational
 			// If user can be found
 			if (userCredentials != null)
 			{
-				return null;
+				throw new InvalidOperationException("User already exists in database");
 			}
 
 			// If we get here, we are have not this user

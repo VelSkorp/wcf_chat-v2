@@ -36,7 +36,7 @@ namespace ChatHostWPF
 			// Set the current page
 			CurrentPage = page;
 
-			// If the page has'n changed, fore off notification
+			// If the page hasn't changed, fore off notification
 			// So pages still update if just the view model has changed
 			if (!different)
 			{

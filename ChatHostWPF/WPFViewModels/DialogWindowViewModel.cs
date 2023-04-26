@@ -29,11 +29,11 @@ namespace ChatHostWPF
         /// </summary>
         public DialogWindowViewModel(Window window) : base(window)
         {
-            // Make minimum suze smaller
+            // Make minimum size smaller
             WindowMinimumHeight = 100;
             WindowMinimumWidth = 250;
 
-            // Maek title bar smaller
+            // Make title bar smaller
             TitleHeight = 30;
         }
 

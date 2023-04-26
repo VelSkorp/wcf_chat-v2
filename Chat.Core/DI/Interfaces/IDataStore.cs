@@ -26,16 +26,15 @@ namespace Chat.Core
 		/// <summary>
 		/// Gets the stored chats for user
 		/// </summary>
-		/// <returns></returns>
 		/// <param name="userProfile">User profile details</param>
-		/// <returns>List of chats for user</returns>
+		/// <returns>List of chats for user if they exists, or empty list if not exists</returns>
 		Task<List<ChatDataModel>> GetListOfChatsAsync(UserProfileDetailsApiModel userProfile);
 
 		/// <summary>
 		/// Gets the stored messages in chat
 		/// </summary>
 		/// <param name="chat">Chat data</param>
-		/// <returns>List of messages for given chat</returns>
+		/// <returns>List of messages for given chat if they exists, or empty list if not exists</returns>
 		Task<List<MessageDataModel>> GetMessagesForChatAsync(ChatDataModel chat);
 
 		/// <summary>
@@ -50,7 +49,8 @@ namespace Chat.Core
 		/// Adds new user
 		/// </summary>
 		/// <param name="registerCredentials">User credentials for registration</param>
-		/// <returns>Returns the user profile details if user successfully registered, or null if already exist</returns>
+		/// <returns>Returns the user profile details if user successfully registered, or throws exception if already exist</returns>
+		/// <exception cref="System.InvalidOperationException"></exception>
 		Task<UserProfileDetailsApiModel> AddNewUserAsync(RegisterCredentialsApiModel registerCredentials);
 
 		/// <summary>
