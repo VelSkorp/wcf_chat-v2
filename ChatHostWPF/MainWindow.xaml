@@ -4,7 +4,6 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:ChatHostWPF"
-		xmlns:core="clr-namespace:ChatHostWPF;assembly=ChatHostWPF"
 		mc:Ignorable="d"
 		WindowStyle="None"
 		AllowsTransparency="True"
@@ -128,26 +127,19 @@
 	<Border Background="{StaticResource WordBlueBrush}">
 		<Grid>
 
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-
-			<!-- Airoplain background image -->
+			<!-- Emoji background image -->
 			<Grid.Background>
 				<ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 500 500" ImageSource="/Images/Backgrounds/emoji-background.png" />
 			</Grid.Background>
 
 			<!-- Dimmed overlay -->
-			<Border Grid.ColumnSpan="2" 
-					Panel.ZIndex="10"
+			<Border Panel.ZIndex="10"
 					Opacity="0.3">
 				<Border Background="{StaticResource ForegroundVeryDarkBrush}"
 						local:AnimateFadeInProperty.Value="{Binding DimmableOverlayVisible}" />
 			</Border>
 
-			<local:PageHost Grid.Column="1" 
-							CurrentPage="{Binding ApplicationViewModel.CurrentPage, 
+			<local:PageHost CurrentPage="{Binding ApplicationViewModel.CurrentPage, 
 												  Source={x:Static local:ViewModelLocator.Instance}}"
 							CurrentPageViewModel="{Binding ApplicationViewModel.CurrentPageViewModel, 
 												  Source={x:Static local:ViewModelLocator.Instance}}" />

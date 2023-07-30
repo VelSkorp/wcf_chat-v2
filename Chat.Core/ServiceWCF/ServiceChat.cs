@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Chat.Core
 {
-	[ServiceBehavior(InstanceContextMode=InstanceContextMode.Single)]
+	[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
 	public class ServiceChat : IServiceChat
 	{
 		#region Interface Implementation

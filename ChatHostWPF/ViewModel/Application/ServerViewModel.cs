@@ -1,9 +1,11 @@
 ﻿using System;
-using System.Net;
 using System.Windows.Input;
 using System.Collections.Generic;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
+using Dna;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore;
 
 namespace ChatHostWPF
 {
@@ -32,8 +34,6 @@ namespace ChatHostWPF
 		/// ServiceHost for hosting ServiceChat service
 		/// </summary>
 		private IWebHost mServiceHost;
-
-		private const int HTTP_PORT = 48400;
 
 		#endregion
 
@@ -74,13 +74,11 @@ namespace ChatHostWPF
 		{
 			try
 			{
-				// Create base address for ServiceHost using DNS host name of the local computer
-				//var baseAdress = new Uri($"net.tcp://{Dns.GetHostName()}");
-
 				var builder = WebHost.CreateDefaultBuilder()
-					.UseKestrel(options =>
+					.ConfigureLogging((hostingContext, logging) =>
 					{
-						options.Listen(IPAddress.Any, HTTP_PORT);
+						logging.ClearProviders();
+						logging.AddProvider(ServiceProviderServiceExtensions.GetService<ILoggerProvider>(Framework.Provider));
 					})
 					.UseStartup<BasicHttpBindingStartup>();
 
@@ -90,10 +88,16 @@ namespace ChatHostWPF
 				IsStarted = true;
 
 				Log.Add($"[Data] Host stated\n");
+				FrameworkDI.Logger.LogInformationSource("Host stated");
+
+				// TODO: add health checker
+				Log.Add($"[Data] To check the server, go to the URL: {FrameworkDI.Configuration.GetSection("Kestrel:Endpoints:Https:Url").Value}/api/Service\n");
+				Log.Add($"[Data] To get metadata, go to the URL: {FrameworkDI.Configuration.GetSection("Kestrel:Endpoints:Https:Url").Value}/api/Metadata\n");
 			}
 			catch (Exception ex)
 			{
 				Log.Add($"[Error] {ex.Message}\n");
+				FrameworkDI.Logger.LogDebugSource(ex.Message);
 			}
 			finally
 			{
@@ -114,10 +118,12 @@ namespace ChatHostWPF
 				IsStarted = false;
 
 				Log.Add($"[Data] Host stopped\n");
+				FrameworkDI.Logger.LogInformationSource("Host stopped");
 			}
 			catch (Exception ex)
 			{
 				Log.Add($"[Error] {ex.Message}\n");
+				FrameworkDI.Logger.LogDebugSource(ex.Message);
 			}
 			finally
 			{

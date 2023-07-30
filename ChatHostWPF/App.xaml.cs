@@ -1,7 +1,5 @@
 ﻿using Dna;
 using System.Windows;
-using Chat.Core;
-using static Dna.FrameworkDI;
 
 namespace ChatHostWPF
 {
@@ -21,15 +19,13 @@ namespace ChatHostWPF
 
 			// Setup the Dna Framework
 			Framework.Construct<DefaultFrameworkConstruction>()
-				.AddFileLogger()
+				.AddFileLogger("ChatHost.log")
 				.AddChatHostViewModels()
-				.AddChatClientHostServices()
+				.AddChatHostServices()
 				.Build();
 
 			// Log it
-			Logger.LogDebugSource("Application starting...");
-
-			DI.ApplicationViewModel.GoToPage(ApplicationPage.Server);
+			FrameworkDI.Logger.LogDebugSource("Application starting...");
 		}
 	}
 }

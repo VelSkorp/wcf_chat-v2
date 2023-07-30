@@ -16,7 +16,6 @@ namespace ChatHostWPF
 
 		private void AppWindow_Deactivated(object sender, System.EventArgs e)
 		{
-			// TODO: попытаться вынести из кода позади
 			// Show overlay if we lose focus
 			(DataContext as WindowViewModel).DimmableOverlayVisible = true;
 		}

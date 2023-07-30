@@ -57,7 +57,9 @@ namespace ChatHostWPF
 			// If we are in DesignMode, show the current page
 			// as the dependency property does not fire
 			if (DesignerProperties.GetIsInDesignMode(this))
-				NewPage.Content = DI.ApplicationViewModel.CurrentPage.ToBasePage();
+			{
+				NewPage.Content = DI.ApplicationViewModel.CurrentPage.ToBasePage(); 
+			}
 		}
 
 		#endregion

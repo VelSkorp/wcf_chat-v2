@@ -29,16 +29,13 @@ namespace ChatHostWPF
 		/// </summary>
 		/// <param name="construction"></param>
 		/// <returns></returns>
-		public static FrameworkConstruction AddChatClientHostServices(this FrameworkConstruction construction)
+		public static FrameworkConstruction AddChatHostServices(this FrameworkConstruction construction)
 		{
 			// Add our task manager
 			construction.Services.AddTransient<ITaskManager, BaseTaskManager>();
 
 			// Bind a file manager
 			construction.Services.AddTransient<IFileManager, BaseFileManager>();
-
-			// Bind a UI Manager
-			construction.Services.AddTransient<IUIManager, UIManager>();
 
 			// Return the construction for chaining
 			return construction;
