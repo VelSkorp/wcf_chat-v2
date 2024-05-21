@@ -2,31 +2,40 @@ using Chat.Core;
 using ChatRelational;
 using Dna;
 using TechTalk.SpecFlow;
+using TestStack.White;
+using TestStack.White.Factory;
 
 namespace Testing
 {
 	[Binding]
 	public sealed class Hooks
 	{
-		[BeforeFeature]
-		public static void BeforeTestRun()
+		[BeforeFeature("@Database")]
+		public static void BeforeDatabaseTestRun()
 		{
-			// Setup the Dna Framework
 			Framework.Construct<DefaultFrameworkConstruction>()
 				.AddFileLogger()
 				.AddDataStore()
 				.Build();
 		}
 
-		[BeforeScenario]
-		public static async Task BeforeScenarioAsync()
+		[BeforeScenario("@Database")]
+		public static async Task BeforeDatabaseScenarioAsync()
 		{
 			await CoreDI.DataStore.EnsureDataStoreAsync();
 			await CoreDI.DataStore.ClearAllDataAsync();
 		}
 
-		[AfterScenario]
-		public static async Task AfterScenarioAsync()
+		[BeforeScenario("@ChatHost")]
+		public static void BeforeChatHostScenario(ScenarioContext scenarioContext, ScenarioContainer)
+		{
+			var application = Application.Launch("./ChatHostWPF.exe");
+			var window = application.GetWindow("ChatHost", InitializeOption.NoCache);
+			scenarioContext.Add("ChatHostWindow", window);
+		}
+
+		[AfterScenario("@Database")]
+		public static async Task AfterDatabaseScenarioAsync()
 		{
 			await CoreDI.DataStore.ClearAllDataAsync();
 		}

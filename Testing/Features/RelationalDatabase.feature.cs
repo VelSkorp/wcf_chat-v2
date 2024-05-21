@@ -22,13 +22,15 @@ namespace Testing.Features
     [NUnit.Framework.TestFixtureAttribute()]
     [NUnit.Framework.DescriptionAttribute("Relational database")]
     [NUnit.Framework.CategoryAttribute("Api")]
+    [NUnit.Framework.CategoryAttribute("Database")]
     public partial class RelationalDatabaseFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private static string[] featureTags = new string[] {
-                "Api"};
+                "Api",
+                "Database"};
         
 #line 1 "RelationalDatabase.feature"
 #line hidden
@@ -88,7 +90,7 @@ namespace Testing.Features
             argumentsOfScenario.Add("LastName", lastName);
             argumentsOfScenario.Add("Password", password);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The new user is added", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 4
+#line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -98,11 +100,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 5
+#line 6
  testRunner.When(string.Format("the user is added with the username: {0}, first name: {1}, last name: {2}, passwo" +
                             "rd: {3}", username, firstName, lastName, password), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 6
+#line 7
  testRunner.Then(string.Format("the user exists with the id: 1, username: {0}, first name: {1}, last name: {2}, p" +
                             "assword: {3}", username, firstName, lastName, password), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -126,7 +128,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("NewFirstName", newFirstName);
             argumentsOfScenario.Add("NewLastName", newLastName);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The user can change profile details", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 13
+#line 14
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -136,15 +138,15 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 14
+#line 15
  testRunner.Given(string.Format("the user is added with the id: 1, username: {0}, first name: {1}, last name: {2}," +
                             " password: {3}", username, firstName, lastName, password), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 15
+#line 16
  testRunner.When(string.Format("the user with an id: 1 changed username to {0}, first name to {1}, last name to {" +
                             "2}", newUsername, newFirstName, newLastName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 16
+#line 17
  testRunner.Then(string.Format("the user exists with the id: 1, username: {0}, first name: {1}, last name: {2}, p" +
                             "assword: {3}", newUsername, newFirstName, newLastName, password), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -165,7 +167,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("Username", username);
             argumentsOfScenario.Add("UserId", userId);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The new chat is added", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 23
+#line 24
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -175,11 +177,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 24
+#line 25
  testRunner.Given("the user is added with the id: 1, username: TestUser, first name: Test, last name" +
                         ": Test, password: Test", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 25
+#line 26
   testRunner.And("the user is added with the id: 2, username: VelScorp, first name: Vlad, last name" +
                         ": Kontsevich, password: TestPassword", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -198,10 +200,10 @@ this.ScenarioInitialize(scenarioInfo);
                             "VelScorp",
                             "Vlad",
                             "Kontsevich"});
-#line 26
+#line 27
  testRunner.When(string.Format("the chat is added with the name: {0}, owner id: {1} and users:", chatName, ownerId), ((string)(null)), table1, "When ");
 #line hidden
-#line 30
+#line 31
  testRunner.Then(string.Format("the user with the id: {0}, username: {1} is a member of chat rooms: {2}", userId, username, chatName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -221,7 +223,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("Username", username);
             argumentsOfScenario.Add("UserId", userId);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The new message is added", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 37
+#line 38
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -231,11 +233,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 38
+#line 39
  testRunner.Given("the user is added with the id: 1, username: TestUser, first name: Test, last name" +
                         ": Test, password: Test", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 39
+#line 40
   testRunner.And("the user is added with the id: 2, username: VelScorp, first name: Vlad, last name" +
                         ": Kontsevich, password: TestPassword", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -254,14 +256,14 @@ this.ScenarioInitialize(scenarioInfo);
                             "VelScorp",
                             "Vlad",
                             "Kontsevich"});
-#line 40
+#line 41
   testRunner.And(string.Format("the chat is added with the name: {0}, owner id: {1} and users:", chatName, ownerId), ((string)(null)), table2, "And ");
 #line hidden
-#line 44
+#line 45
  testRunner.When("the message is added with the chat id: 1, user id: 2, content: TestStringMessage," +
                         " creation date: 4/23/2023", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 45
+#line 46
  testRunner.Then(string.Format("the chat with id: 1, name: {0} contains messages: TestStringMessage", chatName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -279,7 +281,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("ChatName", chatName);
             argumentsOfScenario.Add("OwnerId", ownerId);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("The message can be read", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 52
+#line 53
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -289,11 +291,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 53
+#line 54
  testRunner.Given("the user is added with the id: 1, username: TestUser, first name: Test, last name" +
                         ": Test, password: Test", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 54
+#line 55
   testRunner.And("the user is added with the id: 2, username: VelScorp, first name: Vlad, last name" +
                         ": Kontsevich, password: TestPassword", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -312,17 +314,17 @@ this.ScenarioInitialize(scenarioInfo);
                             "VelScorp",
                             "Vlad",
                             "Kontsevich"});
-#line 55
+#line 56
   testRunner.And(string.Format("the chat is added with the name: {0}, owner id: {1} and users:", chatName, ownerId), ((string)(null)), table3, "And ");
 #line hidden
-#line 59
+#line 60
  testRunner.When("the message is added with the chat id: 1, user id: 2, content: TestStringMessage," +
                         " creation date: 4/23/2023", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 60
+#line 61
   testRunner.And("the user with the id: 1 read message with id: 1 in the chat with id: 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 61
+#line 62
  testRunner.Then("the user with the id: 1 read message with id: 1 in the chat with id: 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

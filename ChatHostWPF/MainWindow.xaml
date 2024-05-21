@@ -14,7 +14,7 @@
 		MinHeight="{Binding WindowMinimumHeight}"
 		Deactivated="AppWindow_Deactivated"
 		Activated="AppWindow_Activated"
-		Title="Welcome, friend!" Height="600" Width="900">
+		Title="ChatHost" Height="600" Width="900">
 
 	<Window.Resources>
 		<Style TargetType="{x:Type local:MainWindow}">
@@ -96,7 +96,7 @@
 										<StackPanel Grid.Column="2" Orientation="Horizontal">
 											<Button Command="{Binding MinimizeCommand}" Style="{StaticResource WindowControlButton}" Content="_" />
 											<Button Command="{Binding MaximizeCommand}" Style="{StaticResource WindowControlButton}" Content="[ ]" />
-											<Button Command="{Binding CloseCommand}" Style="{StaticResource WindowCloseButton}" Content="X" />
+											<Button Command="{Binding CloseCommand}" Style="{StaticResource WindowCloseButton}" Content="X" AutomationProperties.AutomationId="WindowCloseButton" />
 										</StackPanel>
 
 									</Grid>

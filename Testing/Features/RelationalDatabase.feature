@@ -1,4 +1,5 @@
 ﻿@Api
+@Database
 Feature: Relational database
 
 Scenario Outline: The new user is added
