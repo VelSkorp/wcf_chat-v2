@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Chat.Relational\Chat.Relational.csproj" />
-    <ProjectReference Include="..\ChatHostWPF\ChatHostWPF.csproj" />
   </ItemGroup>
 
 </Project>
