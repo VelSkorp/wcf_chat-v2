@@ -12,7 +12,7 @@ namespace Testing
 		/// <param name="parameter">The parameter name the value of which was expected</param>
 		public static void AreEqual<T>(IEnumerable<T> expected, IEnumerable<T> actual, string parameter)
 		{
-			CollectionAssert.AreEqual(actual, expected, $"Expected {parameter} to be: {expected}. Actual: {actual}");
+			Assert.That(actual, Is.EquivalentTo(expected), $"Expected {parameter} to be: {expected}. Actual: {actual}");
 		}
 	}
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ChatRelational
+namespace Chat.Relational
 {
 	/// <summary>
 	/// Stores and retrieves information about the client application 

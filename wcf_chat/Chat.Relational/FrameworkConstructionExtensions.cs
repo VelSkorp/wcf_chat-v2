@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ChatRelational
+namespace Chat.Relational
 {
 	/// <summary>
 	/// Extension methods for the <see cref="FrameworkConstruction"/>

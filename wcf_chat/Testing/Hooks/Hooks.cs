@@ -1,5 +1,5 @@
 using Chat.Core;
-using ChatRelational;
+using Chat.Relational;
 using Dna;
 using TechTalk.SpecFlow;
 using TestStack.White;
@@ -27,7 +27,7 @@ namespace Testing
 		}
 
 		[BeforeScenario("@ChatHost")]
-		public static void BeforeChatHostScenario(ScenarioContext scenarioContext, ScenarioContainer)
+		public static void BeforeChatHostScenario(ScenarioContext scenarioContext)
 		{
 			var application = Application.Launch("./ChatHostWPF.exe");
 			var window = application.GetWindow("ChatHost", InitializeOption.NoCache);

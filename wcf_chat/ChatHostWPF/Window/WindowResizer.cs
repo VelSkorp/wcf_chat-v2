@@ -7,46 +7,6 @@ using System.Windows.Media;
 namespace ChatHostWPF
 {
 	/// <summary>
-	/// The dock position of the window
-	/// </summary>
-	public enum WindowDockPosition
-	{
-		/// <summary>
-		/// Not docked
-		/// </summary>
-		Undocked = 0,
-		/// <summary>
-		/// Docked to the left of the screen
-		/// </summary>
-		Left = 1,
-		/// <summary>
-		/// Docked to the right of the screen
-		/// </summary>
-		Right = 2,
-		/// <summary>
-		/// Docked to the top/bottom of the screen
-		/// </summary>
-		TopBottom = 3,
-		/// <summary>
-		/// Docked to the top-left of the screen
-		/// </summary>
-		TopLeft = 4,
-		/// <summary>
-		/// Docked to the top-right of the screen
-		/// </summary>
-		TopRight = 5,
-		/// <summary>
-		/// Docked to the bottom-left of the screen
-		/// </summary>
-		BottomLeft = 6,
-		/// <summary>
-		/// Docked to the bottom-right of the screen
-		/// </summary>
-		BottomRight = 7,
-	}
-
-
-	/// <summary>
 	/// Fixes the issue with Windows of Style <see cref="WindowStyle.None"/> covering the taskbar
 	/// </summary>
 	public class WindowResizer
@@ -94,16 +54,16 @@ namespace ChatHostWPF
 
 		[DllImport("user32.dll")]
 		[return: MarshalAs(UnmanagedType.Bool)]
-		static extern bool GetCursorPos(out POINT lpPoint);
+		private static extern bool GetCursorPos(out POINT lpPoint);
 
 		[DllImport("user32.dll")]
-		static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
+		private static extern bool GetMonitorInfo(IntPtr hMonitor, MONITORINFO lpmi);
 
 		[DllImport("user32.dll", SetLastError = true)]
-		static extern IntPtr MonitorFromPoint(POINT pt, MonitorOptions dwFlags);
+		private static extern IntPtr MonitorFromPoint(POINT pt, MonitorOptions dwFlags);
 
 		[DllImport("user32.dll")]
-		static extern IntPtr MonitorFromWindow(IntPtr hwnd, MonitorOptions dwFlags);
+		private static extern IntPtr MonitorFromWindow(IntPtr hwnd, MonitorOptions dwFlags);
 
 		#endregion
 
@@ -183,8 +143,10 @@ namespace ChatHostWPF
 			var handleSource = HwndSource.FromHwnd(handle);
 
 			// If not found, end
-			if (handleSource == null)
-				return;
+			if (handleSource is null)
+			{
+				return; 
+			}
 
 			// Hook into it's Windows messages
 			handleSource.AddHook(WindowProc);
@@ -218,8 +180,10 @@ namespace ChatHostWPF
 			mMonitorDpi = VisualTreeHelper.GetDpi(mWindow);
 
 			// Cannot calculate size until we know monitor scale
-			if (mMonitorDpi == null)
-				return;
+			if (mMonitorDpi is null)
+			{
+				return; 
+			}
 
 			// Get window rectangle
 			var top = mWindow.Top;
@@ -261,15 +225,16 @@ namespace ChatHostWPF
 			// Bottom-right
 			else if (edgedBottom && edgedRight)
 				dock = WindowDockPosition.BottomRight;
-
 			// None
 			else
 				dock = WindowDockPosition.Undocked;
 
 			// If dock has changed
 			if (dock != mLastDock)
+			{
 				// Inform listeners
-				WindowDockChanged(dock);
+				WindowDockChanged(dock); 
+			}
 
 			// Save last dock position
 			mLastDock = dock;
@@ -311,7 +276,7 @@ namespace ChatHostWPF
 					break;
 			}
 
-			return (IntPtr)0;
+			return 0;
 		}
 
 		#endregion
@@ -322,7 +287,7 @@ namespace ChatHostWPF
 		/// </summary>
 		/// <param name="hwnd"></param>
 		/// <param name="lParam"></param>
-		private void WmGetMinMaxInfo(System.IntPtr hwnd, System.IntPtr lParam)
+		private void WmGetMinMaxInfo(nint hwnd, nint lParam)
 		{
 			// Get the point position to determine what screen we are on
 			GetCursorPos(out var lMousePosition);
@@ -340,12 +305,16 @@ namespace ChatHostWPF
 			// Try and get the current screen information
 			var lCurrentScreenInfo = new MONITORINFO();
 			if (GetMonitorInfo(lCurrentScreen, lCurrentScreenInfo) == false)
-				return;
+			{
+				return; 
+			}
 
 			// Try and get the primary screen information
 			var lPrimaryScreenInfo = new MONITORINFO();
 			if (GetMonitorInfo(lPrimaryScreen, lPrimaryScreenInfo) == false)
-				return;
+			{
+				return; 
+			}
 
 			// NOTE: Always update it
 			// If this has changed from the last one, update the transform
@@ -360,43 +329,11 @@ namespace ChatHostWPF
 			var currentY = lCurrentScreenInfo.RCWork.Top - lCurrentScreenInfo.RCMonitor.Top;
 			var currentWidth = (lCurrentScreenInfo.RCWork.Right - lCurrentScreenInfo.RCWork.Left);
 			var currentHeight = (lCurrentScreenInfo.RCWork.Bottom - lCurrentScreenInfo.RCWork.Top);
-			var currentRatio = (float)currentWidth / (float)currentHeight;
-
-			var primaryX = lPrimaryScreenInfo.RCWork.Left - lPrimaryScreenInfo.RCMonitor.Left;
-			var primaryY = lPrimaryScreenInfo.RCWork.Top - lPrimaryScreenInfo.RCMonitor.Top;
-			var primaryWidth = (lPrimaryScreenInfo.RCWork.Right - lPrimaryScreenInfo.RCWork.Left);
-			var primaryHeight = (lPrimaryScreenInfo.RCWork.Bottom - lPrimaryScreenInfo.RCWork.Top);
-			var primaryRatio = (float)primaryWidth / (float)primaryHeight;
 
 			if (lParam != IntPtr.Zero)
 			{
 				// Get min/max structure to fill with information
 				var lMmi = (MINMAXINFO)Marshal.PtrToStructure(lParam, typeof(MINMAXINFO));
-
-				//
-				//   NOTE: The below setting of max sizes we no longer do
-				//         as through observations, it appears Windows works
-				//         correctly only when the max window size is set to
-				//         EXACTLY the size of the primary window
-				// 
-				//         Anything else and the behavior is wrong and the max
-				//         window width on a secondary monitor if larger than the
-				//         primary then goes too large
-				//
-				//          lMmi.PointMaxPosition.X = 0;
-				//          lMmi.PointMaxPosition.Y = 0;
-				//          lMmi.PointMaxSize.X = lCurrentScreenInfo.RCMonitor.Right - lCurrentScreenInfo.RCMonitor.Left;
-				//          lMmi.PointMaxSize.Y = lCurrentScreenInfo.RCMonitor.Bottom - lCurrentScreenInfo.RCMonitor.Top;
-				//
-				//         Instead we now just add a margin to the window itself
-				//         to compensate when maximized
-				// 
-				//
-				// NOTE: rcMonitor is the monitor size
-				//       rcWork is the available screen size (so the area inside the task bar start menu for example)
-
-				// Size limits (used by Windows when maximized)
-				// relative to 0,0 being the current screens top-left corner
 
 				// Set to primary monitor size
 				lMmi.PointMaxPosition.X = lPrimaryScreenInfo.RCMonitor.Left;

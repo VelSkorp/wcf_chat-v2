@@ -3,7 +3,7 @@ using System.Windows;
 using Chat.Core;
 using static Dna.FrameworkDI;
 using static ChatClient.DI;
-using System.ServiceModel;
+using CoreWCF;
 
 namespace ChatClient
 {
@@ -16,7 +16,7 @@ namespace ChatClient
 		/// Custom startup so we load our IoC immediately before anything else
 		/// </summary>
 		/// <param name="e"></param>
-		protected override async void OnStartup(StartupEventArgs e)
+		protected override void OnStartup(StartupEventArgs e)
 		{
 			// Let the base application do what it needs
 			base.OnStartup(e);

@@ -12,7 +12,7 @@ namespace Testing
 		/// <param name="parameter">The parameter name the value of which was expected</param>
 		public static void AreEqual<T>(T expected, T actual, string parameter)
 		{
-			Assert.AreEqual(actual, expected, $"Expected {parameter} to be: {expected}. Actual: {actual}");
+			Assert.That(actual, Is.EqualTo(expected), $"Expected {parameter} to be: {expected}. Actual: {actual}");
 		}
 
 		/// <summary>
@@ -22,7 +22,7 @@ namespace Testing
 		/// <param name="parameter">The parameter name the value of which was expected</param>
 		public static void IsTrue(bool condition, string parameter)
 		{
-			Assert.IsTrue(condition, $"Expected {parameter} to be: true");
+			Assert.That(condition, Is.True, $"Expected {parameter} to be: true");
 		}
 	}
 }

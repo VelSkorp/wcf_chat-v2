@@ -30,7 +30,7 @@ namespace ChatHostWPF
 		/// <returns></returns>
 		public override object ProvideValue(IServiceProvider serviceProvider)
 		{
-			return Converter ?? (Converter = new T());
+			return Converter ??= new T();
 		}
 
 		#endregion

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ChatRelational
+namespace Chat.Relational
 {
 	/// <summary>
 	/// The database context for the client data store
