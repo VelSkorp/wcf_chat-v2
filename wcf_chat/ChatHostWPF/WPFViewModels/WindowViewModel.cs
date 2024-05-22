@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Chat.Core;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ChatHostWPF
@@ -168,7 +169,7 @@ namespace ChatHostWPF
 			// Create commands
 			MinimizeCommand = new RelayCommand(() => mWindow.WindowState = WindowState.Minimized);
 			MaximizeCommand = new RelayCommand(() => mWindow.WindowState ^= WindowState.Maximized);
-			CloseCommand = new RelayCommand(() => mWindow.Close());
+			CloseCommand = new RelayCommand(mWindow.Close);
 			MenuCommand = new RelayCommand(() => SystemCommands.ShowSystemMenu(mWindow, GetMousePosition()));
 
 			// Fix window resize issue
@@ -200,8 +201,10 @@ namespace ChatHostWPF
 
 				// Check for moved to top of window and not at an edge
 				if (mDockPosition == WindowDockPosition.Undocked && mWindow.Top == mWindowResizer.CurrentScreenSize.Top)
+				{
 					// If so, move it to the true top (the border size)
-					mWindow.Top = -OuterMarginSize.Top;
+					mWindow.Top = -OuterMarginSize.Top; 
+				}
 			};
 		}
 

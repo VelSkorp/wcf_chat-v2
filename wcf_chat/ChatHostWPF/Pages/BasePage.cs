@@ -1,4 +1,5 @@
-﻿using Dna;
+﻿using Chat.Core;
+using Dna;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;

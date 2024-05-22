@@ -20,8 +20,8 @@ namespace ChatHostWPF
 			// Setup the Dna Framework
 			Framework.Construct<DefaultFrameworkConstruction>()
 				.AddFileLogger("ChatHost.log")
-				.AddChatHostViewModels()
-				.AddChatHostServices()
+				.AddHostViewModels()
+				.AddHostServices()
 				.Build();
 
 			// Log it

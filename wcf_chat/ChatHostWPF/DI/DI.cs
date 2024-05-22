@@ -1,4 +1,5 @@
-﻿using Dna;
+﻿using Chat.Core;
+using Dna;
 
 namespace ChatHostWPF
 {
@@ -10,6 +11,6 @@ namespace ChatHostWPF
 		/// <summary>
 		/// A shortcut to access the <see cref="ApplicationViewModel"/>
 		/// </summary>
-		public static ApplicationViewModel ApplicationViewModel => Framework.Service<ApplicationViewModel>();
+		public static HostApplicationViewModel ApplicationViewModel => Framework.Service<HostApplicationViewModel>();
 	}
 }

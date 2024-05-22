@@ -1,4 +1,6 @@
-﻿namespace ChatHostWPF
+﻿using Chat.Core;
+
+namespace ChatHostWPF
 {
 	/// <summary>
 	/// Locates view models from the IoC for use in binding in Xaml files
@@ -15,7 +17,7 @@
 		/// <summary>
 		/// The application view model
 		/// </summary>
-		public ApplicationViewModel ApplicationViewModel => DI.ApplicationViewModel;
+		public HostApplicationViewModel ApplicationViewModel => DI.ApplicationViewModel;
 
 		#endregion
 	}

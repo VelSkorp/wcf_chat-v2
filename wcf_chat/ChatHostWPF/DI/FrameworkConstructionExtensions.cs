@@ -14,10 +14,10 @@ namespace ChatHostWPF
 		/// </summary>
 		/// <param name="construction"></param>
 		/// <returns></returns>
-		public static FrameworkConstruction AddChatHostViewModels(this FrameworkConstruction construction)
+		public static FrameworkConstruction AddHostViewModels(this FrameworkConstruction construction)
 		{
 			// Bind to a single instance of Application view model
-			construction.Services.AddSingleton<ApplicationViewModel>();
+			construction.Services.AddSingleton<HostApplicationViewModel>();
 
 			// Return the construction for chaining
 			return construction;
@@ -29,7 +29,7 @@ namespace ChatHostWPF
 		/// </summary>
 		/// <param name="construction"></param>
 		/// <returns></returns>
-		public static FrameworkConstruction AddChatHostServices(this FrameworkConstruction construction)
+		public static FrameworkConstruction AddHostServices(this FrameworkConstruction construction)
 		{
 			// Add our task manager
 			construction.Services.AddTransient<ITaskManager, BaseTaskManager>();

@@ -1,11 +1,9 @@
-﻿using Chat.Core;
-
-namespace ChatHostWPF
+﻿namespace Chat.Core
 {
 	/// <summary>
 	/// The application state as a view model
 	/// </summary>
-	public class ApplicationViewModel : BaseViewModel
+	public class HostApplicationViewModel : BaseViewModel
 	{
 		/// <summary>
 		/// The current page of the application

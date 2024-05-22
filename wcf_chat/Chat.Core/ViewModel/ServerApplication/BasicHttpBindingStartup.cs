@@ -1,5 +1,4 @@
-﻿using Chat.Core;
-using System;
+﻿using System;
 using CoreWCF;
 using CoreWCF.Configuration;
 using CoreWCF.Description;
@@ -7,7 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Dna;
 
-namespace ChatHostWPF
+namespace Chat.Core
 {
 	public class BasicHttpBindingStartup
 	{

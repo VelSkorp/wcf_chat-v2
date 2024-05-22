@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace ChatHostWPF
+namespace Chat.Core
 {
 	/// <summary>
 	/// A basic command that runs an Action
@@ -13,7 +13,7 @@ namespace ChatHostWPF
 		/// <summary>
 		/// The action to run
 		/// </summary>
-		private Action mAction;
+		private readonly Action mAction;
 
 		#endregion
 
