@@ -251,7 +251,9 @@ namespace ChatHostWPF
 
 			// Animate from if requested
 			if (from)
-				animation.From = 1;
+			{
+				animation.From = 1; 
+			}
 
 			// Set the target property name
 			Storyboard.SetTargetProperty(animation, new PropertyPath("Opacity"));
@@ -282,7 +284,6 @@ namespace ChatHostWPF
 		}
 
 		#endregion
-
 
 		/// <summary>
 		/// Adds a marquee scrolling right to left animation to the storyboard

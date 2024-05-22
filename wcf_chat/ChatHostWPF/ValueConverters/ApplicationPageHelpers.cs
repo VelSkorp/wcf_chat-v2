@@ -38,7 +38,9 @@ namespace ChatHostWPF
 		{
 			// Find application page that matches the base page
 			if (page is ServerPage)
-				return ApplicationPage.Server;
+			{
+				return ApplicationPage.Server; 
+			}
 
 			// Alert developer of issue
 			Debugger.Break();

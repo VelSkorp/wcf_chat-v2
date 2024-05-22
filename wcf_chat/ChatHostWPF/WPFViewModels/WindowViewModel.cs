@@ -8,35 +8,6 @@ namespace ChatHostWPF
 	/// </summary>
 	public class WindowViewModel : BaseViewModel
 	{
-		#region Private Member
-
-		/// <summary>
-		/// The window this view model controls
-		/// </summary>
-		private Window mWindow;
-
-		/// <summary>
-		/// The window resizer helper that keeps the window size correct in various states
-		/// </summary>
-		private WindowResizer mWindowResizer;
-
-		/// <summary>
-		/// The margin around the window to allow for a drop shadow
-		/// </summary>
-		private Thickness mOuterMarginSize = new Thickness(5);
-
-		/// <summary>
-		/// The radius of the edges of the window
-		/// </summary>
-		private int mWindowRadius = 10;
-
-		/// <summary>
-		/// The last known dock position
-		/// </summary>
-		private WindowDockPosition mDockPosition = WindowDockPosition.Undocked;
-
-		#endregion
-
 		#region Public Properties
 
 		/// <summary>
@@ -146,6 +117,35 @@ namespace ChatHostWPF
 		/// The command to show the system menu of the window
 		/// </summary>
 		public ICommand MenuCommand { get; set; }
+
+		#endregion
+
+		#region Private Members
+
+		/// <summary>
+		/// The window this view model controls
+		/// </summary>
+		private Window mWindow;
+
+		/// <summary>
+		/// The window resizer helper that keeps the window size correct in various states
+		/// </summary>
+		private WindowResizer mWindowResizer;
+
+		/// <summary>
+		/// The margin around the window to allow for a drop shadow
+		/// </summary>
+		private Thickness mOuterMarginSize = new Thickness(5);
+
+		/// <summary>
+		/// The radius of the edges of the window
+		/// </summary>
+		private int mWindowRadius = 10;
+
+		/// <summary>
+		/// The last known dock position
+		/// </summary>
+		private WindowDockPosition mDockPosition = WindowDockPosition.Undocked;
 
 		#endregion
 

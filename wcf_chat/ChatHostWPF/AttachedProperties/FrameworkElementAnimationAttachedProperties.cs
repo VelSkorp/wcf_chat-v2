@@ -33,8 +33,10 @@ namespace ChatHostWPF
 		public override void OnValueUpdated(DependencyObject sender, object value)
 		{
 			// Get the framework element
-			if (!(sender is FrameworkElement element))
+			if (sender is not FrameworkElement element)
+			{
 				return;
+			}
 
 			// Try and get the already loaded refernce
 			var alreadyLoadedReference = mAlreadyLoaded.FirstOrDefault(f => f.Key.Target == sender);
@@ -43,11 +45,13 @@ namespace ChatHostWPF
 			var firstLoadReference = mFirstLoadValue.FirstOrDefault(f => f.Key.Target == sender);
 
 			// Don't fire if the value doesn't change
-			if ((bool)sender.GetValue(ValueProperty) == (bool)value && alreadyLoadedReference.Key != null)
-				return;
+			if ((bool)sender.GetValue(ValueProperty) == (bool)value && alreadyLoadedReference.Key is not null)
+			{
+				return; 
+			}
 
 			// On first load...
-			if (alreadyLoadedReference.Key == null)
+			if (alreadyLoadedReference.Key is null)
 			{
 				// Create weak reference
 				var weakReference = new WeakReference(sender);
@@ -71,7 +75,7 @@ namespace ChatHostWPF
 					await Task.Delay(5);
 
 					// Do desired animation
-					DoAnimation(element, firstLoadReference.Key != null ? firstLoadReference.Value : (bool)value, true);
+					DoAnimation(element, firstLoadReference.Key is not null ? firstLoadReference.Value : (bool)value, true);
 
 					// Flag that we have finished first load
 					mAlreadyLoaded[weakReference] = true;
@@ -82,10 +86,14 @@ namespace ChatHostWPF
 			}
 			// If we have started a first load but not fired the animation yet, update the property
 			else if (alreadyLoadedReference.Value == false)
-				mFirstLoadValue[new WeakReference(sender)] = (bool)value;
+			{
+				mFirstLoadValue[new WeakReference(sender)] = (bool)value; 
+			}
 			else
+			{
 				// Do desired animation
-				DoAnimation(element, (bool)value, false);
+				DoAnimation(element, (bool)value, false); 
+			}
 		}
 
 		/// <summary>
@@ -104,14 +112,20 @@ namespace ChatHostWPF
 		public override void OnValueUpdated(DependencyObject sender, object value)
 		{
 			// Make sure we have an image
-			if (!(sender is Image image))
-				return;
+			if (sender is not Image image)
+			{
+				return; 
+			}
 
 			// If we want animate in...
 			if((bool)value)
-				image.TargetUpdated += Image_TargetUpdatedAsync;
+			{
+				image.TargetUpdated += Image_TargetUpdatedAsync; 
+			}
 			else
-				image.TargetUpdated -= Image_TargetUpdatedAsync;
+			{
+				image.TargetUpdated -= Image_TargetUpdatedAsync; 
+			}
 		}
 
 		private async void Image_TargetUpdatedAsync(object sender, System.Windows.Data.DataTransferEventArgs e)
@@ -130,11 +144,15 @@ namespace ChatHostWPF
 		protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
 		{
 			if (value)
+			{
 				// Animate in
-				await element.SlideAndFadeInAsync(AnimationSlideInDirection.Left, firstLoad, firstLoad ? 0 : 0.3f, keepMargin: false);
+				await element.SlideAndFadeInAsync(AnimationSlideInDirection.Left, firstLoad, firstLoad ? 0 : 0.3f, keepMargin: false); 
+			}
 			else
+			{
 				// Animate out
-				await element.SlideAndFadeOutAsync(AnimationSlideInDirection.Left, firstLoad ? 0 : 0.3f, keepMargin: false);
+				await element.SlideAndFadeOutAsync(AnimationSlideInDirection.Left, firstLoad ? 0 : 0.3f, keepMargin: false); 
+			}
 		}
 	}
 
@@ -147,11 +165,15 @@ namespace ChatHostWPF
 		protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
 		{
 			if (value)
+			{
 				// Animate in
-				await element.SlideAndFadeInAsync(AnimationSlideInDirection.Right, firstLoad, firstLoad ? 0 : 0.3f, keepMargin: false);
+				await element.SlideAndFadeInAsync(AnimationSlideInDirection.Right, firstLoad, firstLoad ? 0 : 0.3f, keepMargin: false); 
+			}
 			else
+			{
 				// Animate out
-				await element.SlideAndFadeOutAsync(AnimationSlideInDirection.Right, firstLoad ? 0 : 0.3f, keepMargin: false);
+				await element.SlideAndFadeOutAsync(AnimationSlideInDirection.Right, firstLoad ? 0 : 0.3f, keepMargin: false); 
+			}
 		}
 	}
 
@@ -164,11 +186,15 @@ namespace ChatHostWPF
 		protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
 		{
 			if (value)
+			{
 				// Animate in
-				await element.SlideAndFadeInAsync(AnimationSlideInDirection.Right, firstLoad, firstLoad ? 0 : 0.3f, keepMargin: true);
+				await element.SlideAndFadeInAsync(AnimationSlideInDirection.Right, firstLoad, firstLoad ? 0 : 0.3f, keepMargin: true); 
+			}
 			else
+			{
 				// Animate out
-				await element.SlideAndFadeOutAsync(AnimationSlideInDirection.Right, firstLoad ? 0 : 0.3f, keepMargin: true);
+				await element.SlideAndFadeOutAsync(AnimationSlideInDirection.Right, firstLoad ? 0 : 0.3f, keepMargin: true); 
+			}
 		}
 	}
 
@@ -181,11 +207,15 @@ namespace ChatHostWPF
 		protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
 		{
 			if (value)
+			{
 				// Animate in
-				await element.SlideAndFadeInAsync(AnimationSlideInDirection.Bottom, firstLoad, firstLoad ? 0 : 0.3f, keepMargin: false);
+				await element.SlideAndFadeInAsync(AnimationSlideInDirection.Bottom, firstLoad, firstLoad ? 0 : 0.3f, keepMargin: false); 
+			}
 			else
+			{
 				// Animate out
-				await element.SlideAndFadeOutAsync(AnimationSlideInDirection.Bottom, firstLoad ? 0 : 0.3f, keepMargin: false);
+				await element.SlideAndFadeOutAsync(AnimationSlideInDirection.Bottom, firstLoad ? 0 : 0.3f, keepMargin: false); 
+			}
 		}
 	}
 
@@ -212,11 +242,15 @@ namespace ChatHostWPF
 		protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
 		{
 			if (value)
+			{
 				// Animate in
-				await element.SlideAndFadeInAsync(AnimationSlideInDirection.Bottom, firstLoad, firstLoad ? 0 : 0.3f, keepMargin: true);
+				await element.SlideAndFadeInAsync(AnimationSlideInDirection.Bottom, firstLoad, firstLoad ? 0 : 0.3f, keepMargin: true); 
+			}
 			else
+			{
 				// Animate out
-				await element.SlideAndFadeOutAsync(AnimationSlideInDirection.Bottom, firstLoad ? 0 : 0.3f, keepMargin: true);
+				await element.SlideAndFadeOutAsync(AnimationSlideInDirection.Bottom, firstLoad ? 0 : 0.3f, keepMargin: true); 
+			}
 		}
 	}
 
@@ -229,11 +263,15 @@ namespace ChatHostWPF
 		protected override async void DoAnimation(FrameworkElement element, bool value, bool firstLoad)
 		{
 			if (value)
+			{
 				// Animate in
-				await element.FadeInAsync(firstLoad, firstLoad ? 0 : 0.3f);
+				await element.FadeInAsync(firstLoad, firstLoad ? 0 : 0.3f); 
+			}
 			else
+			{
 				// Animate out
-				await element.FadeOutAsync(firstLoad ? 0 : 0.3f);
+				await element.FadeOutAsync(firstLoad ? 0 : 0.3f); 
+			}
 		}
 	}
 

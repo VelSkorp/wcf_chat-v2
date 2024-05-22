@@ -10,7 +10,6 @@ namespace ChatHostWPF
 		public MainWindow()
 		{
 			InitializeComponent();
-
 			DataContext = new WindowViewModel(this);
 		}
 

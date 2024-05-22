@@ -28,15 +28,6 @@ namespace ChatHostWPF
 
 		#endregion
 
-		#region Private Members
-
-		/// <summary>
-		/// ServiceHost for hosting ServiceChat service
-		/// </summary>
-		private IWebHost mServiceHost;
-
-		#endregion
-
 		#region Commands
 
 		/// <summary>
@@ -48,6 +39,15 @@ namespace ChatHostWPF
 		/// The command to disable the server
 		/// </summary>
 		public ICommand DisableTheServerCommand { get; set; }
+
+		#endregion
+
+		#region Private Members
+
+		/// <summary>
+		/// ServiceHost for hosting ServiceChat service
+		/// </summary>
+		private IWebHost mServiceHost;
 
 		#endregion
 
