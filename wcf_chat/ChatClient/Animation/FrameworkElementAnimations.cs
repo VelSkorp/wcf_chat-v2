@@ -202,7 +202,7 @@ namespace ChatClient
 			element.Unloaded += (s, e) => unloaded = true;
 
 			// Run a loop off the caller thread
-			CoreDI.Task.Run(async () =>
+			Chat.Core.DI.Task.Run(async () =>
 			{
 				// While the element is still available, recheck the size
 				// after every loop in case the container was resized

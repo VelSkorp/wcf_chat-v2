@@ -1,4 +1,4 @@
-﻿using ChatClient;
+﻿using Chat.Core;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,35 +9,6 @@ namespace ChatClient
 	/// </summary>
 	public class WindowViewModel : BaseViewModel
 	{
-		#region Private Member
-
-		/// <summary>
-		/// The window this view model controls
-		/// </summary>
-		private Window mWindow;
-
-		/// <summary>
-		/// The window resizer helper that keeps the window size correct in various states
-		/// </summary>
-		private WindowResizer mWindowResizer;
-
-		/// <summary>
-		/// The margin around the window to allow for a drop shadow
-		/// </summary>
-		private Thickness mOuterMarginSize = new Thickness(5);
-
-		/// <summary>
-		/// The radius of the edges of the window
-		/// </summary>
-		private int mWindowRadius = 10;
-
-		/// <summary>
-		/// The last known dock position
-		/// </summary>
-		private WindowDockPosition mDockPosition = WindowDockPosition.Undocked;
-
-		#endregion
-
 		#region Public Properties
 
 		/// <summary>
@@ -150,6 +121,35 @@ namespace ChatClient
 
 		#endregion
 
+		#region Private Member
+
+		/// <summary>
+		/// The window this view model controls
+		/// </summary>
+		private Window mWindow;
+
+		/// <summary>
+		/// The window resizer helper that keeps the window size correct in various states
+		/// </summary>
+		private WindowResizer mWindowResizer;
+
+		/// <summary>
+		/// The margin around the window to allow for a drop shadow
+		/// </summary>
+		private Thickness mOuterMarginSize = new Thickness(5);
+
+		/// <summary>
+		/// The radius of the edges of the window
+		/// </summary>
+		private int mWindowRadius = 10;
+
+		/// <summary>
+		/// The last known dock position
+		/// </summary>
+		private WindowDockPosition mDockPosition = WindowDockPosition.Undocked;
+
+		#endregion
+
 		#region Constructor
 
 		/// <summary>
@@ -169,7 +169,7 @@ namespace ChatClient
 			// Create commands
 			MinimizeCommand = new RelayCommand(() => mWindow.WindowState = WindowState.Minimized);
 			MaximizeCommand = new RelayCommand(() => mWindow.WindowState ^= WindowState.Maximized);
-			CloseCommand = new RelayCommand(() => mWindow.Close());
+			CloseCommand = new RelayCommand(mWindow.Close);
 			MenuCommand = new RelayCommand(() => SystemCommands.ShowSystemMenu(mWindow, GetMousePosition()));
 
 			// Fix window resize issue
@@ -201,8 +201,10 @@ namespace ChatClient
 
 				// Check for moved to top of window and not at an edge
 				if (mDockPosition == WindowDockPosition.Undocked && mWindow.Top == mWindowResizer.CurrentScreenSize.Top)
+				{
 					// If so, move it to the true top (the border size)
-					mWindow.Top = -OuterMarginSize.Top;
+					mWindow.Top = -OuterMarginSize.Top; 
+				}
 			};
 		}
 

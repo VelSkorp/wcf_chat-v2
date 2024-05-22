@@ -57,7 +57,9 @@ namespace ChatClient
 			// If we are in DesignMode, show the current page
 			// as the dependency property does not fire
 			if (DesignerProperties.GetIsInDesignMode(this))
-				NewPage.Content = DI.ViewModelApplication.CurrentPage.ToBasePage();
+			{
+				NewPage.Content = DI.ChatApplicationViewModel.CurrentPage.ToBasePage(); 
+			}
 		}
 
 		#endregion

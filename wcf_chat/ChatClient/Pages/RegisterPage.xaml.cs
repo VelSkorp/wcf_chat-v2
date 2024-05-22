@@ -1,4 +1,4 @@
-﻿using ChatClient;
+﻿using Chat.Core;
 using System.Security;
 
 namespace ChatClient
@@ -22,7 +22,8 @@ namespace ChatClient
 		/// Constructor with specific view model
 		/// </summary>
 		/// <param name="specificViewModel">The specific view model to use for this page</param>
-		public RegisterPage(RegisterViewModel specificViewModel = null) : base(specificViewModel)
+		public RegisterPage(RegisterViewModel specificViewModel = null)
+			: base(specificViewModel)
 		{
 			InitializeComponent();
 		}

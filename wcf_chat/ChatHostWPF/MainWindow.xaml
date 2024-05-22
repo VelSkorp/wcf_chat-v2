@@ -4,6 +4,7 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:ChatHostWPF"
+		xmlns:core="clr-namespace:Chat.Core;assembly=Chat.Core"
 		mc:Ignorable="d"
 		WindowStyle="None"
 		AllowsTransparency="True"
@@ -139,9 +140,9 @@
 						local:AnimateFadeInProperty.Value="{Binding DimmableOverlayVisible}" />
 			</Border>
 
-			<local:PageHost CurrentPage="{Binding ApplicationViewModel.CurrentPage, 
+			<local:PageHost CurrentPage="{Binding core:ApplicationViewModel.CurrentPage, 
 												  Source={x:Static local:ViewModelLocator.Instance}}"
-							CurrentPageViewModel="{Binding ApplicationViewModel.CurrentPageViewModel, 
+							CurrentPageViewModel="{Binding core:ApplicationViewModel.CurrentPageViewModel, 
 												  Source={x:Static local:ViewModelLocator.Instance}}" />
 
 		</Grid>

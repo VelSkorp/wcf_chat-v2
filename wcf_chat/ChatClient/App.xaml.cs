@@ -1,8 +1,6 @@
 ﻿using Dna;
 using System.Windows;
 using Chat.Core;
-using static Dna.FrameworkDI;
-using static ChatClient.DI;
 using CoreWCF;
 
 namespace ChatClient
@@ -36,9 +34,9 @@ namespace ChatClient
 			//Client.Endpoint.Address = endpointAddress;
 
 			// Log it
-			Logger.LogDebugSource("Application starting...");
+			FrameworkDI.Logger.LogDebugSource("Application starting...");
 
-			ViewModelApplication.GoToPage(ApplicationPage.Chat);
+			DI.ChatApplicationViewModel.GoToPage(ApplicationPage.Chat);
 
 			// Show the main window
 			Current.MainWindow = new MainWindow();

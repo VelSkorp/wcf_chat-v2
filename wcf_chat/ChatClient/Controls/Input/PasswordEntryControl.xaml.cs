@@ -1,4 +1,4 @@
-﻿using ChatClient;
+﻿using Chat.Core;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -6,7 +6,7 @@ using System.Windows.Controls;
 namespace ChatClient
 {
 	/// <summary>
-	/// Логика взаимодействия для PasswordEntryControl.xaml
+	/// Interaction logic for PasswordEntryControl.xaml
 	/// </summary>
 	public partial class PasswordEntryControl : UserControl
 	{
@@ -73,7 +73,9 @@ namespace ChatClient
 		{
 			// Update view model
 			if (DataContext is PasswordEntryViewModel viewModel)
-				viewModel.CurrentPassword = CurrentPassword.SecurePassword;
+			{
+				viewModel.CurrentPassword = CurrentPassword.SecurePassword; 
+			}
 		}
 
 		/// <summary>
@@ -85,7 +87,9 @@ namespace ChatClient
 		{
 			// Update view model
 			if (DataContext is PasswordEntryViewModel viewModel)
-				viewModel.NewPassword = NewPassword.SecurePassword;
+			{
+				viewModel.NewPassword = NewPassword.SecurePassword; 
+			}
 		}
 
 		/// <summary>
@@ -97,7 +101,9 @@ namespace ChatClient
 		{
 			// Update view model
 			if (DataContext is PasswordEntryViewModel viewModel)
-				viewModel.ConfirmPassword = ConfirmPassword.SecurePassword;
+			{
+				viewModel.ConfirmPassword = ConfirmPassword.SecurePassword; 
+			}
 		}
 	}
 }

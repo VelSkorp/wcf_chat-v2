@@ -1,7 +1,6 @@
 ﻿using Dna;
 using Chat.Core;
 using Microsoft.Extensions.DependencyInjection;
-//using Chat.Core.Proxy;
 
 namespace ChatClient
 {
@@ -18,10 +17,10 @@ namespace ChatClient
 		public static FrameworkConstruction AddChatClientViewModels(this FrameworkConstruction construction)
 		{
 			// Bind to a single instance of Application view model
-			construction.Services.AddSingleton<ApplicationViewModel>();
+			construction.Services.AddSingleton<ChatApplicationViewModel>();
 
 			// Bind to a single instance of Settings view model
-			construction.Services.AddSingleton<SettingsViewModel>();
+			construction.Services.AddSingleton<ChatSettingsViewModel>();
 
 			// Return the construction for chaining
 			return construction;

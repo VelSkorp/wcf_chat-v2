@@ -71,7 +71,9 @@ namespace ChatClient
 
 			// Check we have an actual size
 			if (border.ActualHeight == 0 && border.ActualWidth == 0)
-				return;
+			{
+				return; 
+			}
 
 			// Setup the new child clipping area
 			var rect = new RectangleGeometry();

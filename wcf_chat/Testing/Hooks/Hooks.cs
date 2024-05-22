@@ -22,8 +22,8 @@ namespace Testing
 		[BeforeScenario("@Database")]
 		public static async Task BeforeDatabaseScenarioAsync()
 		{
-			await CoreDI.DataStore.EnsureDataStoreAsync();
-			await CoreDI.DataStore.ClearAllDataAsync();
+			await DI.DataStore.EnsureDataStoreAsync();
+			await DI.DataStore.ClearAllDataAsync();
 		}
 
 		[BeforeScenario("@ChatHost")]
@@ -37,7 +37,7 @@ namespace Testing
 		[AfterScenario("@Database")]
 		public static async Task AfterDatabaseScenarioAsync()
 		{
-			await CoreDI.DataStore.ClearAllDataAsync();
+			await DI.DataStore.ClearAllDataAsync();
 		}
 	}
 }

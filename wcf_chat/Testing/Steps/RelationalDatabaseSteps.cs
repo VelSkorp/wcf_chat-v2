@@ -36,7 +36,7 @@ namespace Testing
 				});
 			}
 
-			await CoreDI.DataStore.AddNewChatAsync(chat, usersInChat);
+			await DI.DataStore.AddNewChatAsync(chat, usersInChat);
 		}
 
 		[When(@"the user is added with the username: (.*), first name: (.*), last name: (.*), password: (.*)")]
@@ -50,7 +50,7 @@ namespace Testing
 				Password = password
 			};
 
-			await CoreDI.DataStore.AddNewUserAsync(registerCredentials);
+			await DI.DataStore.AddNewUserAsync(registerCredentials);
 		}
 
 		[When(@"the message is added with the chat id: (\d+), user id: (\d+), content: (.*), creation date: (.*)")]
@@ -64,7 +64,7 @@ namespace Testing
 				CreationDate = creationDate
 			};
 
-			await CoreDI.DataStore.AddNewMessageAsync(message);
+			await DI.DataStore.AddNewMessageAsync(message);
 		}
 
 		[When(@"the user with the id: (\d+) read message with id: (\d+) in the chat with id: (\d+)")]
@@ -77,7 +77,7 @@ namespace Testing
 				ChatId = chatId,
 			};
 
-			await CoreDI.DataStore.UpdateChatMessageStatusAsync(message);
+			await DI.DataStore.UpdateChatMessageStatusAsync(message);
 		}
 
 		[When(@"the user with an id: (\d+) changed username to (.*), first name to (.*), last name to (.*)")]
@@ -91,7 +91,7 @@ namespace Testing
 				LastName = lastName
 			};
 
-			await CoreDI.DataStore.UpdateUserProfileDetailsAsync(userProfile);
+			await DI.DataStore.UpdateUserProfileDetailsAsync(userProfile);
 		}
 
 		[Then(@"the user exists with the id: (\d+), username: (.*), first name: (.*), last name: (.*), password: (.*)")]
@@ -103,7 +103,7 @@ namespace Testing
 				Password = password
 			};
 
-			var user = await CoreDI.DataStore.GetUserProfileDetailsAsync(loginCredentials);
+			var user = await DI.DataStore.GetUserProfileDetailsAsync(loginCredentials);
 
 			AssertHelper.AreEqual(id, user.Id, $"received {user.Username} id");
 			AssertHelper.AreEqual(username, user.Username, "received user username");
@@ -120,7 +120,7 @@ namespace Testing
 				Username = username
 			};
 
-			var chats = await CoreDI.DataStore.GetListOfChatsAsync(userProfile);
+			var chats = await DI.DataStore.GetListOfChatsAsync(userProfile);
 			var chatsNames = chats.Select(chat => chat.Name);
 
 			CollectionAssertHelper.AreEqual(chatsNames, chatRooms, "received chats for user");
@@ -135,7 +135,7 @@ namespace Testing
 				Name = name
 			};
 
-			var recivedMessages = await CoreDI.DataStore.GetMessagesForChatAsync(chat);
+			var recivedMessages = await DI.DataStore.GetMessagesForChatAsync(chat);
 			var messagesContent = recivedMessages.Select(recivedMessage => StringTransformations.ByteArrayToString(recivedMessage.Content));
 
 			CollectionAssertHelper.AreEqual(messagesContent, messages, "received chats for user");
@@ -151,7 +151,7 @@ namespace Testing
 				ChatId = chatId,
 			};
 
-			var status = await CoreDI.DataStore.GetMessageStatusAsync(message);
+			var status = await DI.DataStore.GetMessageStatusAsync(message);
 			AssertHelper.IsTrue(status.IsRead, "received message is read status");
 		}
 	}

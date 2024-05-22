@@ -12,7 +12,7 @@ namespace Chat.Core
 
 		public async Task<ApiResponse<UserProfileDetailsApiModel>> ConnectAsync(LoginCredentialsApiModel loginCredentials)
 		{
-			await CoreDI.DataStore.EnsureDataStoreAsync();
+			await DI.DataStore.EnsureDataStoreAsync();
 
 			var response = new ApiResponse<UserProfileDetailsApiModel>();
 
@@ -25,7 +25,7 @@ namespace Chat.Core
 			UserProfileDetailsApiModel userProfileDetails;
 			try
 			{
-				userProfileDetails = await CoreDI.DataStore.GetUserProfileDetailsAsync(loginCredentials);
+				userProfileDetails = await DI.DataStore.GetUserProfileDetailsAsync(loginCredentials);
 			}
 			catch (InvalidOperationException)
 			{
@@ -39,7 +39,7 @@ namespace Chat.Core
 
 		public async Task<ApiResponse<UserProfileDetailsApiModel>> RegisterAsync(RegisterCredentialsApiModel registerCredentials)
 		{
-			await CoreDI.DataStore.EnsureDataStoreAsync();
+			await DI.DataStore.EnsureDataStoreAsync();
 
 			var response = new ApiResponse<UserProfileDetailsApiModel>();
 
@@ -55,7 +55,7 @@ namespace Chat.Core
 			UserProfileDetailsApiModel userProfileDetails;
 			try
 			{
-				userProfileDetails = await CoreDI.DataStore.AddNewUserAsync(registerCredentials);
+				userProfileDetails = await DI.DataStore.AddNewUserAsync(registerCredentials);
 			}
 			catch (InvalidOperationException)
 			{
@@ -71,7 +71,7 @@ namespace Chat.Core
 		{
 			return new ApiResponse<List<ChatDataModel>>
 			{
-				Response = await CoreDI.DataStore.GetListOfChatsAsync(userProfile)
+				Response = await DI.DataStore.GetListOfChatsAsync(userProfile)
 			};
 		}
 
@@ -79,7 +79,7 @@ namespace Chat.Core
 		{
 			return new ApiResponse<List<MessageDataModel>>
 			{
-				Response = await CoreDI.DataStore.GetMessagesForChatAsync(chat)
+				Response = await DI.DataStore.GetMessagesForChatAsync(chat)
 			};
 		}
 
@@ -90,7 +90,7 @@ namespace Chat.Core
 			MessageStatusDataModel messageStatus;
 			try
 			{
-				messageStatus = await CoreDI.DataStore.GetMessageStatusAsync(message);
+				messageStatus = await DI.DataStore.GetMessageStatusAsync(message);
 			}
 			catch (InvalidOperationException)
 			{
@@ -107,7 +107,7 @@ namespace Chat.Core
 			var response = new ApiResponse();
 			try
 			{
-				await CoreDI.DataStore.AddNewChatAsync(chat, users);
+				await DI.DataStore.AddNewChatAsync(chat, users);
 			}
 			catch (InvalidOperationException)
 			{
@@ -121,7 +121,7 @@ namespace Chat.Core
 			var response = new ApiResponse();
 			try
 			{
-				await CoreDI.DataStore.AddNewMessageAsync(message);
+				await DI.DataStore.AddNewMessageAsync(message);
 			}
 			catch (InvalidOperationException)
 			{
@@ -135,7 +135,7 @@ namespace Chat.Core
 			var response = new ApiResponse();
 			try
 			{
-				await CoreDI.DataStore.UpdateChatMessageStatusAsync(message);
+				await DI.DataStore.UpdateChatMessageStatusAsync(message);
 			}
 			catch (InvalidOperationException)
 			{
@@ -153,7 +153,7 @@ namespace Chat.Core
 			var response = new ApiResponse();
 			try
 			{
-				await CoreDI.DataStore.UpdateUserProfileDetailsAsync(userProfile);
+				await DI.DataStore.UpdateUserProfileDetailsAsync(userProfile);
 			}
 			catch (InvalidOperationException)
 			{

@@ -14,17 +14,24 @@ namespace ChatClient
 		public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			// If we have no paramenter return invisible
-			if (parameter == null)
+			if (parameter is null)
+			{
 				return Visibility.Collapsed;
+			}
 
 			// Try and convert parameter string to enum
-			if(!Enum.TryParse(parameter as string,out MenuItemType type))
+			if (!Enum.TryParse(parameter as string, out MenuItemType type))
+			{
 				return Visibility.Collapsed;
+			}
 
 			// Return visible if the parameter mathes the type
 			return (MenuItemType)value == type ? Visibility.Visible : Visibility.Collapsed;
 		}
 
-		public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+		public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

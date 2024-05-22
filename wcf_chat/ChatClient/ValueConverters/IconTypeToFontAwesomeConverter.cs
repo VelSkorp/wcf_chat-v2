@@ -10,8 +10,14 @@ namespace ChatClient
 	/// </summary>
 	public class IconTypeToFontAwesomeConverter : BaseValueConverter<IconTypeToFontAwesomeConverter>
 	{
-		public override object Convert(object value, Type targetType, object parameter, CultureInfo culture) => ((IconType)value).ToFontAwesome();
+		public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return ((IconType)value).ToFontAwesome();
+		}
 
-		public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
+		public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

@@ -1,10 +1,10 @@
-﻿using ChatClient;
+﻿using Chat.Core;
 using System.Windows.Controls;
 
 namespace ChatClient
 {
 	/// <summary>
-	/// Логика взаимодействия для SettingsControl.xaml
+	/// Interaction logic for SettingsControl.xaml
 	/// </summary>
 	public partial class SettingsControl : UserControl
 	{
@@ -13,7 +13,7 @@ namespace ChatClient
 			InitializeComponent();
 
 			// Set data	context to settings view model
-			DataContext = DI.ViewModelSettings;
+			DataContext = DI.ChatSettingsViewModel;
 		}
 	}
 }

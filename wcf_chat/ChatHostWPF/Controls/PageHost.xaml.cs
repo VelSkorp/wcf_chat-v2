@@ -58,7 +58,7 @@ namespace ChatHostWPF
 			// as the dependency property does not fire
 			if (DesignerProperties.GetIsInDesignMode(this))
 			{
-				NewPage.Content = DI.ApplicationViewModel.CurrentPage.ToBasePage(); 
+				NewPage.Content = DI.HostApplicationViewModel.CurrentPage.ToBasePage(); 
 			}
 		}
 

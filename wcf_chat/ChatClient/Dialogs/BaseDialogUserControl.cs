@@ -1,4 +1,4 @@
-﻿using ChatClient;
+﻿using Chat.Core;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,15 +11,6 @@ namespace ChatClient
 	/// </summary>
 	public class BaseDialogUserControl : UserControl
 	{
-		#region Private Members
-
-		/// <summary>
-		/// The dialog window we will be conteined within
-		/// </summary>
-		private DialogWindow mDialogWindow;
-
-		#endregion
-
 		#region Public Properties
 
 		/// <summary>
@@ -53,6 +44,15 @@ namespace ChatClient
 
 		#endregion
 
+		#region Private Members
+
+		/// <summary>
+		/// The dialog window we will be conteined within
+		/// </summary>
+		private DialogWindow mDialogWindow;
+
+		#endregion
+
 		#region Constructor
 
 		/// <summary>
@@ -65,7 +65,7 @@ namespace ChatClient
 			mDialogWindow.ViewModel = new DialogWindowViewModel(mDialogWindow);
 
 			// Create close command
-			CloseCommand = new RelayCommand(() => mDialogWindow.Close());
+			CloseCommand = new RelayCommand(mDialogWindow.Close);
 		}
 
 		#endregion

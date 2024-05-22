@@ -1,4 +1,4 @@
-﻿using ChatClient;
+﻿using Chat.Core;
 using System;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -25,7 +25,8 @@ namespace ChatClient
 		/// Constructor with specific view model
 		/// </summary>
 		/// <param name="specificViewModel">The specific view model to use for this page</param>
-		public ChatPage(ChatMessageListViewModel specificViewModel = null) : base(specificViewModel)
+		public ChatPage(ChatMessageListViewModel specificViewModel = null)
+			: base(specificViewModel)
 		{
 			InitializeComponent();
 		}
@@ -40,8 +41,10 @@ namespace ChatClient
 		protected override void OnViewModelChanged()
 		{
 			// Make sure UI exists first
-			if (ChatMessageList == null)
+			if (ChatMessageList is null)
+			{
 				return;
+			}
 
 			// Fade in chat message list
 			var storyboard = new Storyboard();
@@ -83,13 +86,14 @@ namespace ChatClient
 					e.Handled = true;
 				}
 				else
+				{
 					// Send the message
 					ViewModel.Send();
+				}
 
 				// Mark the key as handled
 				e.Handled = true;
 			}
-
 		}
 	}
 }

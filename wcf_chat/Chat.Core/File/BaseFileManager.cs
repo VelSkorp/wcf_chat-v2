@@ -30,7 +30,7 @@ namespace Chat.Core
 			await AsyncAwaiter.AwaitAsync(nameof(WriteTextToFileAsync) + path, async () =>
 			 {
 				 // Run the synchronous file access as a new task
-				 await CoreDI.Task.Run(() =>
+				 await DI.Task.Run(() =>
 				 {
 					 // Write the log message to file
 					 using (var fileStream = (TextWriter)new StreamWriter(File.Open(path, append ? FileMode.Append : FileMode.Create)))

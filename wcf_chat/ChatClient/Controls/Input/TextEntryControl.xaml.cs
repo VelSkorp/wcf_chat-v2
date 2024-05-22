@@ -5,7 +5,7 @@ using System.Windows.Controls;
 namespace ChatClient
 {
 	/// <summary>
-	/// Логика взаимодействия для TextEntryControl.xaml
+	/// Interaction logic for TextEntryControl.xaml
 	/// </summary>
 	public partial class TextEntryControl : UserControl
 	{

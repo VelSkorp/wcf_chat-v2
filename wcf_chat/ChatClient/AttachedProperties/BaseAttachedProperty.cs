@@ -30,7 +30,7 @@ namespace ChatClient
 		/// <summary>
 		/// A singleton instance of our parent class
 		/// </summary>
-		public static Parent Instance { get; private set; } = new Parent();
+		public static Parent Instance { get; } = new Parent();
 
 		#endregion
 

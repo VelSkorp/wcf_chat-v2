@@ -21,7 +21,8 @@ namespace ChatHostWPF
 		/// Constructor with specific view model
 		/// </summary>
 		/// <param name="specificViewModel">The specific view model to use for this page</param>
-		public ServerPage(ServerViewModel specificViewModel = null) : base(specificViewModel)
+		public ServerPage(ServerViewModel specificViewModel = null) 
+			: base(specificViewModel)
 		{
 			InitializeComponent();
 		}

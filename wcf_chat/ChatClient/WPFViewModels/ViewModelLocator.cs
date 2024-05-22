@@ -1,4 +1,4 @@
-﻿using static ChatClient.DI;
+﻿using Chat.Core;
 
 namespace ChatClient
 {
@@ -12,17 +12,17 @@ namespace ChatClient
 		/// <summary>
 		/// Singleton instance of the locator
 		/// </summary>
-		public static ViewModelLocator Instance { get; private set; } = new ViewModelLocator();
+		public static ViewModelLocator Instance { get; } = new ViewModelLocator();
 
 		/// <summary>
 		/// The application view model
 		/// </summary>
-		public ApplicationViewModel ApplicationViewModel => ViewModelApplication;
+		public ChatApplicationViewModel ApplicationViewModel => DI.ChatApplicationViewModel;
 
 		/// <summary>
 		/// The settings view model
 		/// </summary>
-		public SettingsViewModel SettingsViewModel => ViewModelSettings;
+		public ChatSettingsViewModel SettingsViewModel => DI.ChatSettingsViewModel;
 
 		#endregion
 	}
