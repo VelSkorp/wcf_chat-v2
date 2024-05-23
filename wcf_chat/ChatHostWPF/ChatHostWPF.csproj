@@ -6,7 +6,6 @@
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\Chat.Core\Chat.Core.csproj" />
 		<ProjectReference Include="..\WPF.Core\WPF.Core.csproj" />
 	</ItemGroup>
 	<ItemGroup>
