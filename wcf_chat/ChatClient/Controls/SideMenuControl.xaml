@@ -5,6 +5,7 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:local="clr-namespace:ChatClient"
 			 xmlns:core="clr-namespace:Chat.Core;assembly=Chat.Core"
+			 xmlns:WPFcore="clr-namespace:WPF.Core;assembly=WPF.Core"
 			 mc:Ignorable="d" 
 			 d:DesignHeight="300" d:DesignWidth="300">
 
@@ -40,7 +41,7 @@
 
 						<!-- Settings button -->
 						<Button Grid.Column="2" 
-								Command="{Binding SettingsViewModel.OpenCommand, Source={x:Static local:ViewModelLocator.Instance}}"
+								Command="{Binding ChatSettingsViewModel.OpenCommand, Source={x:Static WPFcore:ViewModelLocator.Instance}}"
 								Foreground="{StaticResource WordDarkBlueBrush}" 
 								Style="{StaticResource IconButton}" 
 								Content="{StaticResource FontAwesomeCogIcon}" />
@@ -54,7 +55,6 @@
 					</Border>
 
 				</Grid>
-
 
 			</Border>
 

@@ -5,12 +5,13 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:ChatClient"
 		xmlns:core="clr-namespace:ChatClient;assembly=ChatClient"
+		xmlns:WPFcore="clr-namespace:WPF.Core;assembly=WPF.Core"
 		mc:Ignorable="d"
 		WindowStyle="None"
 		AllowsTransparency="True"
 		WindowStartupLocation="CenterScreen"
 		x:Name="AppWindow"
-		Icon="Images/Logo/logo-small.png"
+		Icon="pack://application:,,,/WPF.Core;component/Images/Logo/logo-small.png"
 		MinWidth="{Binding WindowMinimumWidth}"
 		MinHeight="{Binding WindowMinimumHeight}"
 		Deactivated="AppWindow_Deactivated"
@@ -29,7 +30,7 @@
 							<Grid>
 
 								<!-- Outer dragging border -->
-								<Border BorderThickness="{Binding BeingMoved, Converter={local:BooleanToBorderThicknessConverter}}" 
+								<Border BorderThickness="{Binding BeingMoved, Converter={WPFcore:BooleanToBorderThicknessConverter}}" 
 										Panel.ZIndex="2"
 										CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
 										BorderBrush="{StaticResource WordOrangeBrush}" />
@@ -135,32 +136,32 @@
 
 			<!-- Blue background image -->
 			<Grid.Background>
-				<ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 500 500" ImageSource="/Images/Backgrounds/emoji-background.png" />
+				<ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 500 500" ImageSource="pack://application:,,,/WPF.Core;component/Images/Backgrounds/emoji-background.png" />
 			</Grid.Background>
 
 			<!-- Settings page -->
 			<local:SettingsControl Grid.ColumnSpan="2" 
 								   Panel.ZIndex="9"
-								   local:AnimateSlideInFromBottomMarginProperty.Value="{Binding ApplicationViewModel.SettingsMenuVisible, Source={x:Static local:ViewModelLocator.Instance}}"/>
+								   WPFcore:AnimateSlideInFromBottomMarginProperty.Value="{Binding ChatApplicationViewModel.SettingsMenuVisible, Source={x:Static WPFcore:ViewModelLocator.Instance}}"/>
 
 			<!-- Dimmed overlay -->
 			<Border Grid.ColumnSpan="2" 
 					Panel.ZIndex="10"
 					Opacity="0.3">
 				<Border Background="{StaticResource ForegroundVeryDarkBrush}"
-						local:AnimateFadeInProperty.Value="{Binding DimmableOverlayVisible}" />
+						WPFcore:AnimateFadeInProperty.Value="{Binding DimmableOverlayVisible}" />
 			</Border>
 			
 			<local:PageHost Grid.Column="1" 
-							CurrentPage="{Binding ApplicationViewModel.CurrentPage, 
-												  Source={x:Static local:ViewModelLocator.Instance}}"
-							CurrentPageViewModel="{Binding ApplicationViewModel.CurrentPageViewModel, 
-												  Source={x:Static local:ViewModelLocator.Instance}}" />
+							CurrentPage="{Binding ChatApplicationViewModel.CurrentPage, 
+												  Source={x:Static WPFcore:ViewModelLocator.Instance}}"
+							CurrentPageViewModel="{Binding ChatApplicationViewModel.CurrentPageViewModel, 
+												  Source={x:Static WPFcore:ViewModelLocator.Instance}}" />
 
 			<!-- Side Menu -->
 			<local:SideMenuControl Width="300" 
-								   local:AnimateSlideInFromLeftProperty.Value="{Binding ApplicationViewModel.SideMenuVisible, 
-									 Source={x:Static local:ViewModelLocator.Instance}}">
+								   WPFcore:AnimateSlideInFromLeftProperty.Value="{Binding ChatApplicationViewModel.SideMenuVisible, 
+									 Source={x:Static WPFcore:ViewModelLocator.Instance}}">
 
 				<local:ChatListControl />
 

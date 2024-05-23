@@ -5,12 +5,13 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:local="clr-namespace:ChatHostWPF"
 		xmlns:core="clr-namespace:Chat.Core;assembly=Chat.Core"
+		xmlns:WPFcore="clr-namespace:WPF.Core;assembly=WPF.Core"
 		mc:Ignorable="d"
 		WindowStyle="None"
 		AllowsTransparency="True"
 		WindowStartupLocation="CenterScreen"
 		x:Name="AppWindow"
-		Icon="Images/Logo/logo-small.png"
+		Icon="pack://application:,,,/WPF.Core;component/Images/Logo/logo-small.png"
 		MinWidth="{Binding WindowMinimumWidth}"
 		MinHeight="{Binding WindowMinimumHeight}"
 		Deactivated="AppWindow_Deactivated"
@@ -29,7 +30,7 @@
 							<Grid>
 
 								<!-- Outer dragging border -->
-								<Border BorderThickness="{Binding BeingMoved, Converter={local:BooleanToBorderThicknessConverter}}" 
+								<Border BorderThickness="{Binding BeingMoved, Converter={WPFcore:BooleanToBorderThicknessConverter}}" 
 										Panel.ZIndex="2"
 										CornerRadius="{Binding WindowCornerRadius, FallbackValue=10}"
 										BorderBrush="{StaticResource WordOrangeBrush}" />
@@ -130,20 +131,20 @@
 
 			<!-- Emoji background image -->
 			<Grid.Background>
-				<ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 500 500" ImageSource="/Images/Backgrounds/emoji-background.png" />
+				<ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 500 500" ImageSource="pack://application:,,,/WPF.Core;component/Images/Backgrounds/emoji-background.png" />
 			</Grid.Background>
 
 			<!-- Dimmed overlay -->
 			<Border Panel.ZIndex="10"
 					Opacity="0.3">
 				<Border Background="{StaticResource ForegroundVeryDarkBrush}"
-						local:AnimateFadeInProperty.Value="{Binding DimmableOverlayVisible}" />
+						WPFcore:AnimateFadeInProperty.Value="{Binding DimmableOverlayVisible}" />
 			</Border>
 
-			<local:PageHost CurrentPage="{Binding core:ApplicationViewModel.CurrentPage, 
-												  Source={x:Static local:ViewModelLocator.Instance}}"
-							CurrentPageViewModel="{Binding core:ApplicationViewModel.CurrentPageViewModel, 
-												  Source={x:Static local:ViewModelLocator.Instance}}" />
+            <local:PageHost CurrentPage="{Binding HostApplicationViewModel.CurrentPage, 
+												  Source={x:Static WPFcore:ViewModelLocator.Instance}}"
+							CurrentPageViewModel="{Binding HostApplicationViewModel.CurrentPageViewModel, 
+												  Source={x:Static WPFcore:ViewModelLocator.Instance}}" />
 
 		</Grid>
 	</Border>

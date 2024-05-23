@@ -1,13 +1,14 @@
-﻿<local:BasePage x:TypeArguments="core:LoginViewModel" x:Class="ChatClient.LoginPage"
-	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-	  xmlns:local="clr-namespace:ChatClient"
-	  xmlns:core="clr-namespace:Chat.Core;assembly=Chat.Core"
-	  mc:Ignorable="d" 
-	  x:Name="Page"
-	  d:DesignHeight="700" d:DesignWidth="700">
+﻿<WPFcore:BasePage x:TypeArguments="core:LoginViewModel" x:Class="ChatClient.LoginPage"
+				xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+				xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+				xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+				xmlns:local="clr-namespace:ChatClient"
+				xmlns:core="clr-namespace:Chat.Core;assembly=Chat.Core"
+				xmlns:WPFcore="clr-namespace:WPF.Core;assembly=WPF.Core"
+				mc:Ignorable="d" 
+				x:Name="Page"
+				d:DesignHeight="700" d:DesignWidth="700">
 
 	<Border>
 		<Grid>
@@ -43,7 +44,7 @@
 							<!-- Username -->
 							<TextBox Text="{Binding Username}"
 									 Tag="Username"
-									 local:IsFocusedProperty.Value="True" />
+									 WPFcore:IsFocusedProperty.Value="True" />
 
 							<!-- Password -->
 							<PasswordBox x:Name="PasswordText" Tag="Password" Margin="0 0 0 30" />
@@ -51,7 +52,7 @@
 							<!-- Login button -->
 							<Button Content="Login" 
 									IsDefault="True"
-									local:IsBusyProperty.Value="{Binding LoginIsRunning}"
+									WPFcore:IsBusyProperty.Value="{Binding LoginIsRunning}"
 									Command="{Binding LoginCommand}"
 									CommandParameter="{Binding ElementName=Page}" 
 									HorizontalAlignment="Center" />
@@ -69,4 +70,4 @@
 			</ScrollViewer>
 		</Grid>
 	</Border>
-</local:BasePage>
+</WPFcore:BasePage>

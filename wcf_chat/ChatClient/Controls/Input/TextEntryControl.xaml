@@ -5,6 +5,7 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:local="clr-namespace:ChatClient"
 			 xmlns:core="clr-namespace:Chat.Core;assembly=Chat.Core"
+			 xmlns:WPFcore="clr-namespace:WPF.Core;assembly=WPF.Core"
 			 mc:Ignorable="d" 
 			 d:DataContext="{x:Static core:TextEntryDesignModel.Instance}">
 
@@ -64,8 +65,8 @@
 					 Opacity="0"
 					 FontSize="{StaticResource FontSizeRegular}"
 					 Padding="2"
-					 local:AnimateFadeInProperty.Value="{Binding Editing}"
-					 local:FocusAndSelectProperty.Value="{Binding Editing}"
+					 WPFcore:AnimateFadeInProperty.Value="{Binding Editing}"
+					 WPFcore:FocusAndSelectProperty.Value="{Binding Editing}"
 					 Margin="10 10 15 8" />
 
 			<!-- Content -->
@@ -74,11 +75,11 @@
 					   Margin="15 8"
 					   VerticalAlignment="Center"
 					   ToolTip="{Binding OriginalText}"
-					   local:AnimateFadeInProperty.Value="{Binding Editing,Converter={local:BooleanInvertConverter}}" />
+					   WPFcore:AnimateFadeInProperty.Value="{Binding Editing,Converter={WPFcore:BooleanInvertConverter}}" />
 
 			<!-- Edit Button container -->
 			<Grid Grid.Column="2"
-				  local:AnimateFadeInProperty.Value="{Binding Editing,Converter={local:BooleanInvertConverter}}">
+				  WPFcore:AnimateFadeInProperty.Value="{Binding Editing,Converter={WPFcore:BooleanInvertConverter}}">
 
 				<!-- Edit button -->
 				<Button Content="{StaticResource FontAwesomeEllipsisHorizontalIcon}"
@@ -100,7 +101,7 @@
 				<!-- Save Button -->
 				<Button Content="{StaticResource FontAwesomeTickIcon}"
 						FontFamily="{StaticResource FontAwesome}"
-						local:AnimateFadeInProperty.Value="{Binding Editing}"
+						WPFcore:AnimateFadeInProperty.Value="{Binding Editing}"
 						IsDefault="True"
 						Cursor="Hand"
 						Command="{Binding SaveCommnad}"
@@ -113,7 +114,7 @@
 				<!-- Cancel Button -->
 				<Button Content="{StaticResource FontAwesomeCloseIcon}"
 						FontFamily="{StaticResource FontAwesome}"
-						local:AnimateFadeInProperty.Value="{Binding Editing}"
+						WPFcore:AnimateFadeInProperty.Value="{Binding Editing}"
 						IsCancel="True"
 						Cursor="Hand"
 						Command="{Binding CancelCommnad}"
@@ -123,12 +124,7 @@
 						VerticalAlignment="Center"
 						FontSize="{StaticResource FontSizeSmall}" />
 
-
 			</StackPanel>
-
-
-
-
 		</Grid>
 
 	</Border>

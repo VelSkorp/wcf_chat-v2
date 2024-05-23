@@ -5,6 +5,7 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:local="clr-namespace:ChatClient"
 			 xmlns:core="clr-namespace:Chat.Core;assembly=Chat.Core"
+			 xmlns:WPFcore="clr-namespace:WPF.Core;assembly=WPF.Core"
 			 mc:Ignorable="d" 
 			 d:DesignWidth="300">
 
@@ -35,7 +36,7 @@
 								<Border Background="Red" 
 									Width="4"
 									HorizontalAlignment="Left"
-									Visibility="{Binding NewContentAvailable, Converter={local:BooleanToVisibilityConverter}, ConverterParameter=True}"
+									Visibility="{Binding NewContentAvailable, Converter={WPFcore:BooleanToVisibilityConverter}, ConverterParameter=True}"
 									/>
 
 								<!-- Profile picture padding -->
@@ -43,7 +44,7 @@
 									Padding="8 15"
 									>
 									<!-- Profile picture background -->
-									<Border Background="{Binding ProfilePictureRGB, Converter={local:StringRGBToBrushConverter}}" 
+									<Border Background="{Binding ProfilePictureRGB, Converter={WPFcore:StringRGBToBrushConverter}}" 
 										Height="40"
 										Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
 										CornerRadius="{Binding ActualHeight, RelativeSource={RelativeSource Self}}">

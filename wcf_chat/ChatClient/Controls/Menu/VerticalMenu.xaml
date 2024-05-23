@@ -5,6 +5,7 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:local="clr-namespace:ChatClient"
 			 xmlns:core="clr-namespace:Chat.Core;assembly=Chat.Core"
+			 xmlns:WPFcore="clr-namespace:WPF.Core;assembly=WPF.Core"
 			 mc:Ignorable="d" >
 
 	<ItemsControl d:DataContext="{x:Static core:MenuDesignModel.Instance}"
@@ -17,7 +18,7 @@
 				<Grid>
 
 					<!-- Header -->
-					<Grid Visibility="{Binding Type, Converter={local:MenuItemTypeVisibilityConverter}, ConverterParameter=Header}">
+					<Grid Visibility="{Binding Type, Converter={WPFcore:MenuItemTypeVisibilityConverter}, ConverterParameter=Header}">
 
 						<!-- Heder Line -->
 						<Border Height="0.5" Background="{StaticResource ForegroundDarkBrush}" />
@@ -37,7 +38,7 @@
 					<Border Background="{StaticResource ForegroundLightBrush}"
 							CornerRadius="8"
 							Padding="5"
-							Visibility="{Binding Type, Converter={local:MenuItemTypeVisibilityConverter}, ConverterParameter=TextAndIcon}">
+							Visibility="{Binding Type, Converter={WPFcore:MenuItemTypeVisibilityConverter}, ConverterParameter=TextAndIcon}">
 
 						<Border.Triggers>
 							<!-- Hover over blue -->
@@ -92,7 +93,7 @@
 									   Padding="5"
 									   VerticalAlignment="Center"
 									   FontFamily="{StaticResource FontAwesome}"
-									   Text="{Binding Icon, Converter={local:IconTypeToFontAwesomeConverter}}"
+									   Text="{Binding Icon, Converter={WPFcore:IconTypeToFontAwesomeConverter}}"
 									   Foreground="{StaticResource ForegroundDarkBrush}" />
 
 							<!-- Text -->

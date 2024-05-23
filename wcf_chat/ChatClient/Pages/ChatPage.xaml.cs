@@ -1,4 +1,5 @@
 ﻿using Chat.Core;
+using WPF.Core;
 using System;
 using System.Windows.Controls;
 using System.Windows.Input;

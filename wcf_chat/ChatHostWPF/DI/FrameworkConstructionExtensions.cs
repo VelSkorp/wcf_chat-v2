@@ -1,5 +1,6 @@
 ﻿using Dna;
 using Chat.Core;
+using WPF.Core;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatHostWPF
@@ -36,6 +37,9 @@ namespace ChatHostWPF
 
 			// Bind a file manager
 			construction.Services.AddTransient<IFileManager, BaseFileManager>();
+
+			// Bind a UI Manager
+			construction.Services.AddTransient<IUIManager, UIManager>();
 
 			// Return the construction for chaining
 			return construction;

@@ -5,6 +5,7 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:local="clr-namespace:ChatClient"
 			 xmlns:core="clr-namespace:Chat.Core;assembly=Chat.Core"
+			 xmlns:WPFcore="clr-namespace:WPF.Core;assembly=WPF.Core"
 			 mc:Ignorable="d" d:DesignWidth="300">
 	<Border Padding="5" 
 			d:DataContext="{x:Static core:ChatMessageListItemDesignModel.Instance}"
@@ -15,7 +16,7 @@
 			<Border VerticalAlignment="Top"
 					HorizontalAlignment="Left"
 					Margin="0 7.5 0 7.5"
-					Visibility="{Binding SentByMe, Converter={local:BooleanToVisibilityConverter}}"
+					Visibility="{Binding SentByMe, Converter={WPFcore:BooleanToVisibilityConverter}}"
 					CornerRadius="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
 					Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
 					Width="35"
@@ -33,7 +34,7 @@
 
 			<!-- Chat message container -->
 			<Grid Margin="25 0 25 0"
-				  HorizontalAlignment="{Binding SentByMe, Converter={local:SentByMeToAlignmentConverter}}">
+				  HorizontalAlignment="{Binding SentByMe, Converter={WPFcore:SentByMeToAlignmentConverter}}">
 
 				<Grid.Triggers>
 
@@ -71,14 +72,14 @@
 					</Grid.RowDefinitions>
 
 					<!-- Image Loading Glyph -->
-					<Border HorizontalAlignment="{Binding SentByMe, Converter={local:SentByMeToAlignmentConverter}}"
+					<Border HorizontalAlignment="{Binding SentByMe, Converter={WPFcore:SentByMeToAlignmentConverter}}"
 							VerticalAlignment="Top">
 						
 						<TextBlock Style="{StaticResource SpinningText}"
 								   Foreground="{StaticResource ForegroundLightBrush}"
 								   Padding="20"
 								   DataContext="{Binding ImageAttachment}"
-								   Visibility="{Binding ImageLoaded, Converter={local:BooleanToVisibilityGoneConverter}, ConverterParameter=True, FallbackValue=Collapsed}" />
+								   Visibility="{Binding ImageLoaded, Converter={WPFcore:BooleanToVisibilityGoneConverter}, ConverterParameter=True, FallbackValue=Collapsed}" />
 
 					</Border>
 					
@@ -87,8 +88,8 @@
 							Margin="0 0 0 15">
 
 						<Image DataContext="{Binding ImageAttachment}"
-							   local:ClipFromBorderProperty.Value="True"
-							   local:FadeInImageOnLoadProperty.Value="True"
+							   WPFcore:ClipFromBorderProperty.Value="True"
+							   WPFcore:FadeInImageOnLoadProperty.Value="True"
 							   Source="{Binding LocalFilePath, NotifyOnTargetUpdated=True}"
 							   MaxWidth="600" />
 
@@ -96,8 +97,8 @@
 					
 					<!-- Chat message text bubble-->
 					<Grid Grid.Row="1"
-						  HorizontalAlignment="{Binding SentByMe, Converter={local:SentByMeToAlignmentConverter}}"
-						  Visibility="{Binding HasMessage, Converter={local:BooleanToVisibilityGoneConverter}}">
+						  HorizontalAlignment="{Binding SentByMe, Converter={WPFcore:SentByMeToAlignmentConverter}}"
+						  Visibility="{Binding HasMessage, Converter={WPFcore:BooleanToVisibilityGoneConverter}}">
 
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
@@ -108,7 +109,7 @@
 						<!-- Speech bubble rectangle -->
 						<Border CornerRadius="10"
 								Padding="15"
-								Background="{Binding SentByMe, Converter={local:SentByMeToBackgroundConverter}}">
+								Background="{Binding SentByMe, Converter={WPFcore:SentByMeToBackgroundConverter}}">
 
 							<!-- Message text -->
 							<TextBlock VerticalAlignment="Center"
@@ -126,25 +127,25 @@
 							  Margin="15 -1 15 0"
 							  Data="M 0,0 L 10,10 L 20,0 L 0,0" 
 							  StrokeThickness="0"
-							  HorizontalAlignment="{Binding SentByMe, Converter={local:SentByMeToAlignmentConverter}}"
-							  Fill="{Binding SentByMe, Converter={local:SentByMeToBackgroundConverter}}" />
+							  HorizontalAlignment="{Binding SentByMe, Converter={WPFcore:SentByMeToAlignmentConverter}}"
+							  Fill="{Binding SentByMe, Converter={WPFcore:SentByMeToBackgroundConverter}}" />
 
 						<!-- Time containers -->
 						<StackPanel Name="ExtraDetails" 
 									Grid.Row="2"
 									Opacity="0"
-									HorizontalAlignment="{Binding SentByMe, Converter={local:SentByMeToAlignmentConverter}, ConverterParameter=True}"
+									HorizontalAlignment="{Binding SentByMe, Converter={WPFcore:SentByMeToAlignmentConverter}, ConverterParameter=True}"
 									Orientation="Horizontal">
 
 							<!-- Sent time -->
-							<TextBlock Text="{Binding MessageSentTime, Converter={local:TimeToDisplayTimeConverter}}"
+							<TextBlock Text="{Binding MessageSentTime, Converter={WPFcore:TimeToDisplayTimeConverter}}"
 									   Foreground="{StaticResource ForegroundLightBrush}"
 									   FontSize="{StaticResource FontSizeSmall}"
 									   FontFamily="{StaticResource LatoRegular}"
 									   Margin="0 0 15 0" />
 
 							<!-- Read time -->
-							<TextBlock Text="{Binding MessageReadTime, Converter={local:TimeToReadTimeConverter}}"
+							<TextBlock Text="{Binding MessageReadTime, Converter={WPFcore:TimeToReadTimeConverter}}"
 									   Foreground="{StaticResource WordDarkBlueBrush}"
 									   FontSize="{StaticResource FontSizeSmall}"
 									   FontFamily="{StaticResource LatoRegular}" />

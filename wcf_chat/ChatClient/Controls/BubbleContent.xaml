@@ -5,6 +5,7 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:local="clr-namespace:ChatClient"
 			 xmlns:core="clr-namespace:Chat.Core;assembly=Chat.Core"
+			 xmlns:WPFcore="clr-namespace:WPF.Core;assembly=WPF.Core"
 			 mc:Ignorable="d" 
 			 d:DataContext="{x:Static core:ChatAttachmentPopupMenuDesignModel.Instance}">
 
@@ -20,7 +21,7 @@
 		<Border CornerRadius="10"
 				Padding="12"
 				Margin="5 0 0 0"
-				Background="{Binding BubbleBackground, Converter={local:StringRGBToBrushConverter}}">
+				Background="{Binding BubbleBackground, Converter={WPFcore:StringRGBToBrushConverter}}">
 
 			<Border.Effect>
 				<DropShadowEffect BlurRadius="4" ShadowDepth="2" Color="{StaticResource WordLightBlue}" />
@@ -38,8 +39,8 @@
 			  Margin="15 -1 15 0"
 			  Data="M 0,0 L 10,10 L 20,0 L 0,0" 
 			  StrokeThickness="0"
-			  HorizontalAlignment="{Binding ArrowAlignment, Converter={local:HorizontalAlignmentConverter}}"
-			  Fill="{Binding BubbleBackground, Converter={local:StringRGBToBrushConverter}}">
+			  HorizontalAlignment="{Binding ArrowAlignment, Converter={WPFcore:HorizontalAlignmentConverter}}"
+			  Fill="{Binding BubbleBackground, Converter={WPFcore:StringRGBToBrushConverter}}">
 
 			<Path.Effect>
 				<DropShadowEffect BlurRadius="3" ShadowDepth="3" Color="{StaticResource WordLightBlue}" />

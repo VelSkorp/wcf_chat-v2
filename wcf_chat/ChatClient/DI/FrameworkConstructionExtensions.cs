@@ -1,5 +1,6 @@
 ﻿using Dna;
 using Chat.Core;
+using WPF.Core;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ChatClient
