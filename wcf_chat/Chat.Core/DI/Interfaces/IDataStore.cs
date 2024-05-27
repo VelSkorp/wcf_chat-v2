@@ -51,7 +51,7 @@ namespace Chat.Core
 		/// <param name="registerCredentials">User credentials for registration</param>
 		/// <returns>Returns the user profile details if user successfully registered, or throws exception if already exist</returns>
 		/// <exception cref="System.InvalidOperationException"></exception>
-		Task<UserProfileDetailsApiModel> AddNewUserAsync(RegisterCredentialsApiModel registerCredentials);
+		Task<bool> AddNewUserAsync(RegisterCredentialsApiModel registerCredentials);
 
 		/// <summary>
 		/// Adds new chat for this user and other users in this chat
@@ -59,14 +59,14 @@ namespace Chat.Core
 		/// <param name="chat">Chat data</param>
 		/// <param name="users">Users in this chat data</param>
 		/// <returns>Returns a task that will finish once setup is complete</returns>
-		Task AddNewChatAsync(ChatDataModel chat, List<UserProfileDetailsApiModel> users);
+		Task<bool> AddNewChatAsync(ChatDataModel chat, List<UserProfileDetailsApiModel> users);
 
 		/// <summary>
 		/// Adds new message in chat for this user and other users in this chat
 		/// </summary>
 		/// <param name="message">Message data</param>
 		/// <returns>Returns a task that will finish once setup is complete</returns>
-		Task AddNewMessageAsync(MessageDataModel message);
+		Task<bool> AddNewMessageAsync(MessageDataModel message);
 
 		/// <summary>
 		/// Updates information of user
@@ -74,7 +74,7 @@ namespace Chat.Core
 		/// <param name="userProfile">New information about the user</param>
 		/// <returns>Returns a task that will finish once setup is complete</returns>
 		/// <exception cref="System.InvalidOperationException"></exception>
-		Task UpdateUserProfileDetailsAsync(UserProfileDetailsApiModel userProfile);
+		Task<bool> UpdateUserProfileDetailsAsync(UserProfileDetailsApiModel userProfile);
 
 		/// <summary>
 		/// Updates chat message status if it has been read
@@ -82,12 +82,12 @@ namespace Chat.Core
 		/// <param name="message">Message that was read</param>
 		/// <returns>Returns a task that will finish once setup is complete</returns>
 		/// <exception cref="System.InvalidOperationException"></exception>
-		Task UpdateChatMessageStatusAsync(MessageDataModel message);
+		Task<bool> UpdateChatMessageStatusAsync(MessageDataModel message);
 
 		/// <summary>
 		/// Removes all data stored in the data store
 		/// </summary>
 		/// <returns>Returns a task that will finish once setup is complete</returns>
-		Task ClearAllDataAsync();
+		Task<bool> ClearAllDataAsync();
 	}
 }

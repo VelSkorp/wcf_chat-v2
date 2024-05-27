@@ -46,7 +46,7 @@ namespace Chat.Core
 		/// <param name="registerCredentials">The registration details</param>
 		/// <returns>Returns the result of the register request</returns>
 		[OperationContract]
-		Task<ApiResponse<UserProfileDetailsApiModel>> RegisterAsync(RegisterCredentialsApiModel registerCredentials);
+		Task<ApiResponse<bool>> RegisterAsync(RegisterCredentialsApiModel registerCredentials);
 
 		/// <summary>
 		/// Adds new chat for this user and other users in this chat
@@ -54,27 +54,27 @@ namespace Chat.Core
 		/// <param name="chat">Chat data</param>
 		/// <param name="users">Users in this chat data</param>
 		[OperationContract]
-		Task<ApiResponse> CreateChatAsync(ChatDataModel chat, List<UserProfileDetailsApiModel> users);
+		Task<ApiResponse<bool>> CreateChatAsync(ChatDataModel chat, List<UserProfileDetailsApiModel> users);
 
 		/// <summary>
 		/// Sends message in chat for this user and other users in this chat
 		/// </summary>
 		/// <param name="message">Message data</param>
 		[OperationContract]
-		Task<ApiResponse> SendMessageAsync(MessageDataModel message);
+		Task<ApiResponse<bool>> SendMessageAsync(MessageDataModel message);
 
 		/// <summary>
 		/// Updates information of user
 		/// </summary>
 		/// <param name="userProfile">New information about the user</param>
 		[OperationContract]
-		Task<ApiResponse> UpdateUserProfileDetailsAsync(UserProfileDetailsApiModel userProfile);
+		Task<ApiResponse<bool>> UpdateUserProfileDetailsAsync(UserProfileDetailsApiModel userProfile);
 
 		/// <summary>
 		/// Updates chat message status if it has been read
 		/// </summary>
 		/// <param name="message">Message that was read</param>
 		[OperationContract]
-		Task<ApiResponse> UpdateChatMessageStatusAsync(MessageDataModel message);
+		Task<ApiResponse<bool>> UpdateChatMessageStatusAsync(MessageDataModel message);
 	}
 }

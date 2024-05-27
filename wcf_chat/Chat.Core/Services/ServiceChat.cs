@@ -33,9 +33,9 @@ namespace Chat.Core
 			return response;
 		}
 
-		public async Task<ApiResponse<UserProfileDetailsApiModel>> RegisterAsync(RegisterCredentialsApiModel registerCredentials)
+		public async Task<ApiResponse<bool>> RegisterAsync(RegisterCredentialsApiModel registerCredentials)
 		{
-			var response = new ApiResponse<UserProfileDetailsApiModel>();
+			var response = new ApiResponse<bool>();
 			try
 			{
 				await DI.DataStore.EnsureDataStoreAsync();
@@ -100,12 +100,12 @@ namespace Chat.Core
 			return response;
 		}
 
-		public async Task<ApiResponse> CreateChatAsync(ChatDataModel chat, List<UserProfileDetailsApiModel> users)
+		public async Task<ApiResponse<bool>> CreateChatAsync(ChatDataModel chat, List<UserProfileDetailsApiModel> users)
 		{
-			var response = new ApiResponse();
+			var response = new ApiResponse<bool>();
 			try
 			{
-				await DI.DataStore.AddNewChatAsync(chat, users);
+				response.Response = await DI.DataStore.AddNewChatAsync(chat, users);
 			}
 			catch (InvalidOperationException ex)
 			{
@@ -115,12 +115,12 @@ namespace Chat.Core
 			return response;
 		}
 
-		public async Task<ApiResponse> SendMessageAsync(MessageDataModel message)
+		public async Task<ApiResponse<bool>> SendMessageAsync(MessageDataModel message)
 		{
-			var response = new ApiResponse();
+			var response = new ApiResponse<bool>();
 			try
 			{
-				await DI.DataStore.AddNewMessageAsync(message);
+				response.Response = await DI.DataStore.AddNewMessageAsync(message);
 			}
 			catch (InvalidOperationException ex)
 			{
@@ -130,12 +130,12 @@ namespace Chat.Core
 			return response;
 		}
 
-		public async Task<ApiResponse> UpdateChatMessageStatusAsync(MessageDataModel message)
+		public async Task<ApiResponse<bool>> UpdateChatMessageStatusAsync(MessageDataModel message)
 		{
-			var response = new ApiResponse();
+			var response = new ApiResponse<bool>();
 			try
 			{
-				await DI.DataStore.UpdateChatMessageStatusAsync(message);
+				response.Response = await DI.DataStore.UpdateChatMessageStatusAsync(message);
 			}
 			catch (InvalidOperationException ex)
 			{
@@ -150,12 +150,12 @@ namespace Chat.Core
 			return response;
 		}
 
-		public async Task<ApiResponse> UpdateUserProfileDetailsAsync(UserProfileDetailsApiModel userProfile)
+		public async Task<ApiResponse<bool>> UpdateUserProfileDetailsAsync(UserProfileDetailsApiModel userProfile)
 		{
-			var response = new ApiResponse();
+			var response = new ApiResponse<bool>();
 			try
 			{
-				await DI.DataStore.UpdateUserProfileDetailsAsync(userProfile);
+				response.Response = await DI.DataStore.UpdateUserProfileDetailsAsync(userProfile);
 			}
 			catch (InvalidOperationException ex)
 			{
