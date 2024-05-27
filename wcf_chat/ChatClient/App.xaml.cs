@@ -1,7 +1,5 @@
 ﻿using Dna;
 using System.Windows;
-using Chat.Core;
-using CoreWCF;
 
 namespace ChatClient
 {
@@ -14,12 +12,12 @@ namespace ChatClient
 		/// Custom startup so we load our IoC immediately before anything else
 		/// </summary>
 		/// <param name="e"></param>
-		protected override void OnStartup(StartupEventArgs e)
+		protected override async void OnStartup(StartupEventArgs e)
 		{
 			// Let the base application do what it needs
 			base.OnStartup(e);
 
-			// Setup the Dna Fraimwork
+			// Setup the Dna Framework
 			Framework.Construct<DefaultFrameworkConstruction>()
 				.AddFileLogger()
 				.AddChatClientViewModels()
@@ -27,39 +25,12 @@ namespace ChatClient
 				.AddChatClient()
 				.Build();
 
-			// Find IServiceChat endpoint
-			EndpointAddress endpointAddress = FindServiceChatAddress();
-
-			// Connect to the discovered service endpoint  
-			//Client.Endpoint.Address = endpointAddress;
-
 			// Log it
 			FrameworkDI.Logger.LogDebugSource("Application starting...");
-
-			DI.ChatApplicationViewModel.GoToPage(ApplicationPage.Chat);
 
 			// Show the main window
 			Current.MainWindow = new MainWindow();
 			Current.MainWindow.Show();
-		}
-
-		private EndpointAddress FindServiceChatAddress()
-		{
-			//// Create DiscoveryClient  
-			//var discoveryClient = new DiscoveryClient(new UdpDiscoveryEndpoint());
-
-			//// Find IServiceChat endpoints
-			//FindResponse findResponse = discoveryClient.Find(new FindCriteria(typeof(Chat.Core.Proxy.IServiceChat)));
-
-			//if (findResponse.Endpoints.Count > 0)
-			//{
-			//	return findResponse.Endpoints[0].Address;
-			//}
-			//else
-			//{
-			//	return null;
-			//}
-			return null;
 		}
 	}
 }

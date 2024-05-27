@@ -1,4 +1,4 @@
-﻿using CoreWCF;
+﻿using System.ServiceModel;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

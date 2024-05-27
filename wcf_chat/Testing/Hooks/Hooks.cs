@@ -2,8 +2,6 @@ using Chat.Core;
 using Chat.Relational;
 using Dna;
 using TechTalk.SpecFlow;
-using TestStack.White;
-using TestStack.White.Factory;
 
 namespace Testing
 {
@@ -29,9 +27,9 @@ namespace Testing
 		[BeforeScenario("@ChatHost")]
 		public static void BeforeChatHostScenario(ScenarioContext scenarioContext)
 		{
-			var application = Application.Launch("./ChatHostWPF.exe");
-			var window = application.GetWindow("ChatHost", InitializeOption.NoCache);
-			scenarioContext.Add("ChatHostWindow", window);
+			//var application = Application.Launch("./ChatHostWPF.exe");
+			//var window = application.GetWindow("ChatHost", InitializeOption.NoCache);
+			//scenarioContext.Add("ChatHostWindow", window);
 		}
 
 		[AfterScenario("@Database")]

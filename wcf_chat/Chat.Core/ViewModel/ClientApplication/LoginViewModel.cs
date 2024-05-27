@@ -64,10 +64,10 @@ namespace Chat.Core
 				// TODO: Fake a loginll...
 				await Task.Delay(1000);
 
-				//if (Client.Endpoint.Address == null)
+				//if (DI.Client.Endpoint.Address == null)
 				//{
 				//	// Display error
-				//	await UI.ShowMessage(new MessageBoxDialogViewModel
+				//	await DI.UI.ShowMessage(new MessageBoxDialogViewModel
 				//	{
 				//		Title = "Load error",
 				//		Message = "Server can't be found"
@@ -76,20 +76,20 @@ namespace Chat.Core
 				//	return;
 				//}
 
-				//// Display error
-				//await UI.ShowMessage(new MessageBoxDialogViewModel
+				// Display error
+				//await DI.UI.ShowMessage(new MessageBoxDialogViewModel
 				//{
 				//	Title = "Endpoint",
-				//	Message = Client.Endpoint.Address.Uri.ToString()
+				//	Message = DI.Client.Address.Uri.ToString()
 				//});
 
-				//var a = await Client.ConnectAsync(
-				//	// Create api model
-				//	new Chat.Core.Proxy.LoginCredentialsApiModel
-				//	{
-				//		Username = Username,
-				//		Password = (parameter as IHavePassword).SecurePassword.Unsecure()
-				//	});
+				var cred = new LoginCredentialsApiModel
+				{
+					Username = Username,
+					Password = (parameter as IHavePassword).SecurePassword.Unsecure()
+				};
+
+				var user = await DI.Client.ConnectAsync(cred);
 
 				// Ok successfully loggedin... Now det users data
 				// TODO: Ask server for users info

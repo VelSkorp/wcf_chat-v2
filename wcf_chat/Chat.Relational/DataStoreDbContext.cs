@@ -1,6 +1,5 @@
 ﻿using Chat.Core;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Chat.Relational
 {

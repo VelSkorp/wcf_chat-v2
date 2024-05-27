@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chat.Relational", "Chat.Rel
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF.Core", "WPF.Core\WPF.Core.csproj", "{F5F57472-30DE-4DC7-93CB-DE3F4E6C6745}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatHostConsole", "ChatHostConsole\ChatHostConsole.csproj", "{9FC86321-7E5C-4D4E-A731-87F634ED000D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{F5F57472-30DE-4DC7-93CB-DE3F4E6C6745}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5F57472-30DE-4DC7-93CB-DE3F4E6C6745}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5F57472-30DE-4DC7-93CB-DE3F4E6C6745}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FC86321-7E5C-4D4E-A731-87F634ED000D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FC86321-7E5C-4D4E-A731-87F634ED000D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FC86321-7E5C-4D4E-A731-87F634ED000D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FC86321-7E5C-4D4E-A731-87F634ED000D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

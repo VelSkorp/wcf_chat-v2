@@ -11,7 +11,7 @@ namespace Chat.Relational
 	/// such as login credentials, messages, settings and so on
 	/// in an SQLite database
 	/// </summary>
-	public class BaseClientDataStore : IDataStore
+	public class BaseChatDataStore : IDataStore
 	{
 		#region Protected Members
 
@@ -28,7 +28,7 @@ namespace Chat.Relational
 		/// Default constructor
 		/// </summary>
 		/// <param name="dbContext">The database to use</param>
-		public BaseClientDataStore(DataStoreDbContext dbContext)
+		public BaseChatDataStore(DataStoreDbContext dbContext)
 		{
 			mDbContext = dbContext;
 		}

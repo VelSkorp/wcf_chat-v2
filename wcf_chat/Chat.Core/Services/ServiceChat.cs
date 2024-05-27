@@ -1,4 +1,5 @@
 ﻿using CoreWCF;
+using Dna;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -12,93 +13,90 @@ namespace Chat.Core
 
 		public async Task<ApiResponse<UserProfileDetailsApiModel>> ConnectAsync(LoginCredentialsApiModel loginCredentials)
 		{
-			await DI.DataStore.EnsureDataStoreAsync();
-
 			var response = new ApiResponse<UserProfileDetailsApiModel>();
-
-			if (string.IsNullOrWhiteSpace(loginCredentials?.Username) || string.IsNullOrWhiteSpace(loginCredentials?.Password))
-			{
-				response.ErrorMessage = "Username or password can't be empty";
-				return response;
-			}
-
-			UserProfileDetailsApiModel userProfileDetails;
 			try
 			{
-				userProfileDetails = await DI.DataStore.GetUserProfileDetailsAsync(loginCredentials);
-			}
-			catch (InvalidOperationException)
-			{
-				response.ErrorMessage = "User is not registered";
-				return response;
-			}
+				await DI.DataStore.EnsureDataStoreAsync();
 
-			response.Response = userProfileDetails;
+				response.Response = await DI.DataStore.GetUserProfileDetailsAsync(loginCredentials);
+			}
+			catch (InvalidOperationException ex)
+			{
+				FrameworkDI.Logger.LogErrorSource(ex.Message);
+				response.ErrorMessage = "User is not registered";
+			}
+			catch (Exception ex)
+			{
+				FrameworkDI.Logger.LogErrorSource(ex.Message);
+				response.ErrorMessage = "Internal server error";
+			}
 			return response;
 		}
 
 		public async Task<ApiResponse<UserProfileDetailsApiModel>> RegisterAsync(RegisterCredentialsApiModel registerCredentials)
 		{
-			await DI.DataStore.EnsureDataStoreAsync();
-
 			var response = new ApiResponse<UserProfileDetailsApiModel>();
-
-			if (string.IsNullOrWhiteSpace(registerCredentials?.Username) ||
-				string.IsNullOrWhiteSpace(registerCredentials?.FirstName) ||
-				string.IsNullOrWhiteSpace(registerCredentials?.LastName) ||
-				string.IsNullOrWhiteSpace(registerCredentials?.Password))
-			{
-				response.ErrorMessage = "User information can't be empty";
-				return response;
-			}
-
-			UserProfileDetailsApiModel userProfileDetails;
 			try
 			{
-				userProfileDetails = await DI.DataStore.AddNewUserAsync(registerCredentials);
-			}
-			catch (InvalidOperationException)
-			{
-				response.ErrorMessage = "This user is already exists";
-				return response;
-			}
+				await DI.DataStore.EnsureDataStoreAsync();
 
-			response.Response = userProfileDetails;
+				response.Response = await DI.DataStore.AddNewUserAsync(registerCredentials);
+			}
+			catch (InvalidOperationException ex)
+			{
+				FrameworkDI.Logger.LogErrorSource(ex.Message);
+				response.ErrorMessage = "This user is already exists";
+			}
+			catch (Exception ex)
+			{
+				FrameworkDI.Logger.LogErrorSource(ex.Message);
+				response.ErrorMessage = "Internal server error";
+			}
 			return response;
 		}
 
 		public async Task<ApiResponse<List<ChatDataModel>>> GetChatsForUserAsync(UserProfileDetailsApiModel userProfile)
 		{
-			return new ApiResponse<List<ChatDataModel>>
+			var response = new ApiResponse<List<ChatDataModel>>();
+			try
 			{
-				Response = await DI.DataStore.GetListOfChatsAsync(userProfile)
-			};
+				response.Response = await DI.DataStore.GetListOfChatsAsync(userProfile);
+			}
+			catch (Exception ex)
+			{
+				FrameworkDI.Logger.LogErrorSource(ex.Message);
+				response.ErrorMessage = "Internal server error";
+			}
+			return response;
 		}
 
 		public async Task<ApiResponse<List<MessageDataModel>>> GetMessagesForChatAsync(ChatDataModel chat)
 		{
-			return new ApiResponse<List<MessageDataModel>>
+			var response = new ApiResponse<List<MessageDataModel>>();
+			try
 			{
-				Response = await DI.DataStore.GetMessagesForChatAsync(chat)
-			};
+				response.Response = await DI.DataStore.GetMessagesForChatAsync(chat);
+			}
+			catch (Exception ex)
+			{
+				FrameworkDI.Logger.LogErrorSource(ex.Message);
+				response.ErrorMessage = "Internal server error";
+			}
+			return response;
 		}
 
 		public async Task<ApiResponse<MessageStatusDataModel>> GetMessageStatusAsync(MessageDataModel message)
 		{
 			var response = new ApiResponse<MessageStatusDataModel>();
-
-			MessageStatusDataModel messageStatus;
 			try
 			{
-				messageStatus = await DI.DataStore.GetMessageStatusAsync(message);
+				response.Response = await DI.DataStore.GetMessageStatusAsync(message);
 			}
-			catch (InvalidOperationException)
+			catch (InvalidOperationException ex)
 			{
-				response.ErrorMessage = "Something went wrong with receiving message status";
-				return response;
+				FrameworkDI.Logger.LogErrorSource(ex.Message);
+				response.ErrorMessage = "Internal server error";
 			}
-
-			response.Response = messageStatus;
 			return response;
 		}
 
@@ -109,9 +107,10 @@ namespace Chat.Core
 			{
 				await DI.DataStore.AddNewChatAsync(chat, users);
 			}
-			catch (InvalidOperationException)
+			catch (InvalidOperationException ex)
 			{
-				response.ErrorMessage = "Something went wrong with creating a new chat";
+				FrameworkDI.Logger.LogErrorSource(ex.Message);
+				response.ErrorMessage = "Internal server error";
 			}
 			return response;
 		}
@@ -123,9 +122,10 @@ namespace Chat.Core
 			{
 				await DI.DataStore.AddNewMessageAsync(message);
 			}
-			catch (InvalidOperationException)
+			catch (InvalidOperationException ex)
 			{
-				response.ErrorMessage = "Something went wrong with sending message";
+				FrameworkDI.Logger.LogErrorSource(ex.Message);
+				response.ErrorMessage = "Internal server error";
 			}
 			return response;
 		}
@@ -137,13 +137,15 @@ namespace Chat.Core
 			{
 				await DI.DataStore.UpdateChatMessageStatusAsync(message);
 			}
-			catch (InvalidOperationException)
+			catch (InvalidOperationException ex)
 			{
+				FrameworkDI.Logger.LogErrorSource(ex.Message);
 				response.ErrorMessage = "Status for message can't be find";
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				response.ErrorMessage = "Something went wrong with updating message status";
+				FrameworkDI.Logger.LogErrorSource(ex.Message);
+				response.ErrorMessage = "Internal server error";
 			}
 			return response;
 		}
@@ -155,13 +157,15 @@ namespace Chat.Core
 			{
 				await DI.DataStore.UpdateUserProfileDetailsAsync(userProfile);
 			}
-			catch (InvalidOperationException)
+			catch (InvalidOperationException ex)
 			{
+				FrameworkDI.Logger.LogErrorSource(ex.Message);
 				response.ErrorMessage = "User profile can't be find";
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
-				response.ErrorMessage = "Something went wrong with updating user profile";
+				FrameworkDI.Logger.LogErrorSource(ex.Message);
+				response.ErrorMessage = "Internal server error";
 			}
 			return response;
 		}

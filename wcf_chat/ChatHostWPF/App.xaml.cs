@@ -1,4 +1,5 @@
 ﻿using Dna;
+using Chat.Relational;
 using System.Windows;
 
 namespace ChatHostWPF
@@ -22,6 +23,7 @@ namespace ChatHostWPF
 				.AddFileLogger("ChatHost.log")
 				.AddHostViewModels()
 				.AddHostServices()
+				.AddDataStore()
 				.Build();
 
 			// Log it

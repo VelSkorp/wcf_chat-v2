@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <OutputType>Library</OutputType>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,13 +14,18 @@
     <PackageReference Include="nunit" Version="4.1.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
-    <PackageReference Include="TestStack.White" Version="0.13.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Chat.Relational\Chat.Relational.csproj" />
     <ProjectReference Include="..\ChatClient\ChatClient.csproj" />
     <ProjectReference Include="..\ChatHostWPF\ChatHostWPF.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

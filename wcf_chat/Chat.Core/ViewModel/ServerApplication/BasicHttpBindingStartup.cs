@@ -26,12 +26,12 @@ namespace Chat.Core
 				builder.AddService<ServiceChat>(serviceOptions =>
 				{
 					serviceOptions.DebugBehavior.IncludeExceptionDetailInFaults = true;
-				}).AddServiceEndpoint<ServiceChat, IServiceChat>(new BasicHttpBinding(), "/api/Service");
+				}).AddServiceEndpoint<ServiceChat, IServiceChat>(new BasicHttpBinding(), "/api/ServiceChat");
 
 				// Configure WSDL to be available
 				var serviceMetadataBehavior = app.ApplicationServices.GetRequiredService<ServiceMetadataBehavior>();
 				serviceMetadataBehavior.HttpGetEnabled = true;
-				serviceMetadataBehavior.HttpGetUrl = new Uri($"{FrameworkDI.Configuration.GetSection("Kestrel:Endpoints:Https:Url").Value}/api/Metadata");
+				serviceMetadataBehavior.HttpGetUrl = new Uri($"{FrameworkDI.Configuration.GetSection("Kestrel:Endpoints:Http:Url").Value}/api/Metadata");
 			});
 		}
 	}

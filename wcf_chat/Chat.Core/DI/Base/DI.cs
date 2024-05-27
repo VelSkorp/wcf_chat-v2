@@ -41,5 +41,10 @@ namespace Chat.Core
 		/// A shortcut to access the <see cref="IUIManager"/>
 		/// </summary>
 		public static IUIManager UI => Framework.Service<IUIManager>();
+
+		/// <summary>
+		/// A shortcut to access the <see cref="IServiceChat"/> as a chat client
+		/// </summary>
+		public static IServiceChat Client => Framework.Service<IServiceChat>();
 	}
 }

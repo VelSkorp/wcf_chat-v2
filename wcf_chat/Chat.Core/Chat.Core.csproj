@@ -5,18 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ServiceWCF\Proxy\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="CoreWCF.Http" Version="1.5.2" />
     <PackageReference Include="CoreWCF.NetTcp" Version="1.5.2" />
     <PackageReference Include="CoreWCF.Primitives" Version="1.5.2" />
     <PackageReference Include="Dna.Framework" Version="1.0.7.19" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Server.IIS" Version="2.2.6" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
     <PackageReference Include="System.Security.Cryptography.Pkcs" Version="8.0.0" />
+    <PackageReference Include="System.ServiceModel.Http" Version="8.0.0" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="8.0.0" />
     <PackageReference Include="System.Text.Encodings.Web" Version="8.0.0" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>

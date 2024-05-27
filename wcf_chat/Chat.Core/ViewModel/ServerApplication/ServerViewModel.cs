@@ -7,6 +7,8 @@ using Dna;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore;
 using System.Threading.Tasks;
+using System.Threading;
+using Chat.Core.ServiceWCF;
 
 namespace Chat.Core
 {
@@ -55,6 +57,16 @@ namespace Chat.Core
 		/// </summary>
 		private IWebHost mServiceHost;
 
+		/// <summary>
+		/// ServiceHost for hosting ServiceChat service
+		/// </summary>
+		private CancellationTokenSource mCancellationTokenSource;
+
+		/// <summary>
+		/// ServiceHost for hosting ServiceChat service
+		/// </summary>
+		private Task mAnnouncementServiceTask;
+
 		#endregion
 
 		#region Constructor
@@ -97,12 +109,15 @@ namespace Chat.Core
 
 					IsStarted = true;
 
+					mCancellationTokenSource = new CancellationTokenSource();
+					mAnnouncementServiceTask = UdpAnnouncementService.StartAsync(mCancellationTokenSource.Token);
+
 					Log.Add($"[Data] Host stated\n");
 					FrameworkDI.Logger.LogInformationSource("Host stated");
 
 					// TODO: add health checker
-					Log.Add($"[Data] To check the server, go to the URL: {FrameworkDI.Configuration.GetSection("Kestrel:Endpoints:Https:Url").Value}/api/Service\n");
-					Log.Add($"[Data] To get metadata, go to the URL: {FrameworkDI.Configuration.GetSection("Kestrel:Endpoints:Https:Url").Value}/api/Metadata\n");
+					Log.Add($"[Data] To check the server, go to the URL: {FrameworkDI.Configuration.GetSection("Kestrel:Endpoints:Http:Url").Value}/api/ServiceChat\n");
+					Log.Add($"[Data] To get metadata, go to the URL: {FrameworkDI.Configuration.GetSection("Kestrel:Endpoints:Http:Url").Value}/api/Metadata\n");
 
 				}
 				catch (Exception ex)
@@ -126,8 +141,11 @@ namespace Chat.Core
 			{
 				try
 				{
-					// Close the ServiceHost
 					await mServiceHost.StopAsync();
+
+					mCancellationTokenSource.Cancel();
+
+					await mAnnouncementServiceTask;
 
 					IsStarted = false;
 
