@@ -50,7 +50,7 @@ namespace Testing
 				Password = password
 			};
 
-			await DI.DataStore.AddNewUserAsync(registerCredentials);
+			await DI.DataStore.RegisterUserAsync(registerCredentials);
 		}
 
 		[When(@"the message is added with the chat id: (\d+), user id: (\d+), content: (.*), creation date: (.*)")]

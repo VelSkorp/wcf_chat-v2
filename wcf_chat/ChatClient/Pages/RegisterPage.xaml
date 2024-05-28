@@ -44,22 +44,31 @@
 							<!-- Username -->
 							<TextBox Text="{Binding Username}"
 									 Tag="Username"
+									 Name="Username"
+									 Margin="0"
+									 Style="{StaticResource NotEmptyValidation}"
 									 WPFcore:IsFocusedProperty.Value="True" />
 
 							<!-- First name -->
 							<TextBox Text="{Binding FirstName}"
 									 Tag="First name"
+									 Name="FirstName"
+									 Margin="0 15"
+									 Style="{StaticResource NotEmptyValidation}"
 									 WPFcore:IsFocusedProperty.Value="True" />
 
 							<!-- Last name -->
 							<TextBox Text="{Binding LastName}"
 									 Tag="Last name"
+									 Name="LastName"
+									 Margin="0"
+									 Style="{StaticResource NotEmptyValidation}"
 									 WPFcore:IsFocusedProperty.Value="True" />
 
 							<!-- Password -->
 							<PasswordBox x:Name="PasswordText"
 										 Tag="Password" 
-										 Margin="0 0 0 30" />
+										 Margin="0 15" />
 
 							<!-- Next button -->
 							<Button Content="Register" 
@@ -67,7 +76,26 @@
 									WPFcore:IsBusyProperty.Value="{Binding RegisterIsRunning}"
 									Command="{Binding RegisterCommand}"
 									CommandParameter="{Binding ElementName=Page}" 
-									HorizontalAlignment="Center" />
+									HorizontalAlignment="Center">
+								<Button.Style>
+									<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+										<Setter Property="IsEnabled" Value="False"/>
+										<Style.Triggers>
+											<MultiDataTrigger>
+												<MultiDataTrigger.Conditions>
+													<Condition Binding="{Binding ElementName=Username, Path=(Validation.HasError)}" Value="False"/>
+													<Condition Binding="{Binding ElementName=FirstName, Path=(Validation.HasError)}" Value="False"/>
+													<Condition Binding="{Binding ElementName=LastName, Path=(Validation.HasError)}" Value="False"/>
+													<Condition Binding="{Binding ElementName=PasswordText, Path=(Validation.HasError)}" Value="False"/>
+												</MultiDataTrigger.Conditions>
+												<MultiDataTrigger.Setters>
+													<Setter Property="IsEnabled" Value="True"/>
+												</MultiDataTrigger.Setters>
+											</MultiDataTrigger>
+										</Style.Triggers>
+									</Style>
+								</Button.Style>
+							</Button>
 
 						</StackPanel>
 

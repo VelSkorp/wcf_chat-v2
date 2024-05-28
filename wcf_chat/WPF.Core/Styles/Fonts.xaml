@@ -11,6 +11,28 @@
 	<Style TargetType="{x:Type Control}" x:Key="BaseStyle">
 		<Setter Property="FontFamily" Value="{StaticResource LatoThin}" />
 		<Setter Property="FontSize" Value="{StaticResource FontSizeRegular}" />
+
+		<Setter Property="Validation.ErrorTemplate">
+			<Setter.Value>
+				<ControlTemplate>
+					<StackPanel>
+						<Border BorderBrush="Red" BorderThickness="1">
+							<AdornedElementPlaceholder />
+						</Border>
+						<TextBlock Text="{Binding [0].ErrorContent}" FontSize="{StaticResource FontSizeSmaller}" Foreground="Red"/>
+					</StackPanel>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+
+		<Style.Triggers>
+			<Trigger Property="Validation.HasError" Value="true">
+				<Setter Property="ToolTip"
+					Value="{Binding RelativeSource={RelativeSource Self}, 
+					   Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+			</Trigger>
+		</Style.Triggers>
+		
 	</Style>
 	
 	<Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">

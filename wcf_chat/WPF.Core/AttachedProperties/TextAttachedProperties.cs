@@ -75,4 +75,11 @@ namespace WPF.Core
 			}
 		}
 	}
+
+	/// <summary>
+	/// Represents an attached property for validation rules.
+	/// </summary>
+	public class TextValidationProperty : BaseAttachedProperty<TextValidationProperty, object>
+	{
+	}
 }

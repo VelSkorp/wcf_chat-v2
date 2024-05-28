@@ -43,10 +43,10 @@ namespace Chat.Relational
 			await mDbContext.Database.EnsureCreatedAsync();
 		}
 
-		public async Task<UserProfileDetailsApiModel> GetUserProfileDetailsAsync(LoginCredentialsApiModel loginCredentials)
+		public async Task<UserProfileDetailsApiModel> GetUserProfileDetailsAsync(string username)
 		{
 			// Find user data
-			var userCredentials = await mDbContext.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Username.Equals(loginCredentials.Username) && user.Password.Equals(loginCredentials.Password));
+			var userCredentials = await mDbContext.Users.AsNoTracking().Where(user => user.Username.Equals(username)).FirstOrDefaultAsync();
 
 			// Pass back the user details
 			return new UserProfileDetailsApiModel
@@ -56,6 +56,15 @@ namespace Chat.Relational
 				LastName = userCredentials.LastName,
 				Username = userCredentials.Username,
 			};
+		}
+
+		public async Task<bool> LoginUserAsync(LoginCredentialsApiModel loginCredentials)
+		{
+			// Find user data
+			var user = await mDbContext.Users.AsNoTracking().Where(user => user.Username.Equals(loginCredentials.Username)
+				&& user.Password.Equals(loginCredentials.Password)).FirstOrDefaultAsync();
+
+			return user is not null;
 		}
 
 		public async Task<List<ChatDataModel>> GetListOfChatsAsync(UserProfileDetailsApiModel userProfile)
@@ -79,7 +88,7 @@ namespace Chat.Relational
 			return await mDbContext.Messages.AsNoTracking().Where(message => message.ChatId == chat.Id).ToListAsync();
 		}
 
-		public async Task<bool> AddNewUserAsync(RegisterCredentialsApiModel registerCredentials)
+		public async Task<bool> RegisterUserAsync(RegisterCredentialsApiModel registerCredentials)
 		{
 			// Find user data
 			var userCredentials = await mDbContext.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Username.Equals(registerCredentials.Username) && user.Password.Equals(registerCredentials.Password));

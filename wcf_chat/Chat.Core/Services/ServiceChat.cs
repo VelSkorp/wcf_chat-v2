@@ -11,19 +11,17 @@ namespace Chat.Core
 	{
 		#region Interface Implementation
 
-		public async Task<ApiResponse<UserProfileDetailsApiModel>> ConnectAsync(LoginCredentialsApiModel loginCredentials)
+		public async Task<ApiResponse> ConnectAsync(LoginCredentialsApiModel loginCredentials)
 		{
-			var response = new ApiResponse<UserProfileDetailsApiModel>();
+			var response = new ApiResponse();
 			try
 			{
 				await DI.DataStore.EnsureDataStoreAsync();
 
-				response.Response = await DI.DataStore.GetUserProfileDetailsAsync(loginCredentials);
-			}
-			catch (InvalidOperationException ex)
-			{
-				FrameworkDI.Logger.LogErrorSource(ex.Message);
-				response.ErrorMessage = "User is not registered";
+				if (!await DI.DataStore.LoginUserAsync(loginCredentials))
+				{
+					response.ErrorMessage = "User is not registered";
+				}
 			}
 			catch (Exception ex)
 			{
@@ -33,19 +31,39 @@ namespace Chat.Core
 			return response;
 		}
 
-		public async Task<ApiResponse<bool>> RegisterAsync(RegisterCredentialsApiModel registerCredentials)
+		public async Task<ApiResponse> RegisterAsync(RegisterCredentialsApiModel registerCredentials)
 		{
-			var response = new ApiResponse<bool>();
+			var response = new ApiResponse();
 			try
 			{
 				await DI.DataStore.EnsureDataStoreAsync();
 
-				response.Response = await DI.DataStore.AddNewUserAsync(registerCredentials);
+				if (!await DI.DataStore.RegisterUserAsync(registerCredentials))
+				{
+					response.ErrorMessage = "This user is already exists";
+				}
+			}
+			catch (Exception ex)
+			{
+				FrameworkDI.Logger.LogErrorSource(ex.Message);
+				response.ErrorMessage = "Internal server error";
+			}
+			return response;
+		}
+
+		public async Task<ApiResponse<UserProfileDetailsApiModel>> GetUserProfileDetailsAsync(string username)
+		{
+			var response = new ApiResponse<UserProfileDetailsApiModel>();
+			try
+			{
+				await DI.DataStore.EnsureDataStoreAsync();
+
+				response.Response = await DI.DataStore.GetUserProfileDetailsAsync(username);
 			}
 			catch (InvalidOperationException ex)
 			{
 				FrameworkDI.Logger.LogErrorSource(ex.Message);
-				response.ErrorMessage = "This user is already exists";
+				response.ErrorMessage = "User is not registered";
 			}
 			catch (Exception ex)
 			{
@@ -100,12 +118,15 @@ namespace Chat.Core
 			return response;
 		}
 
-		public async Task<ApiResponse<bool>> CreateChatAsync(ChatDataModel chat, List<UserProfileDetailsApiModel> users)
+		public async Task<ApiResponse> CreateChatAsync(ChatDataModel chat, List<UserProfileDetailsApiModel> users)
 		{
-			var response = new ApiResponse<bool>();
+			var response = new ApiResponse();
 			try
 			{
-				response.Response = await DI.DataStore.AddNewChatAsync(chat, users);
+				if (!await DI.DataStore.AddNewChatAsync(chat, users))
+				{
+					response.ErrorMessage = "Chat doesn't created in data store";
+				}
 			}
 			catch (InvalidOperationException ex)
 			{
@@ -115,12 +136,15 @@ namespace Chat.Core
 			return response;
 		}
 
-		public async Task<ApiResponse<bool>> SendMessageAsync(MessageDataModel message)
+		public async Task<ApiResponse> SendMessageAsync(MessageDataModel message)
 		{
-			var response = new ApiResponse<bool>();
+			var response = new ApiResponse();
 			try
 			{
-				response.Response = await DI.DataStore.AddNewMessageAsync(message);
+				if (!await DI.DataStore.AddNewMessageAsync(message))
+				{
+					response.ErrorMessage = "Message doesn't added to data store";
+				}
 			}
 			catch (InvalidOperationException ex)
 			{
@@ -130,12 +154,15 @@ namespace Chat.Core
 			return response;
 		}
 
-		public async Task<ApiResponse<bool>> UpdateChatMessageStatusAsync(MessageDataModel message)
+		public async Task<ApiResponse> UpdateChatMessageStatusAsync(MessageDataModel message)
 		{
-			var response = new ApiResponse<bool>();
+			var response = new ApiResponse();
 			try
 			{
-				response.Response = await DI.DataStore.UpdateChatMessageStatusAsync(message);
+				if (!await DI.DataStore.UpdateChatMessageStatusAsync(message))
+				{
+					response.ErrorMessage = "Message status doesn't updated in data store";
+				}
 			}
 			catch (InvalidOperationException ex)
 			{
@@ -150,12 +177,15 @@ namespace Chat.Core
 			return response;
 		}
 
-		public async Task<ApiResponse<bool>> UpdateUserProfileDetailsAsync(UserProfileDetailsApiModel userProfile)
+		public async Task<ApiResponse> UpdateUserProfileDetailsAsync(UserProfileDetailsApiModel userProfile)
 		{
-			var response = new ApiResponse<bool>();
+			var response = new ApiResponse();
 			try
 			{
-				response.Response = await DI.DataStore.UpdateUserProfileDetailsAsync(userProfile);
+				if (!await DI.DataStore.UpdateUserProfileDetailsAsync(userProfile))
+				{
+					response.ErrorMessage = "User profile doesn't updated in data store";
+				}
 			}
 			catch (InvalidOperationException ex)
 			{

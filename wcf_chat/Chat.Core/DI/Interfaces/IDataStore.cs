@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Chat.Core
@@ -10,84 +11,117 @@ namespace Chat.Core
 	public interface IDataStore
 	{
 		/// <summary>
-		/// Makes sure the client data store is correctly set up
+		/// Ensures the data store is created and available.
 		/// </summary>
-		/// <returns>Returns a task that will finish once setup is complete</returns>
+		/// <returns>A task that represents the asynchronous operation.</returns>
+		/// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+		/// <exception cref="DbUpdateException">Thrown if there is an error updating the database.</exception>
 		Task EnsureDataStoreAsync();
 
 		/// <summary>
-		/// Gets the stored user profile details for this client
+		/// Retrieves user profile details asynchronously by username.
 		/// </summary>
-		/// <param name="loginCredentials">User credentials for logging in</param>
-		/// <returns>Returns the login credentials if they exist, or throws exception if none exist</returns>
-		/// <exception cref="System.InvalidOperationException"></exception>
-		Task<UserProfileDetailsApiModel> GetUserProfileDetailsAsync(LoginCredentialsApiModel loginCredentials);
+		/// <param name="username">The username of the user to retrieve.</param>
+		/// <returns>A task that represents the asynchronous operation. The task result contains the user profile details.</returns>
+		/// <exception cref="ArgumentNullException">Thrown if the username is null.</exception>
+		/// <exception cref="InvalidOperationException">Thrown if the user is not found.</exception>
+		/// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+		Task<UserProfileDetailsApiModel> GetUserProfileDetailsAsync(string username);
 
 		/// <summary>
-		/// Gets the stored chats for user
+		/// Retrieves a list of chats asynchronously for a given user profile.
 		/// </summary>
-		/// <param name="userProfile">User profile details</param>
-		/// <returns>List of chats for user if they exists, or empty list if not exists</returns>
+		/// <param name="userProfile">The user profile details.</param>
+		/// <returns>A task that represents the asynchronous operation. The task result contains a list of chat data models.</returns>
+		/// <exception cref="ArgumentNullException">Thrown if userProfile is null.</exception>
+		/// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
 		Task<List<ChatDataModel>> GetListOfChatsAsync(UserProfileDetailsApiModel userProfile);
 
 		/// <summary>
-		/// Gets the stored messages in chat
+		/// Retrieves all messages for a given chat asynchronously.
 		/// </summary>
-		/// <param name="chat">Chat data</param>
-		/// <returns>List of messages for given chat if they exists, or empty list if not exists</returns>
+		/// <param name="chat">The chat data model.</param>
+		/// <returns>A task that represents the asynchronous operation. The task result contains a list of message data models.</returns>
+		/// <exception cref="ArgumentNullException">Thrown if chat is null.</exception>
+		/// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
 		Task<List<MessageDataModel>> GetMessagesForChatAsync(ChatDataModel chat);
 
 		/// <summary>
-		/// Gets the stored message status in chat for given user
+		/// Retrieves the status of a message asynchronously.
 		/// </summary>
-		/// <param name="message">Message data</param>
-		/// <returns>Message status</returns>
-		/// <exception cref="System.InvalidOperationException"></exception>
+		/// <param name="message">The message data model.</param>
+		/// <returns>A task that represents the asynchronous operation. The task result contains the message status data model.</returns>
+		/// <exception cref="ArgumentNullException">Thrown if message is null.</exception>
+		/// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
 		Task<MessageStatusDataModel> GetMessageStatusAsync(MessageDataModel message);
 
 		/// <summary>
-		/// Adds new user
+		/// Logs in a user asynchronously using their login credentials.
 		/// </summary>
-		/// <param name="registerCredentials">User credentials for registration</param>
-		/// <returns>Returns the user profile details if user successfully registered, or throws exception if already exist</returns>
-		/// <exception cref="System.InvalidOperationException"></exception>
-		Task<bool> AddNewUserAsync(RegisterCredentialsApiModel registerCredentials);
+		/// <param name="loginCredentials">The login credentials of the user.</param>
+		/// <returns>A task that represents the asynchronous operation. The task result is true if the user is found; otherwise, false.</returns>
+		/// <exception cref="ArgumentNullException">Thrown if loginCredentials is null.</exception>
+		/// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+		Task<bool> LoginUserAsync(LoginCredentialsApiModel loginCredentials);
 
 		/// <summary>
-		/// Adds new chat for this user and other users in this chat
+		/// Registers a new user asynchronously.
 		/// </summary>
-		/// <param name="chat">Chat data</param>
-		/// <param name="users">Users in this chat data</param>
-		/// <returns>Returns a task that will finish once setup is complete</returns>
+		/// <param name="registerCredentials">The registration credentials of the user.</param>
+		/// <returns>A task that represents the asynchronous operation. The task result is true if the user is registered; otherwise, false.</returns>
+		/// <exception cref="ArgumentNullException">Thrown if registerCredentials is null.</exception>
+		/// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+		/// <exception cref="DbUpdateException">Thrown if there is an error updating the database.</exception>
+		Task<bool> RegisterUserAsync(RegisterCredentialsApiModel registerCredentials);
+
+		/// <summary>
+		/// Adds a new chat asynchronously.
+		/// </summary>
+		/// <param name="chat">The chat data model.</param>
+		/// <param name="users">The list of user profiles to associate with the chat.</param>
+		/// <returns>A task that represents the asynchronous operation. The task result is true if the chat is added; otherwise, false.</returns>
+		/// <exception cref="ArgumentNullException">Thrown if chat or users is null.</exception>
+		/// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+		/// <exception cref="DbUpdateException">Thrown if there is an error updating the database.</exception>
 		Task<bool> AddNewChatAsync(ChatDataModel chat, List<UserProfileDetailsApiModel> users);
 
 		/// <summary>
-		/// Adds new message in chat for this user and other users in this chat
+		/// Adds a new message asynchronously.
 		/// </summary>
-		/// <param name="message">Message data</param>
-		/// <returns>Returns a task that will finish once setup is complete</returns>
+		/// <param name="message">The message data model.</param>
+		/// <returns>A task that represents the asynchronous operation. The task result is true if the message is added; otherwise, false.</returns>
+		/// <exception cref="ArgumentNullException">Thrown if message is null.</exception>
+		/// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+		/// <exception cref="DbUpdateException">Thrown if there is an error updating the database.</exception>
 		Task<bool> AddNewMessageAsync(MessageDataModel message);
 
 		/// <summary>
-		/// Updates information of user
+		/// Updates the user profile details asynchronously.
 		/// </summary>
-		/// <param name="userProfile">New information about the user</param>
-		/// <returns>Returns a task that will finish once setup is complete</returns>
-		/// <exception cref="System.InvalidOperationException"></exception>
+		/// <param name="userProfile">The user profile details to update.</param>
+		/// <returns>A task that represents the asynchronous operation.</returns>
+		/// <exception cref="ArgumentNullException">Thrown if userProfile is null.</exception>
+		/// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+		/// <exception cref="DbUpdateException">Thrown if there is an error updating the database.</exception>
 		Task<bool> UpdateUserProfileDetailsAsync(UserProfileDetailsApiModel userProfile);
 
 		/// <summary>
-		/// Updates chat message status if it has been read
+		/// Updates the status of a message in a chat asynchronously.
 		/// </summary>
-		/// <param name="message">Message that was read</param>
-		/// <returns>Returns a task that will finish once setup is complete</returns>
-		/// <exception cref="System.InvalidOperationException"></exception>
+		/// <param name="message">The message data model.</param>
+		/// <returns>A task that represents the asynchronous operation. The task result is true if the message status is updated; otherwise, false.</returns>
+		/// <exception cref="ArgumentNullException">Thrown if message is null.</exception>
+		/// <exception cref="InvalidOperationException">Thrown if the message status is not found.</exception>
+		/// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+		/// <exception cref="DbUpdateException">Thrown if there is an error updating the database.</exception>
 		Task<bool> UpdateChatMessageStatusAsync(MessageDataModel message);
 
 		/// <summary>
-		/// Removes all data stored in the data store
+		/// Clears all data from the data store asynchronously.
 		/// </summary>
-		/// <returns>Returns a task that will finish once setup is complete</returns>
+		/// <returns>A task that represents the asynchronous operation. The task result is true if the data is cleared; otherwise, false.</returns>
+		/// <exception cref="OperationCanceledException">Thrown if the operation is canceled.</exception>
+		/// <exception cref="DbUpdateException">Thrown if there is an error updating the database.</exception>
 		Task<bool> ClearAllDataAsync();
 	}
 }

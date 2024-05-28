@@ -1,5 +1,4 @@
-﻿using System;
-using System.Security;
+﻿using System.Security;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -61,44 +60,28 @@ namespace Chat.Core
 		{
 			await RunCommandAsync(() => LoginIsRunning, async () =>
 			{
-				// TODO: Fake a loginll...
 				await Task.Delay(1000);
 
-				//if (DI.Client.Endpoint.Address == null)
-				//{
-				//	// Display error
-				//	await DI.UI.ShowMessage(new MessageBoxDialogViewModel
-				//	{
-				//		Title = "Load error",
-				//		Message = "Server can't be found"
-				//	});
-
-				//	return;
-				//}
-
-				// Display error
-				//await DI.UI.ShowMessage(new MessageBoxDialogViewModel
-				//{
-				//	Title = "Endpoint",
-				//	Message = DI.Client.Address.Uri.ToString()
-				//});
-
-				var cred = new LoginCredentialsApiModel
+				var loginCredentials = new LoginCredentialsApiModel
 				{
 					Username = Username,
 					Password = (parameter as IHavePassword).SecurePassword.Unsecure()
 				};
 
-				var user = await DI.Client.ConnectAsync(cred);
+				var response = await DI.Client.ConnectAsync(loginCredentials);
 
-				// Ok successfully loggedin... Now det users data
-				// TODO: Ask server for users info
+				if (response.IsFailed)
+				{
+					await DI.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Wrong Credentials",
+						Message = "The current password or username is invalid"
+					});
 
-				// TODO: Remove this with real information pulled from our database in future
-				DI.ChatSettingsViewModel.FirstName = new TextEntryViewModel { Label = "FirstName", OriginalText = $"Vlad {DateTime.Now}" };
-				DI.ChatSettingsViewModel.LastName = new TextEntryViewModel { Label = "LastName", OriginalText = $"Kontsevich {DateTime.Now}" };
-				DI.ChatSettingsViewModel.Username = new TextEntryViewModel { Label = "UserName", OriginalText = "Vald" };
-				DI.ChatSettingsViewModel.Password = new PasswordEntryViewModel { Label = "Password", FakePassword = "*********" };
+					return;
+				}
+
+				DI.ChatSettingsViewModel.Username = new TextEntryViewModel { Label = "Username", OriginalText = Username };
 
 				// Go to chat page
 				DI.ChatApplicationViewModel.GoToPage(ApplicationPage.Chat);

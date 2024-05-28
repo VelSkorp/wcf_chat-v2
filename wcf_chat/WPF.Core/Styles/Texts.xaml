@@ -14,7 +14,8 @@
 		<Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
 		<Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
 		<Setter Property="Padding" Value="10" />
-		<Setter Property="Margin" Value="0 5 0 5" />
+		<Setter Property="Margin" Value="5" />
+		<Setter Property="MinWidth" Value="120" />
 		<Setter Property="BorderBrush" Value="{StaticResource WordBlueBrush}" />
 		<Setter Property="BorderThickness" Value="0 0 0 1" />
 
@@ -75,13 +76,27 @@
 		</Setter>
 
 	</Style>
+	
+	<Style TargetType="{x:Type TextBox}" x:Key="NotEmptyValidation" BasedOn="{StaticResource {x:Type TextBox}}">
+
+		<Setter Property="local:TextValidationProperty.Value">
+			<Setter.Value>
+				<Binding Path="Text" RelativeSource="{RelativeSource Self}"  UpdateSourceTrigger="PropertyChanged">
+					<Binding.ValidationRules>
+						<local:NotNullOrEmptyValidationRule ValidatesOnTargetUpdated="True" />
+					</Binding.ValidationRules>
+				</Binding>
+			</Setter.Value>
+		</Setter>
+
+	</Style>
 
 	<Style TargetType="{x:Type PasswordBox}" BasedOn="{StaticResource BaseStyle}">
 
 		<Setter Property="FontSize" Value="{StaticResource FontSizeXXLarge}" />
 		<Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />
 		<Setter Property="Padding" Value="10" />
-		<Setter Property="Margin" Value="0 5 0 5" />
+		<Setter Property="Margin" Value="5" />
 		<Setter Property="BorderBrush" Value="{StaticResource WordBlueBrush}" />
 		<Setter Property="BorderThickness" Value="0 0 0 1" />
 
@@ -131,6 +146,16 @@
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+
+		<Setter Property="local:TextValidationProperty.Value">
+			<Setter.Value>
+				<Binding Path="SecurePassword.Length" RelativeSource="{RelativeSource Self}"  UpdateSourceTrigger="PropertyChanged">
+					<Binding.ValidationRules>
+						<local:RegexValidationRule RegexPattern="^[1-9]\d*$" ErrorMessage="Field can't be empty" ValidatesOnTargetUpdated="True" />
+					</Binding.ValidationRules>
+				</Binding>
 			</Setter.Value>
 		</Setter>
 

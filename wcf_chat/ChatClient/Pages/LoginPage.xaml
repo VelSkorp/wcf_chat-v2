@@ -44,10 +44,13 @@
 							<!-- Username -->
 							<TextBox Text="{Binding Username}"
 									 Tag="Username"
+									 Name="Username"
+									 Margin="0"
+									 Style="{StaticResource NotEmptyValidation}"
 									 WPFcore:IsFocusedProperty.Value="True" />
 
 							<!-- Password -->
-							<PasswordBox x:Name="PasswordText" Tag="Password" Margin="0 0 0 30" />
+							<PasswordBox x:Name="PasswordText" Tag="Password" Margin="0 15" />
 
 							<!-- Login button -->
 							<Button Content="Login" 
@@ -55,7 +58,24 @@
 									WPFcore:IsBusyProperty.Value="{Binding LoginIsRunning}"
 									Command="{Binding LoginCommand}"
 									CommandParameter="{Binding ElementName=Page}" 
-									HorizontalAlignment="Center" />
+									HorizontalAlignment="Center">
+								<Button.Style>
+									<Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+										<Setter Property="IsEnabled" Value="False"/>
+										<Style.Triggers>
+											<MultiDataTrigger>
+												<MultiDataTrigger.Conditions>
+													<Condition Binding="{Binding ElementName=Username, Path=(Validation.HasError)}" Value="False"/>
+													<Condition Binding="{Binding ElementName=PasswordText, Path=(Validation.HasError)}" Value="False"/>
+												</MultiDataTrigger.Conditions>
+												<MultiDataTrigger.Setters>
+													<Setter Property="IsEnabled" Value="True"/>
+												</MultiDataTrigger.Setters>
+											</MultiDataTrigger>
+										</Style.Triggers>
+									</Style>
+								</Button.Style>
+							</Button>
 
 						</StackPanel>
 

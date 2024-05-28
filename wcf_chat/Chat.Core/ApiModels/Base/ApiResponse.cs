@@ -8,7 +8,12 @@
 		/// <summary>
 		/// Indicates if the API call was successful
 		/// </summary>
-		public bool Successful => ErrorMessage == null;
+		public bool IsSuccessful => ErrorMessage is null;
+
+		/// <summary>
+		/// Indicates if the API call was failed
+		/// </summary>
+		public bool IsFailed => ErrorMessage is not null;
 
 		/// <summary>
 		/// The error message for a failed API call
