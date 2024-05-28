@@ -97,13 +97,7 @@ namespace Testing
 		[Then(@"the user exists with the id: (\d+), username: (.*), first name: (.*), last name: (.*), password: (.*)")]
 		public static async Task ThenUserIsExistsAsync(int id, string username, string firstName, string lastName, string password)
 		{
-			var loginCredentials = new LoginCredentialsApiModel()
-			{
-				Username = username,
-				Password = password
-			};
-
-			var user = await DI.DataStore.GetUserProfileDetailsAsync(loginCredentials);
+			var user = await DI.DataStore.GetUserProfileDetailsAsync(username);
 
 			AssertHelper.AreEqual(id, user.Id, $"received {user.Username} id");
 			AssertHelper.AreEqual(username, user.Username, "received user username");

@@ -9,6 +9,11 @@ namespace ChatClient
 	/// </summary>
 	public partial class RegisterPage : BasePage<RegisterViewModel>, IHavePassword
 	{
+		/// <summary>
+		/// The secure password for this login page
+		/// </summary>
+		public SecureString Password => PasswordText.SecurePassword;
+
 		#region Constructors
 
 		/// <summary>
@@ -30,10 +35,5 @@ namespace ChatClient
 		}
 
 		#endregion
-
-		/// <summary>
-		/// The secure password for this login page
-		/// </summary>
-		public SecureString SecurePassword => PasswordText.SecurePassword;
 	}
 }

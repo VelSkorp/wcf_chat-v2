@@ -65,7 +65,7 @@ namespace Chat.Core
 				var loginCredentials = new LoginCredentialsApiModel
 				{
 					Username = Username,
-					Password = (parameter as IHavePassword).SecurePassword.Unsecure()
+					Password = (parameter as IHavePassword).Password.Unsecure()
 				};
 
 				var response = await DI.Client.ConnectAsync(loginCredentials);
@@ -74,8 +74,8 @@ namespace Chat.Core
 				{
 					await DI.UI.ShowMessage(new MessageBoxDialogViewModel
 					{
-						Title = "Wrong Credentials",
-						Message = "The current password or username is invalid"
+						Title = "Failed",
+						Message = response.ErrorMessage
 					});
 
 					return;

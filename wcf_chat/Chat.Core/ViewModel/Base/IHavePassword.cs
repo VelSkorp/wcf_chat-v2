@@ -10,6 +10,6 @@ namespace Chat.Core
 		/// <summary>
 		/// The secure password
 		/// </summary>
-		SecureString SecurePassword { get; }
+		SecureString Password { get; }
 	}
 }

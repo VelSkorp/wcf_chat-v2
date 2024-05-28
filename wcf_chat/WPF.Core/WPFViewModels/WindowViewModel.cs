@@ -236,7 +236,6 @@ namespace WPF.Core
 			OnPropertyChanged(nameof(WindowCornerRadius));
 		}
 
-
 		#endregion
 	}
 }

@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore;
 using Chat.Core;
 using Chat.Relational;
-using Chat.Core.ServiceWCF;
+using System.Net;
 
 namespace ChatHostConsole
 {
@@ -29,6 +29,11 @@ namespace ChatHostConsole
 				{
 					logging.ClearProviders();
 					logging.AddProvider(ServiceProviderServiceExtensions.GetService<ILoggerProvider>(Framework.Provider));
+				})
+				.ConfigureKestrel(options =>
+				{
+					var port = FrameworkDI.Configuration.GetSection("ServerPort").Value;
+					options.Listen(IPAddress.Any, int.Parse(port));
 				})
 				.UseStartup<BasicHttpBindingStartup>();
 

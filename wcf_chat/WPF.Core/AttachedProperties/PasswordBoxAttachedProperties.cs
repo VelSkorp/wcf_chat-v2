@@ -10,8 +10,6 @@ namespace WPF.Core
 	{
 		public override void OnValueChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
 		{
-			// Get the caller
-
 			// Make sure it is a password box
 			if (sender is not PasswordBox passwordBox)
 			{
@@ -39,8 +37,13 @@ namespace WPF.Core
 		/// <param name="e"></param>
 		private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
 		{
+			var passwordBox = (PasswordBox)sender;
+
 			// Set the attached HasText value
-			HasTextProperty.SetValue((PasswordBox)sender);
+			HasTextProperty.SetValue(passwordBox);
+
+			// Update validation
+			TextValidationProperty.SetValue(passwordBox, passwordBox.SecurePassword.Length);
 		}
 	}
 

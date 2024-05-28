@@ -22,7 +22,7 @@ COPY --from=build /app/out ./
 
 # Expose the port the app runs on
 EXPOSE 48400
-#EXPOSE 11000
+EXPOSE 11000/udp
 
 # Run the application
 ENTRYPOINT ["dotnet", "ChatHostConsole.dll"]

@@ -70,19 +70,36 @@ namespace Chat.Core
 		{
 			await RunCommandAsync(() => RegisterIsRunning, async () =>
 			{
-				await Task.Delay(5000);
+				await Task.Delay(1000);
 
-				//if (Client.Endpoint.Address == null)
-				//{
-				//	// Display error
-				//	await UI.ShowMessage(new MessageBoxDialogViewModel
-				//	{
-				//		Title = "Load error",
-				//		Message = "Server can't be found"
-				//	});
+				var loginCredentials = new RegisterCredentialsApiModel
+				{
+					Username = Username,
+					FirstName = FirstName,
+					LastName = LastName,
+					Password = (parameter as IHavePassword).Password.Unsecure()
+				};
 
-				//	return;
-				//}
+				var response = await DI.Client.RegisterAsync(loginCredentials);
+
+				if (response.IsFailed)
+				{
+					await DI.UI.ShowMessage(new MessageBoxDialogViewModel
+					{
+						Title = "Failed",
+						Message = response.ErrorMessage
+					});
+
+					return;
+				}
+
+				await DI.UI.ShowMessage(new MessageBoxDialogViewModel
+				{
+					Title = "Successful",
+					Message = "You are successfully registered"
+				});
+
+				DI.ChatApplicationViewModel.GoToPage(ApplicationPage.Login);
 			});
 		}
 

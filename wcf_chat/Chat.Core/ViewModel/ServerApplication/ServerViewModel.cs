@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore;
 using System.Threading.Tasks;
 using System.Threading;
-using Chat.Core.ServiceWCF;
+using System.Net;
 
 namespace Chat.Core
 {
@@ -86,6 +86,11 @@ namespace Chat.Core
 				{
 					logging.ClearProviders();
 					logging.AddProvider(ServiceProviderServiceExtensions.GetService<ILoggerProvider>(Framework.Provider));
+				})
+				.ConfigureKestrel(options =>
+				{
+					var port = FrameworkDI.Configuration.GetSection("ServerPort").Value;
+					options.Listen(IPAddress.Any, int.Parse(port));
 				})
 				.UseStartup<BasicHttpBindingStartup>();
 
